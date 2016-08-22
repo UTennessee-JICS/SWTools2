@@ -1,0 +1,66 @@
+<h1>FFTW</h1>
+
+<p> Category: Libraries-Math-FFT
+
+<h2>Description</h2>
+
+<p>The Fastest Fourier Transform in the West (FFTW) is a C subroutine library for computing the Discrete Fourier Transform (DFT) in one or more dimensions, of both real and complex data, and of arbitrary input size. 
+
+<p>Many benchmarks show that FFTW's performance is typically superior to that of other publicly available FFT software. Moreover, FFTW's performance is portable: the program will perform well on most architectures without modification.
+
+
+<p>For more information see the <a href="http://www.fftw.org/">FFTW home page</a>.
+
+
+<h2>Use</h2>
+
+<p> FFTW library versions are available as modules.  Only builds for the compute nodes are available.  See the <a href="http://www.nccs.gov/user-support/general-support/modules">modules page</a> for more information on modules.   After loading an fftw module, the "info" utility can be used to get more information:  "info fftw" for version 2.1.5 or "info fftw3" for fftw 3.*.
+
+
+<p>
+C:
+<pre>
+  module avail fftw
+  module load fftw/2.1.5
+  mpicc -o example example.c ${FFTW_PATH} -ldfftw
+</pre>
+
+<p>
+C:
+<pre>
+  module avail fftw
+  module load fftw/3.1.2
+  pgcc/pathcc/gcc -o example example.c ${FFTW3_LIB}
+</pre>
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "3">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>Other</th>
+<tr>
+	<th>3.2.1</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.5</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.1.2</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.1.2_fPIC</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+</tr>
+<tr>
+	<th>2.1.5</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.5_ompi1.3</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.1.2_ompi1.3</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+</tr>
+<tr>
+	<th>3.1.2</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.5</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.1.2</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.1.2_fPIC</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+</tr>
+
+</table>

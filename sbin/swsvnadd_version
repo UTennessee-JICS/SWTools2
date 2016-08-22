@@ -1,0 +1,8 @@
+#!/bin/bash
+find -maxdepth 3 -type f -name rebuild -exec svn add --parents '{}' \;
+find -maxdepth 3 -type f -name rebuild_* -exec svn add --parents '{}' \;
+find -maxdepth 3 -type f -name remodule -exec svn add --parents '{}' \;
+find -maxdepth 3 -type f -name relink -exec svn add --parents '{}' \;
+find -maxdepth 3 -type f -name retest -exec svn add --parents '{}' \;
+find -maxdepth 3 -type f -name status -exec svn add --parents '{}' \;
+find -maxdepth 3 -type f -name build-notes -exec svn add --parents '{}' \;

@@ -1,0 +1,77 @@
+<h1>SCALASCA</h1>
+
+<p> Category: Tools-Performance
+
+<h2>Description</h2>
+
+<p> 
+Developed at the Julich Supercomputing Centre as the successor of  KOJAK, <a href=http://www.scalasca.org>Scalasca</a> is an open-source performance-analysis toolset that has been specifically designed for use on large-scale systems including IBM Blue Gene and Cray XT, but is also well-suited for small- and medium-scale HPC platforms. Scalasca supports an incremental performance-analysis procedure that integrates runtime summaries with in-depth studies of concurrent behavior via event tracing, adopting a strategy of successively refined measurement configurations. A distinctive feature is the ability to identify wait states that occur, for example, as a result of unevenly distributed workloads. Especially when trying to scale communication-intensive applications to large processor counts, such wait states can present severe challenges to achieving good performance. Compared to its predecessor, Scalasca can detect such wait states even in very large configurations of processes using an innovative parallel trace-analysis scheme.
+
+<p>
+The current version of Scalasca supports the performance analysis of applications based on the MPI, OpenMP, and hybrid programming constructs (OpenMP and hybrid with restrictions) most widely used in highly-scalable HPC applications written in C, C++ and Fortran on a wide range of current HPC platforms. The user can choose between generating a summary report (aka profile) with aggregate performance metrics for individual function call-paths, and/or generating event traces recording individual runtime events. Scalasca allows switching between both options to occur without re-compiling or re-linking. Summarization is particularly useful to obtain an overview of the performance behavior and for local metrics such as those derived from hardware counters. In addition, it can also be used to optimize the instrumentation for later trace generation. When tracing is enabled, each process generates a trace file containing records for all its process-local events. After program termination, Scalasca loads the trace files into main memory and analyzes them in parallel using as many CPUs as have been used for the target application itself. During the analysis, Scalasca searches for characteristic patterns indicating wait states and related performance properties, classifies detected instances by category and quantifies their significance. The result is a pattern-analysis report similar in structure to the summary report but enriched with higher-level communication and synchronization inefficiency metrics.
+
+<p>
+Both summary and pattern reports contain performance metrics for every function call-path and system resource (process/thread) which can be interactively explored in a graphical report explorer (Figure 1). As an alternative to the automatic pattern search, the traces can also be merged and converted so that they can be investigated using third-party trace browsers such as Paraver or Vampir, taking advantage of their time-line visualizations and rich statistical functionality.
+
+
+<h2>Use</h2>
+
+<p> The following is a very simple use case of using Scalasca.
+<ol>
+<li>
+<pre>
+  module load scalasca
+</pre>
+
+<li>
+Instrument and compile a test program:
+<pre>
+   scalasca -instrument cc -c foo.c     (this generates foo.o)
+   scalasca -instrument cc -o foo foo.o (this generates executable foo)
+</pre>
+
+<li> add the following lines in the submission script
+
+<pre>
+   module load scalasca
+   scalasca -analyze aprun -n 16 ./foo
+</pre>
+
+<li> successful run generates epik_foo_16_sum directory for the foo example.
+
+<li> To visualize the scalasca data, in the command-line execute:
+<pre>
+   cd epik_foo_16_sum
+   scalasca -examine epitome.cube
+</pre>
+</ol>
+
+Further instruction is found here
+$SCALASCA_ROOT_DIR/scalasca-1.1/doc/manuals/quickref.pdf 
+assuming the scalasca module is loaded or 
+<a href=http://www.fz-juelich.de/jsc/datapool/scalasca/quickref.pdf>
+Scalasca quick reference guide</a>.
+
+
+
+<h2>Support</h2><p>This package has the following support level : Unsupported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>pathscale</th>
+	<th>gnu</th>
+	<th>Other</th>
+<tr>
+	<th>1.1</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.5</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td><table class="inline"></table></td>
+</tr>
+
+</table>

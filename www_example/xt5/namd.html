@@ -1,0 +1,65 @@
+<h1>NAMD</h1>
+
+<p> Category:  Science Apps-Molecular Dynamics
+
+<h2>Description</h2>
+
+NAMD is a parallel molecular dynamics code designed for high-performance simulation of large biomolecular systems. Based on Charm++ parallel objects, NAMD scales to hundreds of processors on high-end parallel platforms and tens of processors on commodity clusters using gigabit ethernet. 
+
+<p>  For more information visit <a href="http://www.ks.uiuc.edu/Research/namd"> NAMD website</a> 
+
+<h2>Use</h2>
+
+<p> NAMD is available on xt as a module.  See the <a href="http://www.nccs.gov/user-support/general-support/modules">modules page</a> for more information on modules.  
+
+<pre>
+  module load namd
+</pre>
+
+Will add namd2 (executable) to your PATH.
+
+<pre>
+
+  Please set the following environment variables in you job submission script:
+
+    "setenv MPICH_PTL_SEND_CREDITS -1"
+    "setenv MPICH_MAX_SHORT_MSG_SIZE 8000"
+    "setenv MPICH_PTL_UNEX_EVENTS 80000"
+    "setenv MPICH_UNEX_BUFFER_SIZE 100M"
+ 
+
+</pre>
+
+<pre>
+  which namd2
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>pathscale</th>
+	<th>gnu</th>
+	<th>Other</th>
+<tr>
+	<th>2.7b1</th>
+	<td></td>
+	<td></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+</tr>
+<tr>
+	<th>2.6</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.3</td><td class="hidden2">?</td></tr><tr><td class="hidden">pgi7.2.5</td><td class="hidden2">u</td></tr><tr><td class="hidden">pgi7.2.5_debug</td><td class="hidden2">u</td></tr></table></td>
+	<td></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.2.0</td><td class="hidden2">u</td></tr></table></td>
+	<td></td>
+</tr>
+
+</table>

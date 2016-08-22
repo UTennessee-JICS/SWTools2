@@ -1,0 +1,68 @@
+<h1>IOBUF</h1>
+
+<p> Category: Libraries-IO
+
+<h2>Description</h2>
+
+<p>
+     IOBUF is an I/O buffering library that can reduce the I/O wait time
+     for programs that read or write large files sequentially. IOBUF
+     intercepts standard I/O calls such as read and open and replaces the
+     stdio (glibc, libio) layer of buffering with an additional layer of
+     buffering, thus improving program performance by enabling asynchronous
+     prefetching and caching of file data.
+
+<p>
+     IOBUF can also gather runtime statistics and print a summary report of
+     I/O activity for each file.
+
+<p> NOTE:  This is beta software for CLE.  IOBUF has been available
+    on XT systems running Catamount, but not on systems running compute
+    node linux.
+
+
+<h2>Use</h2>
+<p>
+     In general, no program source changes are needed in order to take
+     advantage of IOBUF. Instead, IOBUF is implemented by following these
+     steps:
+<ol>
+ <li> Load the IOBUF module:
+      <pre>
+        % module load iobuf
+      </pre>
+ <li> Relink the program.
+
+ <li> Set the IOBUF_PARAMS environment variable as needed.
+</ol>
+
+
+<p> 
+<pre>
+module avail iobuf
+module load iobuf
+ftn test.f   OR   cc test.c   # automatically links in iobuf-cnl.o
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>pathscale</th>
+	<th>gnu</th>
+	<th>Other</th>
+<tr>
+	<th>beta</th>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td><table class="inline"><tr><td class="hidden">binary</td><td class="hidden2">?</td><tr></table></td>
+</tr>
+
+</table>

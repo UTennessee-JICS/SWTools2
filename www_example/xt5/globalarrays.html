@@ -1,0 +1,57 @@
+<h1>Global Arrays</h1>
+
+<p> Category: Libraries-Communication
+
+<h2>Description</h2>
+
+<p>  The <a href="http://www.emsl.pnl.gov/docs/global/ga.html">Global Arrays</a> (GA) toolkit provides an efficient and portable shared-memory programming interface for distributed-memory computers. Each process in a MIMD parallel program can asynchronously access logical blocks of physically distributed dense multi-dimensional arrays, without need for explicit cooperation by other processes. Unlike other shared-memory environments, the GA model exposes to the programmer the non-uniform memory access (NUMA) characteristics of the high performance computers and acknowledges that access to a remote portion of the shared data is slower than to the local portion. The locality information for the shared data is available, and a direct access to the local portions of shared data is provided. 
+
+Global Arrays have been designed to complement rather than substitute for the message-passing programming model. The programmer is free to use both the shared-memory and message-passing paradigms in the same program, and to take advantage of existing message-passing software libraries. Global Arrays are compatible with the Message Passing Interface (MPI).
+
+The Global Arrays toolkit has been in the public domain since 1994. It has been actively supported and employed in several large codes since then.
+
+<h2>Use</h2>
+
+<p>
+module load globalarrays
+<p>
+FORTRAN
+<pre>
+ftn -o test.x test.F $GA_POST_LINK_OPTS
+</pre>
+<p>
+C
+<pre>
+cc  -c  -Dmain=MAIN_ testc.c 
+ftn -o testc.x testc.o $GA_POST_LINK_OPTS
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>pathscale</th>
+	<th>gnu</th>
+	<th>Other</th>
+<tr>
+	<th>4.1.1</th>
+	<td><table class="inline"><tr><td class="hidden">pgi8.0.5_portals</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2_portals</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.2.0_portals</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+</tr>
+<tr>
+	<th>4.0.8</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.3_portals</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2_portals</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.2.4_portals</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"></table></td>
+</tr>
+
+</table>

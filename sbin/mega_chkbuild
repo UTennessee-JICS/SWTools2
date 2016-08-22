@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# -------------------------------------------------------------------------- #
+# Given the root directory of a SW tree, this script traverse it and check   #
+# the build status of every build directory from file build.log.             #
+# Author: Reuben Budiardja (reubendb@utk.edu, NICS, June 20015               #
+# -------------------------------------------------------------------------- # 
+
+SWROOT=$1
+
+#-- Define colors for shell
+RED='\033[1;31m'
+GREEN='\033[1;32m'
+YELLOW='\033[1;33m'
+CLEAR='\033[0m' # No Color
+#-
+
+cd $SWROOT
+
+for PACKAGE in `ls | grep -v modulefiles | grep -v visit`; 
+do
+  
+  cd $PACKAGE
+  
+  for VERSION in `ls | grep -v description | grep -v support | grep -v versions`;
+  do
+
+    cd $VERSION
+    
+    for BUILD in `ls`;
+    do
+      
+      cd $BUILD
+      
+      if [ ! -e build.log ]; then
+        echo -e $PACKAGE $VERSION $BUILD ${YELLOW}:UNKN:${CLEAR} \
+             | awk '{ printf "%-15s %-15s %-20s %-7s \n", $1, $2, $3, $4}'  
+        cd ..
+        continue
+      fi
+      
+      BUILD_TS=`stat --printf %y build.log`
+            
+      tail -n 1 build.log | grep -q "failed (1)" 
+      if [ $? -eq 0 ]; then
+        echo -e $PACKAGE $VERSION $BUILD ${RED}:FAIL:${CLEAR} $BUILD_TS \
+        | awk '{ printf "%-15s %-15s %-25s %-7s %-10s \n", $1, $2, $3, $4, $5}'
+      fi
+      
+      tail -n 1 build.log | grep -q "passed (0)" 
+      if [ $? -eq 0 ]; then
+        echo -e $PACKAGE $VERSION $BUILD ${GREEN}:PASS:${CLEAR} $BUILD_TS \
+        | awk '{ printf "%-15s %-15s %-25s %-7s %-10s \n", $1, $2, $3, $4, $5}'
+      fi
+      
+      if [ -e .lock ]; then
+        echo -e $PACKAGE $VERSION $BUILD ${YELLOW}:PGRS:${CLEAR} $BUILD_TS \
+        | awk '{ printf "%-15s %-15s %-25s %-7s %-10s \n", $1, $2, $3, $4, $5}'  
+      fi
+      
+      cd ..
+    
+    done
+    
+    cd ..
+  
+  done
+  
+  cd ..
+  
+done

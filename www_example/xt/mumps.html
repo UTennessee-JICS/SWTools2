@@ -1,0 +1,59 @@
+<h1>MUMPS</h1>
+
+<p> Category: Libraries-Math-Sparse Direct Solver
+
+<h2>Description</h2>
+
+<p> <a href="http://graal.ens-lyon.fr/MUMPS/">MUMPS</a> (MUltifrontal Massively Parallel Solver) is a package for solving systems of linear equations of the form Ax = b, where A is a square sparse matrix that can be either unsymmetric, symmetric positive definite, or general symmetric. MUMPS uses a multifrontal technique which is a direct method based on either the LU or the LDLT factorization of the matrix. MUMPS exploits both parallelism arising from sparsity in the matrix A and from dense factorizations kernels.
+
+<p> The main features of the MUMPS package include the solution of the transposed system, input of the matrix in assembled format (distributed or centralized) or elemental format, error analysis, iterative refinement, scaling of the original matrix, detection of zero pivots, and return of a Schur complement matrix. MUMPS offers several built-in ordering algorithms, a tight interface to some external ordering packages such as METIS (strongly recommended) and PORD, and the possibility for the user to input a given ordering. Finally, MUMPS is available in various arithmetics (real or complex, single or double precision).
+
+<p> The software is written in Fortran 90 although a C interface is available (see Section 8). The parallel version of MUMPS requires MPI for message passing and makes use of the BLAS, BLACS, and ScaLAPACK libraries. The sequential version only relies on BLAS.  
+
+<h2>Use</h2>
+
+<p> MUMPS is available on the XT as a module.  In particular, there is a
+MUMPS library provided by Cray with the petsc module and there is a mumps module provided by NICS.
+
+For the Cray library that comes with petsc, 
+<pre>
+  module load petsc
+  ftn example.f -ldmumps -lpord
+</pre>
+
+For the NICS version of the library, 
+<pre>
+  module avail mumps
+  module load mumps/4.7.3_par
+  ftn example.f ${MUMPS_PATH} -ldmumps -lpord
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>4.9.2</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.3_par</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.3_par</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2_par</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+</tr>
+<tr>
+	<th>4.7.3</th>
+	<td><table class="inline"><tr><td class="hidden">pgi8.0.5_par</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi9.0.1_par</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.2_par</td><td class="hidden2">?</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2_par</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+</tr>
+
+</table>

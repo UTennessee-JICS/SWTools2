@@ -1,0 +1,43 @@
+<h1>BLAS</h1>
+
+<p> Category: Libraries-Math-LinearAlgebra
+
+<h2>Description</h2>
+
+<p> The BLAS (Basic Linear Algebra Subprograms) are routines that provide standard building blocks for performing basic vector and matrix operations.  <b>Optimized BLAS are provided by Cray in the Libsci library (automatically linked against when using the Cray wrappers cc, CC, and ftn.)</b>  We also provide a reference BLAS library compiled with "-O3 -g", see below for use.
+
+The Level 1 BLAS perform scalar, vector and vector-vector operations, the Level 2 BLAS perform matrix-vector operations, and the Level 3 BLAS perform matrix-matrix operations. Because the BLAS are efficient, portable, and widely available, they are commonly used in the development of high quality linear algebra software, LAPACK for example.
+
+
+<h2>Use</h2>
+
+<p> As mentioned above, optimized BLAS are provided by Cray in libsci (-lsci), which is automatically linked against by the Cray wrappers cc, CC, and ftn.  If however, you wish to link against a reference BLAS (say for debugging purposes), you can load a reference BLAS module - see below.
+
+<pre>
+  module avail blas
+  module load blas/ref
+  ftn test.f     OR    pgf77/pathf90/gfortran test.f ${BLAS_LIB}
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>pathscale</th>
+	<th>gnu</th>
+	<th>Other</th>
+<tr>
+	<th>ref</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.3</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi7.2.3</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2</td><td class="hidden2">v</td></tr><tr><td class="hidden">pathscale3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.2</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.2.4</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.2.0</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr>vendor</tr></table></td>
+</tr>
+
+</table>

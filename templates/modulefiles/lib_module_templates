@@ -1,0 +1,78 @@
+#%Module
+#library and apps
+
+set desc	"This modulefile sets up environment to use @LIBRARY@."
+set whatis	"@LIBRARY@ is (give a one line description of this lib)."
+set builderr	"This library has not been built for this programming environment"
+
+#-- Replace string in @--@ as appropriate. This will be used to construct 
+#   the path to the installation dir
+
+set arch	xc30
+set app 	@LIBRARY@
+set ver 	@VERSION@
+set dependency	"PE_LIBSCI"
+
+#-- Change the following as appropriate, set to 0 if build does not exist
+set cray_build	cle5.1_cray8.2.5
+set intel_build	cle5.1_intel14.0.1
+set gnu_build	cle5.1_gnu4.8.2
+
+#------------------------------------------------
+
+set loaded_PrgEnv 0
+set build 0
+
+proc ModulesHelp { } {
+  global desc whatis
+  puts stderr "$desc"
+  puts stderr "$whatis"
+}
+
+module-whatis $whatis
+
+if { ( [module-info mode switch] == 1 ) || ( [module-info mode load] == 1 ) || ( [module-info mode display] == 1 ) } {
+  if [ is-loaded PrgEnv-cray ] {
+    set build $cray_build
+    set loaded_PrgEnv PrgEnv-cray
+  } elseif [ is-loaded PrgEnv-intel ] {
+    set build $intel_build
+    set loaded_PrgEnv PrgEnv-intel
+  } elseif [ is-loaded PrgEnv-gnu ] {
+    set build $gnu_build
+    set loaded_PrgEnv PrgEnv-gnu
+  } else {
+    puts stderr $builderr
+    break
+  }
+
+  if { $build == 0 } {
+    puts stderr "$app: $builderr ($loaded_PrgEnv)."
+    break
+  }
+}
+                              
+set app_dir 	/sw/$arch/$app/$ver/$build
+set app_inc	"-I$app_dir/include"
+set app_lib 	"-L$app_dir/lib"
+
+set APP		[string toupper $app]
+set product	"NICS_${APP}"
+
+prepend-path    PATH            $app_dir/bin
+prepend-path	LD_LIBRARY_PATH $app_dir/lib
+prepend-path	MANPATH		$app_dir/share/man
+
+setenv          ${APP}_DIR	$app_dir
+setenv          ${APP}_INC	$app_inc
+setenv          ${APP}_LIB	$app_lib
+
+# Use Cray magic to link against automagically
+prepend-path    PE_PRODUCT_LIST			$product
+setenv          ${product}_INCLUDE_OPTS		$app_inc
+setenv          ${product}_POST_LINK_OPTS	$app_lib
+
+prepend-path    PKG_CONFIG_PATH                 $app_dir/lib/pkgconfig   
+prepend-path    PE_PKGCONFIG_PRODUCTS           $product
+prepend-path    PE_PKGCONFIG_LIBS               $app
+setenv          ${product}_REQUIRED_PRODUCTS    ""

@@ -1,0 +1,48 @@
+<h1>Octave</h1>
+
+<p> Category: Analysis-Mathematics
+
+<h2>Description</h2>
+
+<p> GNU Octave is a high-level language, primarily intended for
+numerical computations. It provides a convenient command line
+interface for solving linear and nonlinear problems numerically, and
+for performing other numerical experiments using a language that is
+mostly compatible with Matlab. It may also be used as a batch-oriented
+language.
+
+<h2>Use</h2>
+
+<p> Octave was built with the default gcc to include hdf5.  
+So the PGI and Pathscale compilers need to be unloaded before 
+hdf5/1.6.7 is loaded, and then the octave module can be loaded.
+
+<pre>
+  module unload PrgEnv-pgi PrgEnv-pathscale
+  module load hdf5/1.6.7
+  module load octave/3.0.1
+  octave
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Unsupported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>3.2.3</th>
+	<td></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.4.1</td><td class="hidden2">?</td></tr></table></td>
+	<td></td>
+	<td></td>
+</tr>
+
+</table>

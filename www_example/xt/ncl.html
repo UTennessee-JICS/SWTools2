@@ -1,0 +1,72 @@
+<h1>NCAR Command Language (NCL)</h1>
+
+<p> Category: Analysis-Visualization
+
+<h2>Description</h2>
+
+<p> 
+From "<a href="http://www.ncl.ucar.edu/overview.shtml">http://www.ncl.ucar.edu/overview.shtml</a>":
+
+<p>
+The NCAR Command Language (NCL), a product of the Computational & Information Systems Laboratory at the National Center for Atmospheric Research (NCAR), is a free interpreted language designed specifically for scientific data processing and visualization.
+
+<p>
+As of version 5.0.0, NCL and NCAR Graphics are released as one package in source code or binary format.
+
+<h2>Use</h2>
+
+<p> 
+Load the module to gain access to the NCL binaries and NCAR Graphics libraries.
+<pre>
+module load ncl
+</pre>
+
+<p> See "<a
+href="http://www.ncl.ucar.edu/overview.shtml">http://www.ncl.ucar.edu/overview.shtml</a>"
+for usage information.
+
+
+<p> The following shows what the ncl module sets (the actual path may
+change as new versions are installed.)
+<pre>
+> module display ncl
+-------------------------------------------------------------------
+/sw/xt5/modulefiles/ncl/5.0.0:
+
+module-whatis    Sets up environment to use NCL and NCAR Graphics 5.0.0. 
+setenv           NCARG_ROOT /sw/xt5/ncl/5.0.0/sles10.1_binary 
+prepend-path     PATH /sw/xt5/ncl/5.0.0/sles10.1_binary/bin 
+-------------------------------------------------------------------
+</pre>
+
+<p> If you wish to run an example, you can use the ng4ex command to
+generate an example.  For example, to generate the gsun01n example, do
+
+<pre>
+ng4ex gsun01n
+ncl gsun01n.ncl
+</pre>
+
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>5.0.0</th>
+	<td><table class="inline"><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td><table class="inline"><tr><td class="hidden">binary</td><td class="hidden2">v</td><tr></table></td>
+</tr>
+
+</table>

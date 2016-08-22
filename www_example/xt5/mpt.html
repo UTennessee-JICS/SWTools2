@@ -1,0 +1,235 @@
+<h1>MPT</h1>
+
+<p> Category: Libraries-Communication
+
+<h2>Description</h2>
+
+<p> MPT is Cray's MPI library.   This release of MPI derives from
+MPICH-2 and implements the MPI-2 standard, except for spawn support. 
+It also implements the MPI 1.2 standard. 
+
+<p>  The Message-Passing Interface (MPI) supports parallel programming
+across a network of computer systems through a technique known as message
+passing.  The goal of the MPI Forum, simply stated, is to develop a widely
+used standard for writing message-passing programs. MPI establishes a
+practical, portable, efficient, and flexible standard for message passing
+that makes use of the most attractive features of a number of existing
+message passing systems, rather than selecting one of them and adopting it
+as the standard.
+
+<p> This version of MPICH can support multiple interconnect devices for a
+single MPI job. It allows each process (rank) of an MPI job to create the
+most optimal messaging path to every other process in the job, based on
+the topology of the given ranks. The two device drivers that are supported
+are the shared memory (SMP) driver and the portals device driver.  The SMP
+device driver is based on shared memory and is used for communication
+between ranks that share a node. The portals device is used for
+communication between ranks that span nodes.
+
+<P>See the mpi(3) and aprun(1) man pages for more information.
+
+<h2>Use</h2>
+
+<p> The default MPT is always loaded when a programming environment is
+loaded (PrgEnv).  The PrgEnv-pgi programming environment is loaded by
+default.  Users can switch their programming environment to pathscale or
+gnu with 
+<pre>
+  module swap PrgEnv-pgi PrgEnv-pathscale    # switch to pathscale PrgEnv
+</pre>
+
+<p> It is advised to always use the default MPT that comes with the PrgEnv
+module or use available newer MPT versions.  It is not advised that older
+MPT versions be used.
+
+<p> To build application with MPI, use either the cc, CC, ftn, or f77 command. 
+If you invoke a compiler directly by using a command such as mpicc, the resulting
+executable will not run on a Cray XT system.
+
+<p> Launching an MPI application on Cray XT systems is done via the
+Application Level Placement Scheduler (ALPS).
+
+<p> In the followig example, an MPI application is first compiled using
+the cc Cray wrapper. The resulting executable is then launched using 128
+processes:
+
+<pre>
+         cc -o my_prog my_prog.c
+         aprun -n 128 ./my_prog    # must be done in a batch job
+</pre>
+       
+<P>See the mpi(3) and aprun(1) man pages for more information.
+
+<h2>Further Information</h2>
+
+<h3> MPT 3.1.02 </h3>
+This version is necessary for XT5 for large core-count and has 
+several new beneficial features. 
+ 
+The new features are:
+<ul>
+<li>  Move from MPICH2 1.0.4 to MPICH2 1.0.6 
+<li>  Support for over 64,000 MPI ranks
+<li>  Support for over 32,000 SHMEM PEs
+<li>  Automatically-Tuned Default Values for MPICH environment Variables
+</ul>
+
+Each of these are described in more detail below.
+
+<p><b>  Move from MPICH2 1.0.4 to MPICH2 1.0.6 MPICH2</b>
+
+<p>The move to MPICH2 1.0.6 fixed a number of problems, some of which have already applied to the MPT 3.0
+release on an as needed basis.  Many of the new features added in MPICH2 1.0.6 don't affect XT users but
+it is important to stay close to the MPICH2 latest releases to take advantage of improvements they are
+making. That being said, we have already found and fixed several regressions introduced by MPICH2 1.0.5
+or MPICH2 1.0.6 and need more exposure to ensure there are not more.  Here are just some of the features
+ in MPICH2 1.0.5 and MPICH2 1.0.6 listed from their changes document that may affect XT users:
+
+<ul>
+<li> Performance improvements for derived datatypes (including packing and communication) through loop-unrolling
+ and buffer alignment.
+<li> Performance improvements for MPI_Gather when non-power-of-two processes are used, and when a non-zero
+ ranked root is performing the gather.
+<li> MPI_Comm_create now works for intercommunicators.
+<li> Many other bug fixes, memory leak fixes and code cleanup. 
+</ul>
+
+<p><b>  Support for over 64,000 MPI ranks</b>
+
+<p>This feature modifies some hard limits for how high MPI jobs could scale on XT systems.  The new limit
+ is 256,000 MPI ranks.
+
+<p><b>  Support for over 32,000 SHMEM PEs</b>
+
+<p>This feature modifies some hard limits for how high SHMEM jobs could scale on XT systems.  The new limit
+ is 256,000 SHMEM PEs. 
+
+<p>In order to support higher scaling, changes were made to the SHMEM header files that require a recompile
+when using this new version. The new library will detect this incompatibility and issue a FATAL error
+message telling you to recompile with the new headers.
+
+<p><b>  Automatically-Tuned Default Values for MPICH environment
+Variables</b>
+
+<p>Several of the MPICH environment variable default values are now dependent  on the total number of
+processes in the job.  Previously, these defaults  were set to static values.  This feature is designed to
+allow higher scaling of MPT jobs with fewer tweaks to environment variables.  For more information on how
+the new defaults are calculated, please see the mpi manpage.  As before, the user is able to override
+any of these defaults by setting the corresponding environment variable.  The new default values are
+displayed via the MPICH_ENV_DISPLAY setting.
+
+
+<h3>MPT 3.0.x:  Differences and incompatibilities from MPT 2.0</h3>
+
+<ul>
+
+<li> The cancelling of sends is not supported.
+
+<li> Several MPI environment variables names have changed with MPT 3.0.
+   They are:
+<pre>
+      MPICH_PTL_EAGER_LONG replaces MPICH_PTLS_EAGER_LONG
+      MPICH_ABORT_ON_ERROR replaces MPICH_DBMASK
+</pre>
+
+<li> MPT 2.0 allowed a number of cnos_ functions (like cnos_barrier or
+   cnos_get_rank). These functions are no longer supported in MPT 3.0.
+   Applications with MPT 3.0 that use them may still have them satisfied
+   from libpct.a, however, this could lead to hangs, etc. In MPT 3.0, MPI
+   and SHMEM use the PMI for similar functionality that the cnos_
+   functions provided. Users can examine the pmi/include/pmi.h header for
+   replacement functions and can use "#include <pmi.h>" in their program.
+   The MPT 3.1 release will include a document that will describe how to
+   use the PMI functions in pmi.h.
+
+<li> With MPT 3.0, the PMI library is used to assist aprun in launching
+   SHMEM programs as well as MPI programs. The intro_shmem man page has
+   always specified that a call to shmem_finalize is necessary to allow
+   proper cleanup. With MPT 3.0, if shmem_finalize was not called, the
+   PMI library may conclude that some processes ended prematurely and tell
+   aprun to kill those processes and the job will get "killed" messages.
+   Users should insert a shmem_finalize call into their program to allow
+   proper cleanup and avoid the confusion.
+
+<li> A new environment variable called MPICH_CPU_YIELD was added to MPI
+   3.0 to allow behavior similar to MPI 2.0 in certain cases. If set, MPI
+   calls sched_yield() in the global progress loop. The sched_yield()
+   function forces the current process/thread to relinquish the
+   processor. In 3.0 the existing sched_yield calls in the SMP progress
+   engine were removed as it significantly increases on-node pingpong
+   latency. This is most useful when the user over-subscribes the number
+   of CPUs, or when more than one process or thread is pinned to the same
+   CPU. Note that this scenario can happen when using the Pathscale
+   compiler with a hybrid openmp/MPI app if one is not careful.
+
+<li> MPI programs that use MPI_ANY_SOURCE with pre-posted receives may
+   see performance degradation with respect to MPT 2.0. The MPT 2.0
+   performance can be obtained by setting MPICH_SMP_OFF in MPT 3.0 thus
+   disabling the SMP device. Note that using MPI_ANY_SOURCE with
+   MPI_Probe/MPI_Iprobe followed by a receive (hence non-pre-posted)
+   should not see significant changes in performance.
+
+<li> MPI 2.0 was based on ANL release 1.0.2. MPI 3.0 is based on ANL
+   release 1.0.4 which made significant changes to the C++ bindings
+   including the header file. For this reason users of the C++ bindings
+   should recompile when switching to MPI 3.0.
+
+</ul>
+
+<h3>MPT 2.0/3.0 conversion issues:</h3>
+
+<p>To verify you have linked with the MPI 3.0 libraries, set the
+MPICH_VERSION_DISPLAY environment variable.
+
+<p>Below is an example of setting MPICH_ENV_DISPLAY to 1 for a test case
+that spans nodes:
+
+<pre>
+% export MPICH_ENV_DISPLAY=1
+
+% aprun -n 4 ./hello
+PE 0: MPICH environment settings:
+PE 0: MPICH_ENV_DISPLAY = 1
+PE 0: MPICH_VERSION_DISPLAY = 0
+PE 0: MPICH_ABORT_ON_ERROR = 0
+PE 0: MPICH_CPU_YIELD = 0
+PE 0: MPICH_RANK_REORDER_METHOD = 1
+PE 0: MPICH_RANK_REORDER_DISPLAY = 0
+PE 0: MPICH/SMP environment settings:
+PE 0: MPICH_SMP_OFF = 0
+PE 0: MPICH_MSGS_PER_PROC = 16384
+PE 0: MPICH_SMPDEV_BUFS_PER_PROC = 32
+PE 0: MPICH_SMP_SINGLE_COPY_SIZE = 131072
+PE 0: MPICH_SMP_SINGLE_COPY_OFF = 0
+PE 0: MPICH/PORTALS environment settings:
+PE 0: MPICH_MAX_SHORT_MSG_SIZE = 128000
+PE 0: MPICH_UNEX_BUFFER_SIZE = 62914560
+PE 0: MPICH_PTL_UNEX_EVENTS = 20480
+PE 0: MPICH_PTL_OTHER_EVENTS = 2048
+PE 0: MPICH_VSHORT_OFF = 0
+PE 0: MPICH_MAX_VSHORT_MSG_SIZE = 1024
+PE 0: MPICH_VSHORT_BUFFERS = 32
+PE 0: MPICH_PTL_EAGER_LONG = 0
+PE 0: MPICH_PTL_MATCH_OFF = 0
+PE 0: MPICH_PTL_SEND_CREDITS = 0
+PE 0: MPICH/COLLECTIVE environment settings:
+PE 0: MPICH_FAST_MEMCPY = 0
+PE 0: MPICH_COLL_OPT_OFF = 0
+PE 0: MPICH_BCAST_ONLY_TREE = 1
+PE 0: MPICH_ALLTOALL_SHORT_MSG = 1024
+PE 0: MPICH_REDUCE_SHORT_MSG = 65536
+PE 0: MPICH_ALLREDUCE_LARGE_MSG = 262144
+PE 0: MPICH_ALLTOALLVW_FCSIZE = 32
+PE 0: MPICH_ALLTOALLVW_SENDWIN = 20
+PE 0: MPICH_ALLTOALLVW_RECVWIN = 20
+PE 0: MPICH/MPIIO environment settings:
+PE 0: MPICH_MPIIO_HINTS = (null)
+
+-------------------------
+
+</pre>
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+<p>All versions of this software are provided by the system vendor and are not installed by NICS staff.

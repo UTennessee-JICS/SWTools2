@@ -1,0 +1,94 @@
+<h1><A HREF="http://www.caam.rice.edu/software/ARPACK/">ARPACK/PARPACK</A></h1>
+
+<p> Category: Libraries-Math-LinearAlgebra
+
+<h2>Description</h2>
+
+<p>
+<A HREF="http://www.caam.rice.edu/software/ARPACK/">ARPACK (PARPACK)</A> is a collection of Fortran77 subroutines designed to solve large scale eigenvalue
+problems. 
+<p>
+
+The package is designed to compute a few eigenvalues and corresponding eigenvectors of a general
+n by n matrix A. It is most appropriate for large sparse or structured matrices A where structured
+means that a matrix-vector product w <- Av requires order n rather than the usual order n<sup>2</sup>
+floating point operations. This software is based upon an algorithmic variant of the Arnoldi process
+called the Implicitly Restarted Arnoldi Method (IRAM). When the matrix A is symmetric it reduces
+to a variant of the Lanczos process called the Implicitly Restarted Lanczos Method (IRLM). These
+variants may be viewed as a synthesis of the Arnoldi/Lanczos process with the Implicitly Shifted
+QR technique that is suitable for large scale problems. For many standard problems, a matrix
+factorization is not required. Only the action of the matrix on a vector is needed. 
+
+<p>
+ARPACK software is capable of solving large scale symmetric, nonsymmetric, and generalized
+eigenproblems from significant application areas. The software is designed to compute a few (k)
+eigenvalues with user specified features such as those of largest real part or largest magnitude.
+Storage requirements are on the order of n*k locations. No auxiliary storage is required. A set of
+Schur basis vectors for the desired k-dimensional eigen-space is computed which is numerically
+orthogonal to working precision. Numerically accurate eigenvectors are available on request. 
+
+
+<p>
+<h3>Important Features: </h3>
+<ul>
+<li> Reverse Communication Interface. 
+<li> Single and Double Precision Real Arithmetic Versions for Symmetric, Non-symmetric,
+<li> Standard or Generalized Problems. 
+<li> Single and Double Precision Complex Arithmetic Versions for Standard or Generalized
+Problems. 
+<li> Routines for Banded Matrices - Standard or Generalized Problems. 
+<li> Routines for The Singular Value Decomposition. 
+<li> Example driver routines that may be used as templates to implement numerous Shift-Invert
+
+<li> strategies for all problem types, data types and precision. 
+</ul>
+
+<p>
+A parallel version of the ARPACK library, PARPACK,  is also availible. The message passing layers
+currently supported are 
+<A HREF="http://www.netlib.org/blacs/">BLACS</A> and 
+<A HREF="http://www.netlib.org/mpi/">MPI </A>. 
+Parallel ARPACK (PARPACK) is provided as an extension to the current ARPACK library
+(Release 2.1).
+
+<p>
+For further information, see the <A HREF="http://www.caam.rice.edu/software/ARPACK/"> ARPACK/PARPACK home page.</A>
+
+<h2>Use</h2>
+
+<p> 
+To use the serial version of ARPACK:
+<pre>
+module load arpack
+ftn test.f90 -larpack"
+</pre>
+or
+to use the parallel version of ARPACK (PARPACK):
+<pre>
+module load arpack
+ftn test.f90 -lparpack"
+</pre>
+<p>
+The arpack module must be reloaded if you change the PrgEnv or you must issue a 'module update' command.
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>2008.03.11</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.3</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.2</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.2.0</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"></table></td>
+</tr>
+
+</table>

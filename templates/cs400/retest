@@ -1,0 +1,123 @@
+#!/bin/bash
+
+############################## standard interface to /sw tools
+# Input:
+#   Environment variables
+#     SW_BLDDIR    current directory (PWD) minus /autofs/na1_ stuff
+#     SW_ENVFILE   file to be sourced which has alternate prog environment
+#                     only to be used in special circumstances
+#     SW_WORKDIR   work dir that local script can use
+# Output:
+#   Return code of 0=success or 1=failure   or 2=job submitted
+#
+# Notes:
+#   If this script is called from swtest, then swtest requires 
+#   SW_WORKDIR to be set.  Then swtest adds a unique path to what 
+#   user gave swtest (action+timestamp+build) and provides this
+#   script with a uniquely valued SW_WORKDIR.  swtest will
+#   automatically remove this unique workspace when retest is done.
+##################################################################
+
+# exit 3 is a signal to the sw infrastructure that this template has not 
+# been updated; please delete it when ready
+exit 3
+
+if [ -z $SW_BLDDIR ]; then
+  echo "Error: SW_BLDDIR not set!"
+  exit 1
+else
+  cd $SW_BLDDIR
+fi
+
+if [ -z $SW_ENVFILE ]; then
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  . ${SW_BLDDIR}/remodule
+  ### End Environment (do not remove this line only change what is in between)
+else
+  . $SW_ENVFILE
+fi
+
+############################## app specific section
+#  
+set -o verbose
+#clear out status file since re-testing
+rm -f status 
+
+
+#-- Use one of the following template: in-place test or test with batch job
+
+#-- 1. in-place test
+
+cd $SRCDIR
+
+make test > $SW_BLDDIR/test.log 2>&1
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE make test failed "
+  exit 1
+fi
+
+testspassed=`grep -G "All [0123456789]" ../test.log | awk '{total += $2} END {print total}'`
+if [[ $testspassed -ne 49 ]]; then
+  # error
+  echo $testspassed tests passed!
+  echo unverified > $SW_BLDDIR/status
+  exit 1
+else
+  echo $testspassed tests passed!
+  echo verified > $SW_BLDDIR/status
+  exit 0
+fi
+
+#-- 2. test with batch job
+cp /sw/testcases/${PACKAGE}/* ${SW_WORKDIR}
+
+cd ${SW_WORKDIR}
+
+cat > ${PACKAGE}.pbs << EOF
+#!/bin/bash
+#PBS -N ${PACKAGE}
+#PBS -j oe
+#PBS -l size=16,walltime=01:00:00
+#PBS -A UT-SUPPORT
+#PBS -W group_list=install
+#PBS -W umask=002
+
+set -o verbose
+cd \$PBS_O_WORKDIR
+
+#-- Modify appname
+BIN=${SW_BLDDIR}/bin/${PACKAGE}
+aprun -n 16 \$BIN 2>&1 | tee test.log
+
+grep "All Passed" test.log
+if [[ \$? -ne 0 ]]; then
+  echo unverified > $SW_BLDDIR/status
+else
+  echo verified > $SW_BLDDIR/status
+fi
+chmod 664 $SW_BLDDIR/status
+
+JOBID=\`echo \$PBS_JOBID | cut -d "." -f1 \`
+cat \$PBS_JOBNAME.o\$JOBID >> ${SW_BLDDIR}/test.log
+chmod 664 ${SW_BLDDIR}/test.log
+
+rm -f ${SW_BLDDIR}/.running
+EOF
+
+#submit job and touch .running file - marker to infrastructure that
+qsub ${PACKAGE}.pbs > ${SW_BLDDIR}/.running
+if [ $? -ne 0 ] ; then
+  echo "Error submitting job"
+  rm -f .running
+  exit 1
+else
+  echo "Job submitted"
+  cat ${SW_BLDDIR}/.running
+  exit 2
+fi
+
+cd ../
+
+############################### if this far, return 0
+exit 0

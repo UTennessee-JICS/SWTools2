@@ -1,0 +1,68 @@
+<h1>GROMACS</h1>
+
+<p> Category: Science Apps-Molecular Dynamics
+
+<h2>Description</h2>
+
+<p>GROMACS is a versatile package to perform molecular dynamics, i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles.
+
+<p>It is primarily designed for biochemical molecules like proteins and lipids that have a lot of complicated bonded interactions, but since GROMACS is extremely fast at calculating the nonbonded interactions (that usually dominate simulations) many groups are also using it for research on non-biological systems, e.g. polymers.
+
+<h2>Use</h2>
+
+<p>Access to the binaries, libraries, and data files are provided through the gromacs module.  This module sets up environmental variables which point to these locations and updates the required paths.  All binaries except for mdrun are built to run on service nodes.  These may be used on login nodes and within batch scripts.  The mdrun executables must be run on the compute nodes via aprun.
+
+<pre>
+module load gromacs
+qsub -V [PBS Script]
+</pre>
+
+<p> Within the PBS script, all binaries except mdrun can be run as usual.  The mdrun binary must run on the compute nodes via aprun.  You can either copy the executable, or use the full path to the executable (with $GROMACS_DIR/bin/mdrun[_d]).  However, your workspace must be on the compute nodes.
+
+</pre>
+aprun -n [number of cores] -N [cores per node] (mdrun || mdrun_d) [mdrun options]
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Unsupported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>3.3.3</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">u</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">u</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<th>4.0.5</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">u</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">u</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<th>4.0.4</th>
+	<td></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<th>4.0.7</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.1_fprelaxed</td><td class="hidden2">u</td></tr><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">u</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+
+</table>

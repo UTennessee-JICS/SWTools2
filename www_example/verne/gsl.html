@@ -1,0 +1,64 @@
+<h1>GNU Scientific Library</h1>
+
+<p> Category: Libraries-Math
+
+<h2>Description</h2>
+
+<p> The <a href="http://www.gnu.org/software/gsl/">GNU Scientific Library (GSL)</a> is a numerical library for C and C++ programmers. It is free software under the GNU General Public License.
+
+<p> The library provides a wide range of mathematical routines such as random number generators, special functions and least-squares fitting. There are over 1000 functions
+in total with an extensive test suite.
+
+<p>The complete range of subject areas covered by the library includes,
+
+<table>
+<tr><td>Complex Numbers		<td>Roots of Polynomials
+<tr><td>Special Functions	<td>Vectors and Matrices
+<tr><td>Permutations		<td>Sorting
+<tr><td>BLAS Support		<td>Linear Algebra
+<tr><td>Eigensystems		<td>Fast Fourier Transforms
+<tr><td>Quadrature		<td>Random Numbers
+<tr><td>Quasi-Random Sequences	<td>Random Distributions
+<tr><td>Statistics		<td>Histograms
+<tr><td>N-Tuples		<td>Monte Carlo Integration
+<tr><td>Simulated Annealing	<td>Differential Equations
+<tr><td>Interpolation		<td>Numerical Differentiation
+<tr><td>Chebyshev Approximation	<td>Series Acceleration
+<tr><td>Discrete Hankel Transforms	<td>Root-Finding
+<tr><td>Minimization		<td>Least-Squares Fitting
+<tr><td>Physical Constants	<td>IEEE Floating-Point
+<tr><td>Discrete Wavelet Transforms&nbsp;&nbsp;	<td>Basis splines
+</table>
+
+<h2>Use</h2>
+
+<p> The GSL library is available as a module.  The simplest use case is
+
+<pre>
+ module avail gsl
+ module load gsl/1.11
+ gcc test.c ${GSL_LIB}
+</pre>
+
+We also define an environment variable GSL_DIR that points to the installation directory of GSL.
+
+
+<h2>Support</h2><p>This package has the following support level : Unsupported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "3">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>Other</th>
+<tr>
+	<th>1.12</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.5</td><td class="hidden2">?</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.1.2</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+</tr>
+
+</table>

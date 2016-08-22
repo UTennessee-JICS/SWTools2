@@ -1,0 +1,8 @@
+#! /bin/bash
+
+# The "${a}" is very important. Basically, without the quotes, and wilcdards in $@ would be expanded for a second time
+# So even if you called this script with "*pathscale*", $@ would equal *pathscale* . Then the below script would pass 
+# Whatever *pathscale* evaluates to instead of the literal *pathscale* that we want
+
+python -O $0.py "${@}"
+

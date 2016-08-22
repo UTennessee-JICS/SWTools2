@@ -1,0 +1,14 @@
+#!/bin/bash
+find -maxdepth 4 -type f -name rebuild -exec svn add --parents '{}' \;
+find -maxdepth 4 -type f -name rebuild_* -exec svn add --parents '{}' \;
+find -maxdepth 4 -type f -name remodule -exec svn add --parents '{}' \;
+find -maxdepth 4 -type f -name relink -exec svn add --parents '{}' \;
+find -maxdepth 4 -type f -name retest -exec svn add --parents '{}' \;
+find -maxdepth 4 -type f -name status -exec svn add --parents '{}' \;
+find -maxdepth 4 -type f -name build-notes -exec svn add --parents '{}' \;
+find -maxdepth 4 -type f -name description -exec svn add --parents '{}' \;
+find -maxdepth 4 -type f -name support -exec svn add --parents '{}' \;
+find -maxdepth 4 -type f -name versions -exec svn add --parents '{}' \;
+find -maxdepth 4 -type f -name .exceptions -exec svn add --parents '{}' \;
+find -maxdepth 4 -type f -name .check4newver -exec svn add --parents '{}' \;
+find -maxdepth 4 -type f -name .owners -exec svn add --parents '{}' \;

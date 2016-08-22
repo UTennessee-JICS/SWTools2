@@ -1,0 +1,21 @@
+<h1>ScaLAPACK</h1>
+
+<p> Category: Libraries-Math-LinearAlgebra 
+
+<h2>Description</h2>
+
+<p> The <a href="http://www.netlib.org/scalapack/scalapack_home.html">ScaLAPACK</a> (or Scalable LAPACK) library includes a subset of LAPACK routines redesigned for distributed memory MIMD parallel computers.  This library is provided by Cray in their SciLib library, which automatically links to ScaLAPACK when using the cc, CC, or ftn wrappers (-lsci).
+
+<p> ScaLAPACK is currently written in a Single-Program-Multiple-Data style using explicit message passing for interprocessor communication. It assumes matrices are laid out in a two-dimensional block cyclic decomposition.
+
+<p>Like LAPACK, the ScaLAPACK routines are based on block-partitioned algorithms in order to minimize the frequency of data movement between different levels of the memory hierarchy. (For such machines, the memory hierarchy includes the off-processor memory of other processors, in addition to the hierarchy of registers, cache, and local memory on each processor.)
+
+<h2>Use</h2>
+
+<p> The cc, CC, or ftn compiler wrappers link against ScaLAPACK automatically.  Man pages for each function are online.
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+<p>All versions of this software are provided by the system vendor and are not installed by NICS staff.

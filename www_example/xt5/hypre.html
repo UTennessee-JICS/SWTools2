@@ -1,0 +1,42 @@
+<h1>Hypre</h1>
+
+<p> Category: Libraries-Math
+
+<h2>Description</h2>
+<p> 
+Hypre is a library of high performance preconditioners that features parallel multigrid methods for both structured and unstructured grid problems. 
+
+<h2>Use</h2>
+
+<p>
+Hypre is available as a module.  See the <a href="http://www.nccs.gov/user-support/general-support/modules">modules page</a> for more information on modules. 
+
+<pre>
+module avail hypre
+module load hypre
+
+cc test.c ${HYPRE_LIB}
+ftn test.f90 ${HYPRE_LIB}
+</pre>
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>pathscale</th>
+	<th>gnu</th>
+	<th>Other</th>
+<tr>
+	<th>2.0.0</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.3</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">?</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.2</td><td class="hidden2">?</td></tr><tr><td class="hidden">gnu4.2.0</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+</tr>
+
+</table>

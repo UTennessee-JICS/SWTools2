@@ -1,0 +1,66 @@
+<h1>Stagesub</h1>
+
+<p> Category: Tools-Workflow
+
+<h2>Description</h2>
+
+<br/>
+The  stagesub command uses simple directives such as "#Stagein" and "#Stageout" within a standard PBS script to coordinate data staging and stageout jobs alongside compute jobs. The data jobs are submitted to the  data transfer queue and compute jobs to the regular batch queue. This enables timely staging and offload-ing of job input and output data.
+
+<br/>
+<br/>
+
+A PBS script that is intrumented with #Stagein and #Stageout directives is  parsed  into  three  jobs  namely, stagein, stageout and the original compute job. The stagein and stageout jobs are submitted to a data transfer queue and scheduled as data jobs.  The compute job is executed as usual in the batch queue.  The  three  jobs, submitted to different queues, are setup in a way that the compute job starts only after the staging in of the input data completes and the stageout job commences only after the termination of the compute  job.   The  PBS script can be instrumented as follows:
+
+<ul>
+  <li> 
+    #Stagein [-d HH:MM:SS] &lt;source_uri&gt; &lt;dest_uri&gt;
+  </li>
+  <li> 
+    #Stageout [-d HH:MM:SS] &lt;source_uri&gt; &lt;dest_uri&gt; 
+  </li>
+</ul>
+
+
+The  "-d" option is optional and is used to specify the walltime for the stagin and stageout jobs. If duration is not specified, a default walltime of thirty minutes is used. Multiple #Stagein and #Stageout directives can each  have their own durations. The stagein data job is a sequence of multiple stagein operations, whose wall- time is the sum of the durations of all the #Stagein directives.  
+
+<br/>
+<br/>
+
+Several #Stagin and #Stageout directives can be issued to code in multiple data transfer  commands.  Supported protocols for source and destination URIs include: NFS cp (file://), scp (scp://), hsi-HPSS (hpss:// for individual files and hpssdir:// for an entire directory recursively).  The  destination  protocol  for  a  stagein needs  to  be  file:// and the source protocol for a stageout needs to be file://, indicating that the file is moved in and out of the scratch file system.
+
+<br/>
+<br/>
+
+More information may be found through <code>man stagesub</code>.
+
+<br/>
+
+<h2>Use</h2>
+
+<br/>
+
+The stagesub utility and man page can be added to a user's environment through the stagesub module.
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>1.0.2</th>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td><table class="inline"><tr><td class="hidden">binary</td><td class="hidden2">v</td><tr></table></td>
+</tr>
+
+</table>

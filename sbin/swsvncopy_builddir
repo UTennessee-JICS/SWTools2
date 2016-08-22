@@ -1,0 +1,19 @@
+#!/bin/bash
+
+PACKAGE=$1
+SEARCH=$2
+REPLACE=$3
+
+if [ "$#" -ne 3 ]; then
+  echo "Requires: [PACKAGE] [SEARCH] [REPLACE]"
+  exit 1
+fi
+
+#echo $PACKAGE $SEARCH $REPLACE
+
+for VER in `find $PACKAGE -type d -name "*${SEARCH}*"`;
+do
+  BUILD=`basename $VER | sed "s#${SEARCH}#${REPLACE}#g"`
+  DIR=`dirname ${VER}`
+  svn cp $VER $DIR/$BUILD
+done

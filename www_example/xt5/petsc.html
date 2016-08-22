@@ -1,0 +1,69 @@
+<h1>Title</h1>
+
+<p> Category: Libraries-Math-LinearAlgebra
+
+<h2>Description</h2>
+
+<p> <a href="http://www-unix.mcs.anl.gov/petsc/">PETSc</a> -- the
+Portable, Extensible Toolkit for Scientific Computation -- is a suite
+of data structures and routines for the scalable (parallel) solution
+of scientific applications modeled by partial differential equations.
+It employs the MPI standard for all message-passing communication.
+
+<p> PETSc includes an expanding suite of parallel linear, nonlinear
+equation solvers and time integrators that may be used in application
+codes written in Fortran, C, and C++.  PETSc provides many of
+the mechanisms needed within parallel application codes, such as
+parallel matrix and vector assembly routines.  The library is organized
+hierarchically, enabling users to employ the level of abstraction that
+is most appropriate for a particular problem.  By using techniques
+of object-oriented programming, PETSc provides enormous flexibility
+for users.
+
+<p> (above text taken from <a
+href="http://www-unix.mcs.anl.gov/petsc/">PETSC website</a> and the <a
+href="http://www-unix.mcs.anl.gov/petsc/petsc-as/snapshots/petsc-current/docs/manual.pdf">PETSc
+manual online</a>.)
+
+
+<h2>Use</h2>
+
+<p> Optimized PETSc libraries are provided by Cray.  To access them, use
+<pre>
+module load petsc
+</pre>
+or
+<pre>
+module load petsc-complex
+</pre>
+Cray does not currently supply debug PETSc libraries, but they are
+available on this machine.  To access them, use
+<pre>
+module load petsc/2.3.3-debug
+</pre>
+or
+<pre>
+module load petsc-complex/2.3.3-debug
+</pre>
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>pathscale</th>
+	<th>gnu</th>
+	<th>Other</th>
+<tr>
+	<th>2.3.3</th>
+	<td><table class="inline"><tr><td class="hidden">pgi8.0.5_parmetis-debug</td><td class="hidden2">?</td></tr><tr><td class="hidden">pgi7.2.3_parmetis-debug</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5_debug</td><td class="hidden2">?</td></tr><tr><td class="hidden">pgi7.2.3_debug</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5_complex-debug</td><td class="hidden2">?</td></tr><tr><td class="hidden">pgi7.2.3_complex-debug</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2_debug</td><td class="hidden2">v</td></tr><tr><td class="hidden">pathscale3.2_complex-debug</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.2.0_debug</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.3.2_debug</td><td class="hidden2">?</td></tr><tr><td class="hidden">gnu4.2.0_complex-debug</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+</tr>
+
+</table>

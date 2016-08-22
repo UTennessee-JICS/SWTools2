@@ -1,0 +1,108 @@
+<h1>ACML</h1>
+
+<p> Category: Libraries-Math
+
+<h2>Description</h2>
+
+<p> The AMD Core Math Library (ACML) is a set of numerical routines
+tuned specifically for AMD64 platform processors (including OpteronTM
+and AthlonTM64).    On Cray XT systems, ACML is provided by Cray.
+
+<p>The routines, which are available via both FORTRAN
+77 and C interfaces, include:
+
+<ul>
+ <li>
+ BLAS - Basic Linear Algebra Subprograms (including Sparse Level 1
+BLAS);
+ <li>
+ LAPACK - A comprehensive package of higher level linear algebra
+routines;
+ <li>
+ FFT - a set of Fast Fourier Transform routines for real and complex
+data;
+ <li>
+ RNG - a set of random number generators and statistical distribution
+functions.
+</ul>
+
+<p>The BLAS and LAPACK routines provide a portable and standard set of
+interfaces for common numerical linear algebra operations that allow
+code containing calls to these routines to be readily ported across
+platforms. Full documentation for the BLAS and LAPACK are available
+online. 
+
+<p>The FFT is an implementation of the Discrete Fourier Transform
+(DFT) that makes use of symmetries in the definition to reduce the
+number of operations required from O(n*n) to O(n*log n) when the
+sequence length, n, is the product of small prime factors; in
+particular, when n is a power of 2. Despite the popularity and
+widespread use of FFT algorithms, the definition of the DFT is not
+sufficiently precise to prescribe either the forward and backward
+directions (these are sometimes interchanged), or the scaling factor
+associated with the forward and backward transforms (the combined
+forward and backward transforms may only reproduce the original
+sequence by following a prescribed scaling).
+
+<p>Currently, there is no agreed standard API for FFT routines. Hardware
+vendors usually provide a set of high performance FFTs optimized for
+their systems: no two vendors employ the same interfaces for their FFT
+routines. The ACML provides a set of FFT routines, optimized for AMD64
+processors, using an ACML-specific set of interfaces. 
+
+<p>The RNG is a comprehensive set of statistical distribution
+functions which are founded on various underlying uniform distribution
+generators (base generators) including Wichmann- Hill and an
+implementation of the Mersenne Twister. In addition there are hooks
+which allow you to supply your own preferred base generator if it is
+not already included in ACML. 
+
+<p> A supplementary library of fast math and fast vector math
+functions (ACML MV) is also provided with some 64-bit versions of
+ACML. Some of the functions included in ACML MV are not callable from
+high-level languages, but must be called via assembly language.
+
+<p> For more information, see <a
+href=http://developer.amd.com/assets/acml_userguide.pdf>ACML User
+guide</a>.  
+
+<h2>Use</h2>
+
+<p> A acml module is loaded by default.  A module avail command will
+show what versions are available.  
+<pre>
+  module list acml
+  module avail acml
+  fortran_compiler test.f90 -lacml   
+</pre>
+Note that if you use the Cray wrappers to compile and link, they will
+find the libsci library first (as Cray suggests.)
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>pathscale</th>
+	<th>gnu</th>
+	<th>Other</th>
+<tr>
+	<th>4.2.0</th>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td><table class="inline"><tr>vendor</tr></table></td>
+</tr>
+<tr>
+	<th>4.1.0</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.3</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.2.4</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr>vendor</tr></table></td>
+</tr>
+
+</table>

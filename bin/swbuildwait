@@ -1,0 +1,16 @@
+#!/bin/sh
+
+realpath=`readlink -f .`
+build=`basename $realpath`
+
+version_dir=`dirname $realpath`
+version=`basename $version_dir`
+
+app_dir=`dirname $version_dir`
+app=`basename $app_dir`
+
+arch_dir=`dirname $app_dir`
+arch=`basename $arch_dir`
+
+echo "swbuild -s -a $app -v $version -b $build"
+swbuild -s -a $app -v $version -b $build 2>&1 | tee build.log

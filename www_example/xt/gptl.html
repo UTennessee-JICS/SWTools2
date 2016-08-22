@@ -1,0 +1,63 @@
+<h1>Title</h1>
+
+<p> Category:  Tools-Performance-Profiling
+
+<h2>Description</h2>
+
+<p> 
+GPTL is a library to instrument C, C++, and Fortran codes for performance
+analysis and profiling. It is thread-safe, and designed to be called from
+multiple MPI tasks. Using auto-instrumentation flags provided by some
+compilers (e.g. GNU, Pathscale), the library can be used to automatically
+generate a dynamic call tree. For auto-instrumented codes, run 
+<pre>
+hex2name.pl a.out timing.[mpitask]
+</pre>
+after program completion to convert function addresses back to symbolic
+names. 
+
+<p>
+Perl script parsegptlout.pl is provided to easily gather min, max, and mean
+statistics from multi-tasked and/or multi-threaded codes.
+
+<p>
+GPTL contains an optional interface to PAPI which greatly simplifies
+gathering PAPI-based statistics.
+
+<h2>Use</h2>
+<pre>
+module load gptl
+pgcc -o example.x example.c -I${GPTLDIR}/include -L${GPTLDIR}/lib -lgptl -lpapi -mp
+pgf90 -o example.x example.F -I${GPTLDIR}/include -L${GPTLDIR}/lib -lgptl -lpapi -mp
+</pre>
+
+C source files calling GPTL functions should include header file gptl.h.
+Likewise, Fortran source files should include gptl.inc.
+Include files are located in ${GPTLDIR}/include, The library is in
+${GPTLDIR}/lib and named libgptl.a
+Detailed documentation and use instructions are available in the man pages
+and at the
+ <a href="http://www.burningserver.net/rosinski/gptl">GPTL home page</a>.
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>3.5</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi7.2.5</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.2.0</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+</tr>
+
+</table>

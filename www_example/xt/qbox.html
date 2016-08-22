@@ -1,0 +1,67 @@
+<h1>Qbox</h1>
+
+<p> Category: Science Apps-Molecular Dynamics
+
+<h2>Description</h2>
+
+<p><a href=http://eslab.ucdavis.edu/software/qbox/index.htm>Qbox</a> 
+is a C++/MPI scalable parallel implementation of first-principles molecular dynamics (FPMD) based on the plane-wave, pseudopotential formalism. Qbox is designed for operation on large parallel computers.
+
+<p>
+The <a href=http://eslab.ucdavis.edu/software/qbox/QboxUserGuide.pdf>Qbox 
+User Guide</a> describes the main features of the code. 
+
+<p>
+A forum dedicated to questions regarding Qbox installation and use is 
+available at <a href=http://fpmd.ucdavis.edu/qbox-list>QBox forum</a>.
+
+ 
+<h2>Use</h2>
+
+<p> Load the qbox module and run the code in a batch job (on lustre).
+
+<pre>
+cd /lustre/scratch/$USER
+module avail qbox
+module load qbox
+aprun -n number_of_tasks $QBOX input_file > output_file
+</pre>
+
+The input file contains a list of commands that are read and executed by 
+Qbox. The output file created by Qbox is a valid and well formed XML 
+document. It can be used to extract various diagnostic
+information after the run is completed. During a Qbox run, the output 
+file can be used to track the progress of the simulation.
+
+<p>If you want to use the interactive ability of qbox, make sure 
+you are running an interactive batch job in /lustre and then just again
+type "aprun -n 1 qb" or "aprun -n 1 $QBOX".
+
+<h2>Support</h2><p>This package has the following support level : Unsupported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>1.50</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">u</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<th>1.47</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">u</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+
+</table>

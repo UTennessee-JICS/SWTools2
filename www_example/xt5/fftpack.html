@@ -1,0 +1,72 @@
+<h1>FFTPACK</h1>
+
+<p> Category: Libraries-Math-FFT
+
+<h2>Description</h2>
+
+<p> 
+FFTPACK is a Fortran subroutine library of Fast Fourier Transforms (FFT's)
+developed at the National Center for Atmospheric Research. Version 5
+of the library was written by Paul Swarztrauber and Richard Valent in
+the mid 1990's. This release of FFTPACK includes single and multiple
+instance complex-to-complex and real-to-real transforms, two-dimensional
+complex-to-complex and real-to-complex transforms, and a collection of
+sine and cosine transforms.  references
+
+<nl>
+<li> Vectorizing the Fast Fourier Transforms, by Paul Swarztrauber, Parallel Computations, G. Rodrigue, ed., Academic Press, New York 1982.
+
+<li> Fast Fourier Transforms Algorithms for Vector Computers, by Paul Swarztrauber, Parallel Computing, (1984) pp.45-63.
+
+<li> Symmetric FFTs, by P. N. Swarztrauber, Mathematics of Computation 47(1986), pp. 323-346.
+</nl>
+
+
+
+<h2>Use</h2>
+
+<p>
+The <a href="http://www.cisl.ucar.edu/css/software/fftpack5/fftpack5.html">FFTPACK User Guide</a> contains the complete documentation
+for the package.
+
+<p> To use the package, you must load the version with the default data sizes which match your software.
+
+<p>For the 4 byte REAL and 4 byte INTEGER version:
+<pre>
+module load fftpack/5+r4i4
+ftn test.f90"
+</pre>
+<p>For the 8 byte REAL and 4 byte INTEGER version:
+<pre>
+module load fftpack/5+r8i4
+ftn test.f90"
+</pre>
+<p>For the 8 byte REAL and 8 byte INTEGER version:
+<pre>
+module load fftpack/5+r8i8
+ftn test.f90"
+</pre>
+<p> The appropriate library will be automatically added to the ftn link command.
+<p> The FFPACK module must be reloaded if you change the PrgEnv or you must issue a 'module update' command.
+
+<h2>Support</h2><p>This package has the following support level : Unsupported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>pathscale</th>
+	<th>gnu</th>
+	<th>Other</th>
+<tr>
+	<th>5</th>
+	<td><table class="inline"><tr><td class="hidden">pgi8.0.5_r8i4</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi7.2.3_r8i8</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi7.2.3_r4i4</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5_r4i4</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi7.2.3_r8i4</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5_r8i8</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2_r4i4</td><td class="hidden2">v</td></tr><tr><td class="hidden">pathscale3.2_r8i8</td><td class="hidden2">v</td></tr><tr><td class="hidden">pathscale3.2_r8i4</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.2.0_r8i8</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.2.0_r8i4</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.3.2_r8i8</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.3.2_r8i4</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.2.0_r4i4</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.3.2_r4i4</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"></table></td>
+</tr>
+
+</table>

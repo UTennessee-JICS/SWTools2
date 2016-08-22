@@ -1,0 +1,37 @@
+<h1>UPC</h1>
+
+<p> Category: Program Dev-Compilers
+
+<h2>Description</h2>
+
+<p> Cray provides a UPC compiler as one of several programming environments.  The UPC compiler is a translator built with either PGI or GCC.  
+
+<P> XTs have two kinds of nodes, but the UPC compilers only build executables to be run on the compute nodes.  Thus
+
+<ul>
+  <li> You should use the Cray wrappers cc, CC, and ftn
+  <li> The wrappers will call the appropriate UPC compiler which will use the appropriate header files and link against the appropriate libraries.
+</ul>
+
+<p> The Cray wrappers cc, CC, and ftn will automatically link against the appropriate communication libraries and SciLib (-lsci).  See the cc, CC, and ftn man pages for more information on their usage.
+
+<p> To see a man page on the UPC compilers with a full list of compiler options, first make sure either "PrgEnv-upc-pgi" or "PrgEnv-upc-gnu" module is loaded, and then do a man on "upcc".
+
+
+<h2>Use</h2>
+
+<p>It is best to review the upcc man page.
+
+<p>To use the Cray wrappers to the UPC compilers, then either PrgEnv-upc-pgi or PrgEnv-upc-gnu module should be loaded:
+
+<pre>
+  module avail PrgEnv
+  module swap PrgEnv-pgi PrgEnv-upc-gnu        
+</pre>
+
+<p> To run the code, the executable must be launched with "upcrun" inside a batch job.
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+<p>All versions of this software are provided by the system vendor and are not installed by NICS staff.

@@ -1,0 +1,119 @@
+<h1>TAU (Tuning and Analysis Utilities)</h1>
+
+<p> Category:  Tools-Performance-Profiling
+
+<h2>Description</h2>
+
+<p> 
+TAU Performance System is a portable profiling and tracing toolkit for performance analysis of parallel programs written in Fortran, C, C++, Java, Python. 
+</p>
+
+<p>
+For more information visit <a href="http://www.cs.uoregon.edu/research/tau/home.php">TAU home page</a>.
+</p>
+
+<h2>Use</h2>
+
+<p>
+TAU is capable of gathering performance information through
+instrumentation of functions, methods, basic blocks, and statements.
+TAU's profile visualization tool, paraprof, provides graphical
+displays of all the performance analysis results, in
+aggregate and single node/context/thread forms.
+
+</p>
+
+<h3>Using TAU</h3>
+
+<pre>
+  module load tau
+</pre>
+
+This command sets TAUROOT environment variable on NICS platforms and puts the TAU compiler wrappers in your PATH.
+
+Automatic instrumentation when compiling with the C TAU wrapper:
+<pre>
+>  export TAU_MAKEFILE=${TAUROOT}/lib/Makefile.tau-mpi-pdt    # ksh syntax
+>  tau_f90.sh test.f
+
+
+Debug: Parsing with PDT Parser
+Executing> /sw/xt/tau/2.17/cnl2.0+pgi7.0.7/pdtoolkit-3.12//craycnl/bin/f95parse mpi_example8.f
+-I/sw/xt/tau/2.17/cnl2.0+pgi7.0.7/tau-2.17/include -I/opt/xt-mpt/default/mpich2-64/P/include
+
+
+Debug: Instrumenting with TAU
+Executing> /sw/xt/tau/2.17/cnl2.0+pgi7.0.7/tau-2.17/craycnl/bin/tau_instrumentor mpi_example8.pdb mpi_example8.f -o
+mpi_example8.inst.f
+
+
+Debug: Compiling (Individually) with Instrumented Code
+Executing> ftn -I. -c mpi_example8.inst.f -I/sw/xt/tau/2.17/cnl2.0+pgi7.0.7/tau-2.17/include
+-I/opt/xt-mpt/default/mpich2-64/P/include -o mpi_example8.o
+/opt/xt-pe/2.0.33/bin/snos64/ftn: INFO: linux target is being used
+
+
+Debug: Linking (Together) object files
+Executing> ftn mpi_example8.o -L/opt/xt-mpt/default/mpich2-64/P/lib -L/sw/xt/tau/2.17/cnl2.0+pgi7.0.7/tau-2.17/craycnl/lib
+-lTauMpi-mpi-pdt -lrt -lmpichcxx -lmpich -lrt -L/sw/xt/tau/2.17/cnl2.0+pgi7.0.7/tau-2.17/craycnl/lib -ltau-mpi-pdt
+-L/opt/pgi/7.0.7/linux86-64/7.0/bin/../lib -lstd -lC -lpgc -o a.out
+/opt/xt-pe/2.0.33/bin/snos64/ftn: INFO: linux target is being used
+
+
+Debug: cleaning inst file
+Executing> /bin/rm -f mpi_example8.inst.f
+
+
+Debug: cleaning PDB file
+Executing> /bin/rm -f mpi_example8.pdb
+
+> aprun -n 4 ./a.out
+
+> ls prof*
+profile.0.0.0  profile.1.0.0  profile.2.0.0  profile.3.0.0
+</pre>
+
+If you want to visualize the profile, then do this:
+
+<pre>
+> module load java-jre
+> module load tau   #if not loaded
+> paraprof 
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>2.18.1</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">u</td></tr><tr><td class="hidden">pgi7.2.5</td><td class="hidden2">u</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.2</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.2.0</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+</tr>
+<tr>
+	<th>2.18.2</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.6</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.3</td><td class="hidden2">?</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2</td><td class="hidden2">?</td></tr></table></td>
+	<td></td>
+</tr>
+<tr>
+	<th>2.19</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.3</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+
+</table>

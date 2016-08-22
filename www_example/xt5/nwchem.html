@@ -1,0 +1,49 @@
+<h1>NWChem</h1>
+
+<p> Category: Science Apps-Chemistry 
+
+<h2>Description</h2>
+
+<p>NWChem is a computational chemistry package that is designed to run on high-performance parallel supercomputers as well as conventional workstation clusters. It aims to be scalable both in its ability to treat large problems efficiently, and in its usage of available parallel computing resources. NWChem has been developed by the Molecular Sciences Software group of the Environmental Molecular Sciences Laboratory (EMSL) at the Pacific Northwest National Laboratory (PNNL). Most of the implementation has been funded by the EMSL Construction Project. <a href="http://www.emsl.pnl.gov/docs/nwchem/nwchem.html">See the NWChem Home Page</a>. 
+
+ 
+<h2>Use</h2>
+
+<p> In order to use NWChem you must point the binary toward the location for the basis set library.
+This is done with the environmental variable $NWCHEM_BASIS_LIBRARY.
+These are located at $NWCHEM_TOP/data.  These files need to be copied to a central location in the Lustre filesysem.  
+
+<p> Environmental variable (in bash) which points to the location of the basis set library files which is in $PATH_TO_DIRECTORY.
+
+<pre>
+export NWCHEM_BASIS_LIBRARY=$PATH_TO_DIRECTORY
+</pre>
+
+<pre>
+module load nwchem
+
+aprun -n [number of cores] -N [number of cores per node] nwchem [input file] > [output file]
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>pathscale</th>
+	<th>gnu</th>
+	<th>Other</th>
+<tr>
+	<th>5.1</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.5</td><td class="hidden2">u</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+
+</table>

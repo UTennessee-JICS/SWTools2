@@ -1,0 +1,55 @@
+<h1>MPE2</h1>
+
+<p> Category: Tools-Performance
+
+<h2>Description</h2>
+
+<p>  MPE is a software package for MPI (Message Passing Interface) programmers. The package provides users with a number of useful tools for their MPI programs. The
+latest version is called MPE2. Current available tools under MPE2 are the following:
+<ol>
+<li>A set of profiling libraries to collect information about the behavior of MPI programs. Linking the user MPI program with the libraries will generate logfile for
+postmortem visualization when the user program is executed.
+<li>Convenient compiler wrapper, mpecc and mpefc, are provided to compile/link with the related profiled libraries, e.g. "mpecc -mpilog" enables automatic MPI and
+user-defined MPE logging, "mpecc -mpicheck" enables collective and datatype checking of the user MPI program, and "mpecc -help" shows available options.
+<li>A SLOG-2 viewer, Jumpshot, for the various logfiles.
+<li>A set of CLOG-2 and SLOG-2 utilities programs.
+<li>An MPI collective and datatype checking library.
+<li>A shared-display parallel X graphics library.
+<li>A profiling wrapper generator for MPI interface.
+<li>Routines for sequentializing a section of code being executed in parallel.
+<li>Debugger setup routines.
+</ol>
+The document that is distributed with old MPE, <a href="http://www-unix.mcs.anl.gov/mpi/mpich1/docs/mpeman/mpeman.htm">User's Guide for MPE</a>, is a bit out-of-date, but still contains useful information.
+
+<h2>Use</h2>
+
+<p> Load the mpe2 module.
+
+<pre>
+ module avail mpe2
+ module load mpe2
+ mpecc -help
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Unsupported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>pathscale</th>
+	<th>gnu</th>
+	<th>Other</th>
+<tr>
+	<th>1.0.6</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.3</td><td class="hidden2">u</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2</td><td class="hidden2">u</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.2.0</td><td class="hidden2">u</td></tr></table></td>
+	<td><table class="inline"></table></td>
+</tr>
+
+</table>

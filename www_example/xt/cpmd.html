@@ -1,0 +1,140 @@
+<h1>CPMD</h1>
+
+<p> Category: Science Apps-Molecular Dynamics
+
+<h2>Description</h2>
+
+<p> The CPMD code is a plane wave/pseudopotential implementation of Density Functional Theory, particularly designed for ab-initio molecular dynamics. Its first
+version was developed by Jurg Hutter at IBM Zurich Research Laboratory starting from the original Car-Parrinello codes. During the years many people from diverse
+organizations contributed to the development of the code and of its pseudopotential library:
+
+ <li> Michele Parrinello, Jurg Hutter, D. Marx, P. Focher, M. Tuckerman, W. Andreoni, A. Curioni, E. Fois, U. Roetlisberger, P. Giannozzi, T. Deutsch, A. Alavi, D.
+Sebastiani, A. Laio, J. VandeVondele, A. Seitsonen, S. Billeter and others.
+
+<p> The current version, 3.13, is copyrighted jointly by IBM Corp and by Max Planck Institute, Stuttgart, and is distributed free of charge to non-profit organizations (
+see download ). 
+
+<p> CPMD runs on many different computer architectures and it is well parallelized (MPI and Mixed MPI/SMP).
+
+<p>CPMD main characteristics
+<ul>
+<li>works with norm conserving or ultrasoft pseudopotentials
+<li>LDA, LSD and the most popular gradient correction schemes; free energy density functional implementation
+<li>isolated systems and system with periodic boundary conditions; k-points
+<li>molecular and crystal symmetry
+<li>wavefunction optimization: direct minimization and diagonalization
+<li>geometry optimization: local optimization and simulated annealing
+<li>molecular dynamics: constant energy, constant temperature and constant pressure
+<li>path integral MD
+<li>response functions
+<li>excited states
+<li>many electronic properties
+<li>time-dependent DFT (excitations, molecular dynamics in excited states)
+<li>coarse-grained non-Markovian metadynamics
+</ul> 
+
+<p>
+If you want to know more about the CPMD capabilities please check the <a href="http://www.cpmd.org/cpmd_on_line_manual.html">on-line manual</a>.
+
+
+
+<h2> CPMD free-licence </h2>
+<pre>  
+This is the CPMD download page. Non Profit organization can download the code upon the acceptance of the following licence agreement. If you are part of a profit organization or you would like to use the code for benchmarking purposes please contact cur@zurich.ibm.com. 
+Early Release Software Program License Agreement For CPMD Version 3.13
+ 
+PLEASE READ THIS AGREEMENT CAREFULLY. WE ARE WILLING TO LICENSE THE PROGRAM TO YOU ONLY ON CONDITION THAT YOU ACCEPT ALL OF THE TERMS CONTAINED IN THIS AGREEMENT. BY CLICKING THE ICON LABELED "I ACCEPT" THAT IS DISPLAYED BELOW, YOU AGREE TO BE BOUND BY THIS AGREEMENT. IF YOU DO NOT AGREE TO THE TERMS OF THIS AGREEMENT, YOU MAY NOT INSTALL OR USE THE PROGRAM. 
+This is a license and not a sale. The Program copyright continues to be owned by International Business Machines Corporation U.S. and the Max-Planck-Institut fur Festkorperforschung, Stuttgart, Germany. Your rights to use the Program are specified in this Agreement. Nothing in this Agreement constitutes a waiver of IBM's rights under U.S. or international copyright law or any other law.
+The authors of the Program include Professor Michele Parrinello.
+The Program has not undergone complete testing and may contain errors. It may not function properly and is subject to change or withdrawal at any time. No support or maintenance is provided with the Program. 
+The Program is made available without charge in the experimental stage in order to allow you to evaluate the Program in its developmental stage. IBM encourages your feedback and suggestions. 
+ 
+1. Definitions 
+The term "Program" means the Car Parrinello Molecular Dynamics Version 3.13 program furnished to you by IBM under this Agreement, and all whole or partial copies of it, in source and/or object code form. A program consists of machine-readable instructions, its components, data, audiovisual content (such as images, text, recordings, or pictures), and any related documentation.
+The term "Feedback" means Improvements and any ideas, concepts, know-how, techniques, and data pertaining to the Program and Improvements disclosed by you to IBM. 
+The term "Improvements" means any literary works or other works of authorship in any form (such as programs, program listings, programming tools, documentation, reports, drawings, test scenarios, and results) which are created by you and which are derivative works of the Program.
+The term "Early Release" means that the Program is not formally released or generally available. The term does not imply that the Program will be formally released or made generally available. IBM does not guarantee that any program formally released or made generally available will be similar to, or compatible with, Early Release versions. 
+ 
+2. Term and Termination 
+The term of your license will begin on the date you accept this Agreement and expire 10 years later unless terminated earlier. 
+You may terminate your license to the Program early by written notice to IBM. 
+IBM may immediately terminate your license if you fail to comply with the terms of this Agreement. 
+If your license is terminated, you must return to IBM or destroy all copies of the Program in your possession and notify IBM in writing that you have done so.
+IBM may withdraw or change the Program at any time. 
+ 
+3. License Grant 
+Subject to the terms and conditions of this Agreement, IBM grants you anon-exclusive, worldwide, revocable, and nontransferable, license to use the Program only for internal noncommercial research purposes within an educational institution ; to make and install a reasonable number of copies of the Program in support of such use, unless IBM identifies a specific number of copies in documentation accompanying the Program; to make derivative works from the Program; and, to do any of the foregoing with respect to any Improvements.
+You must reproduce the copyright notice and any other legends of ownership on each copy, or partial copy, of the Program.
+You may publish experimental results obtained by execution of the Program, provided that no part of the Program is thereby disclosed. Any such publication must include the following reference to the Program: 
+"CPMD V3.13 Copyright IBM Corp 1990-2008, Copyright MPI fuer Festkoerperforschung Stuttgart 1997-2001".
+You will maintain a record of all copies made of the Program and ensure that anyone who uses the Program does so only for your authorized use and in compliance with the terms of this Agreement. 
+You may not: use, copy, modify, or distribute the Program except as provided in this Agreement; sublicense, rent, or lease the Program; make the Program or any part of it available in any form whatsoever to a third party; or, use the Program in any collaboration with a commercial entity. 
+ 
+4. Improvements 
+You will own the Improvements subject to IBM's copyright interests in the underlying Program. Your right to use, execute, display, reproduce, perform, copy, distribute, and prepare derivative works from any Improvements is subject to your license to the Program, except that you retain the right to use any part of the Improvements which are original to you.  
+5. Feedback 
+You grant to IBM the irrevocable and unrestricted right to use and disclose Feedback for any purpose.
+You waive all moral rights subsisting in Feedback. 
+ 
+6. No Warranty 
+IBM licenses the Program to you on an "as is" basis, without warranty of any kind. IBM hereby expressly disclaims all warranties or conditions, either express or implied, including, but not limited to, THE WARRANTY OF NON-INFRINGEMENT and the implied warranties or conditions of merchantability and fitness for a particular purpose. You are solely responsible for determining the appropriateness of using this Program and assume all risks associated with the use of this Program, including but not limited to the risks of program errors, damage to or loss of data, programs or equipment, and unavailability or interruption of operations.  
+7. Limitation of Liability 
+IBM will not be liable for any direct damages or for any special, incidental, or indirect damages or for any economic consequential damages (including lost profits or savings), even if IBM has been advised of the possibility of such damages. IBM will not be liable for the loss of, or damage to, your records or data, or any damages claimed by you based on a third party claim. 
+8. General 
+Except as explicitly provided herein, this Agreement does not grant you any licenses from IBM, either directly or indirectly, by implication, estoppel or otherwise, under any patent, copyright or other intellectual property right of IBM.
+You may not export the Program.
+This Agreement does not create a joint venture, partnership, employment relationship or other agency relationship between you and IBM.
+All terms and conditions, which by their nature should survive the termination of this Agreement, shall survive. If any provision of this Agreement is declared unenforceable at law, in whole or in part, the rest of the provisions of the Agreement shall remain in effect.
+You may not assign, or otherwise transfer, your rights or delegate your duties or obligations under this Agreement without prior written consent of IBM. Any attempt to do so is void.
+This Agreement is governed by the laws of the State of New York. Any proceedings to resolve disputes relating to this Agreement will be brought in New York if there is jurisdiction. The right to trial by jury in any matter which arises under this Agreement is expressly waived. 
+This Agreement is the complete agreement regarding the use of the Program, and replaces any prior oral or written communications between you and IBM. 
+</pre>  
+ 
+
+
+<h2>Use</h2>
+
+<pre>
+> module avail cpmd
+> module help cpmd     
+
+----------- Module Specific Help for 'cpmd/3.13.1' ----------------
+
+Please note CPMD license and usage information at http://www.cpmd.org/cpmd_licence.html
+Sets up PATH to use cpmd (cpmd-3.13.1)
+Usage: $which cpmd.x will show the location of the executable
+
+> module load cpmd
+> which cpmd.x
+cpmd.x is /sw/xt5/cpmd/3.13.1/cnl2.1_pgi7.2.3/bin
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Unsupported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>3.13.1</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<th>3.13.2</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+
+</table>

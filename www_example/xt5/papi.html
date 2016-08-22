@@ -1,0 +1,26 @@
+<h1>PAPI</h1>
+
+<p> Category: Tools-Performance
+
+<h2>Description</h2>
+
+<p> The Performance API (PAPI) project specifies a standard application programming interface (API) for accessing hardware performance counters available on most modern microprocessors. These counters exist as a small set of registers that count Events, occurrences of specific signals related to the processor's function. Monitoring these events facilitates correlation between the structure of source/object code and the efficiency of the mapping of that code to the underlying architecture. This correlation has a variety of uses in performance analysis including hand tuning, compiler optimization, debugging, benchmarking, monitoring and performance modeling. 
+
+<P> PAPI provides two interfaces to the underlying counter hardware; a simple, high level interface for the acquisition of simple measurements and a fully programmable, low level interface directed towards users with more sophisticated needs. The low level PAPI interface deals with hardware events in groups called EventSets. EventSets reflect how the counters are most frequently used, such as taking simultaneous measurements of different hardware events and relating them to one another
+
+
+<h2>Use</h2>
+
+<p> PAPI is provided by Cray on the XT series in modules.  A "module avail xt-papi" will show all the available PAPI modules and their versions for the XT.  A "man papi" or "man intro_papi" will provide some online documentation, however, the "man" command should come after the "module load xt-papi" to get the manpage with the latest API information.
+
+
+<pre>
+  module avail xt-papi
+  module load xt-papi
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+<p>All versions of this software are provided by the system vendor and are not installed by NICS staff.

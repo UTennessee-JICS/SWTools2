@@ -1,0 +1,31 @@
+# Please replace the @xxxxx@ items below with the requested information.
+# Lines beginning with '#' will be removed before the log entry is recorded.
+# If any '@'s are left in the file after your edit, you will be prompted to
+# select one of "continue editing", "abort the log", or "send the message".
+# If you'd rather use the dialog format, exit the editor, abort this entry,
+# and run 'swlog -d'.
+# ---------------------------------------------------------------------------
+Installer:                              @installer name@
+Application:                            @application name@
+Version:                                @version@
+Machine(s):                             @machine: xt, xt5, bgp, ...@
+Compilers:                              @compiler@
+Build Options:                          @build options (if any), or 'none'@
+Verified (Tests passed)?                @yes or no@
+If not, what fails?
+   @description of failing tests and why they cannot be fixed@
+
+Passes Conformance checks?              @yes or no@
+If not, what fails and why can it not be fixed?
+   @description of failing conformance conditions and why fix infeasible@
+
+Description updated                     @yes or no@?
+Modulefile name?                        @path of modulefile@
+Was this install/update in response to a user request or was it just
+   time to update?
+
+   @'time for update' or the name of requestor and RT ticket if available@
+
+Are there any restrictions on using this application/version/build?
+
+   @restrictions@

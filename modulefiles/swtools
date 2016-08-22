@@ -1,0 +1,14 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr "Sets up environment to use swtools"
+  }
+
+set sys [ uname machine ]
+
+set apppath /nics/e/sw/tools/bin
+
+prepend-path PYTHONPATH       $apppath
+prepend-path PATH             $apppath
+
+

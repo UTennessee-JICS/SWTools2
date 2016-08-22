@@ -1,0 +1,85 @@
+<h1>NetCDF</h1>
+
+<p>Category: Libraries-IO
+
+<h2>Description</h2>
+
+
+<p>Network Common Data Form (NetCDF) is an interface for array-oriented data access and a library that provides an implementation of the interface. 
+
+<p>More information is available at the <a href="http://my.unidata.ucar.edu/content/software/netcdf/index.html">NetCDF Unidata Homepage</a>.
+
+<h2>Use</h2>
+
+<p>netcdf is available as a module.  
+Cray provides netcdf builds as well as NICS.  The Cray compiler wrappers 
+will automatically attempt to link to the Cray built netcdf libraries 
+if a Cray netcdf modulefile is loaded.  
+
+<p>Note: The Cray wrappers automatically 
+link against the netcdf libraries when an environment variable is set
+(currently, NETCDF_DIR) and will "process" the path in this environment 
+variable.  If you don't want to have the Cray netcdf libraries linked
+against automatically (even if the module is not loaded), make sure
+this environment variable is not set.
+
+<p>On the other hand, if a NICS-built netcdf module is loaded (from /sw), 
+then the following examples can be used as reference to compile and link 
+your program (example.f90) to the netcdf libraries. 
+
+<pre>
+
+FORTRAN 
+  ftn example.f90 ${NETCDF_FLIB}
+
+The environment variables given above are set in the module file - they are locally defined.  
+
+C 
+  cc -o example.x example.c ${NETCDF_CLIB}
+
+Note the difference between NETCDF_FLIB and NETCDF_CLIB for Fortran and C, respectively.
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>4.0.1</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi9.0.1_par</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.3</td><td class="hidden2">u</td></tr><tr><td class="hidden">gnu4.3.3_par</td><td class="hidden2">u</td></tr></table></td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<th>3.6.2</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.3</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.2</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.1.2_shared</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.2.0</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+</tr>
+<tr>
+	<th>4.0.0</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.3</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi7.2.3_par</td><td class="hidden2">u</td></tr><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5_par</td><td class="hidden2">u</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi9.0.1_par</td><td class="hidden2">u</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.2_par</td><td class="hidden2">u</td></tr><tr><td class="hidden">gnu4.3.2</td><td class="hidden2">u</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2_par</td><td class="hidden2">u</td></tr><tr><td class="hidden">pathscale3.2</td><td class="hidden2">u</td></tr></table></td>
+	<td></td>
+</tr>
+<tr>
+	<th>3.6.3</th>
+	<td><table class="inline"><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.3</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.1.2_shared</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+</tr>
+
+</table>

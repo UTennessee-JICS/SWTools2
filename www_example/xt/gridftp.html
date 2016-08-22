@@ -1,0 +1,179 @@
+<h1>GridFTP</h1>
+
+<p> Category: Program Dev-Data Movement
+
+<h2>Description</h2>
+
+<p> 
+GridFTP is a high-performance, secure, reliable data transfer protocol
+optimized for high-bandwidth wide-area networks. It is based upon the Internet
+FTP protocol, and it implements extensions for high-performance operation.
+
+<p>
+GridFTP uses basic Grid security on both control (command) and data channels.
+Other features include multiple data channels for parallel transfers, partial
+file transfers, third-party (direct server-to-server) transfers, reusable data
+channels, and command pipelining.
+
+<h2>Use</h2>
+
+<p> 
+To use GridFTP, you must have a "certificate".  We first show how you use
+GridFTP assuming you have a certificate.  Then we show how to obtain 
+certificates.
+
+<h4>Using Gridftp</h4>
+<p>The client that NICS supports for 
+<a href="http://www.globus.org/toolkit/docs/development/4.1.1/data/gridftp/globus-url-copy.html">GridFTP
+</a> is globus-url-copy.  The URL for the NICS GridFTP is
+gridftp.nics.teragrid.org. A listing of other GridFTP servers around the
+teragrid can be found 
+<a href="http://teragrid.org/userinfo/data/transfer_location.php">here</a>.</p>
+
+<p>For example, to copy everything in Joe's directory on a Lustre file system
+to the corresponding directory on the XT5, use the following command:</p>
+
+<pre> % globus-url-copy -r \
+    gsiftp://gridftp-co.ncsa.teragrid.org:2811/joe/ \
+    gsiftp://gridftp.nics.teragrid.org/lustre/scratch/joe/</pre>
+
+<p>Note that the tailing forward slashes are required for directories.  If the
+<code>-r</code> (recursive) is omitted and a directory is being transferred,
+the files in that directory will be transferred, but not the files in
+subdirectories.</p>
+
+<p>You may also use GridFTP via <code>uberftp</code>, either one-liners or
+interactively.  The syntax of <code>uberftp</code> is very similar to
+<code>sftp</code>.</p>
+
+
+<h3>Get a certificate</h3>
+<p>Certificates can be handled locally or remotely.  For one-time use, it is
+generally easier to use the myproxy server method, however, if you are
+routinely signing in from the same computer, it is probably worthwhile to set
+up a local grid certificate.</p>
+
+<h4>Using the MyProxy Server ("Remote Method")</h4>
+<p>First, make sure the Globus toolkit is in your path (to check, try <code>which myproxy-init</code>).  On Kraken, you must load the Globus module:</p>
+
+<pre>
+ kraken> module load globus
+</pre>
+
+<p>
+Other sites may have it loaded by default, or by a different mechanism.  Now
+you can get a proxy certificate from the main myproxy server:</p>
+
+<pre>
+ kraken> myproxy-logon [-l <em>TG_Portal_Username</em>]
+Enter MyProxy pass phrase: 
+A credential has been received for user userjd in /tmp/x509up_u000.
+</pre>
+
+<p>By default, <code>myproxy-logon</code> uses your current username.  You must
+specify your TeraGrid Portal username if it is different.  For your pass
+phrase, enter your TeraGrid Portal password.  This credential is only valid for
+12 hours by default, though this may be lowered with the <code>-t</code>
+flag.</p>
+
+<h4>Using a Local Grid Certificate ("Local Method")</h4>
+
+<strong>Getting the Grid Certificate: Once a Year</strong>
+<p>This method requires that you create a Grid Certificate.  This may be used to create proxy certificates, and is valid for a year.</p><p>
+
+<pre>userjd@local:~> ssh <em>userjd</em>@tg-login.ncsa.teragrid.org
+[...]
+userjd@ncsa:~> ncsa-cert-request
+To continue, please enter the NCSA Kerberos password for userjd: 
+For increased security, your NCSA default password is also needed.
+To continue, please enter the NCSA default password for userjd: 
+[...]
+Please enter your private key encryption passphrase: 
+Verifying private key passphrase, please reenter passphrase: </pre>
+
+<p>Your "NCSA default password" is as it appears on the password sheet you
+received when first receiving a TeraGrid account&mdash;this also had your
+initial Portal password.  When you set your "private key encryption
+passphrase," note that it must be at least 12 characters.</p><p>
+
+<p>You should now have a <code>.globus</code> folder with your grid
+certificate.  You need to put this on the machine you wish to log in from,
+Kraken in this instance.  This machine must have Grid capabilities.</p>
+
+<pre>userjd@ncsa:~> scp -r \
+~/.globus <em>userjd</em>@kraken-pwd.nics.teragrid.org:~/.globus</pre>
+
+<strong>Creating the Proxy Certificate: Every Time</strong>
+<p>Now log in to the machine you wish to log in from.  Make sure the Globus
+tools are in the path, and enter the following:</p>
+
+<pre>userjd@some:~> grid-proxy-init
+Your identity: [...]
+Enter GRID pass phrase for this identity:
+Creating proxy ............................. Done
+Your proxy is valid until: [...]</pre>
+
+<p>Enter the 12+ character passphrase you chose when creating the cert, and you
+should be good to connect to TeraGrid sites without further passwords for the
+duration of the proxy. </p>
+
+<h3>Using the Globus Utilities</h3>
+<h4>Managing Certificates</h4>
+<p>Proxy certificates are usually valid for 12 hours.  If you finish early, it
+is a good practice to remove the proxy certificate using
+<code>grid-proxy-destroy</code>.  To check a proxy certificate, use
+<code>grid-proxy-info</code>, or to check a grid certificate, use
+<code>grid-cert-info</code>.  In general, <code>myproxy-*</code> commands
+communicate with the myproxy server, <code>grid-proxy-*</code> commands deal
+with your proxy certificate, and <code>grid-cert-*</code> commands deal with
+your local grid certificate. </p>
+
+<h4>GSISSH</h4>
+<p>This is OpenSSH, which has been modified to use the security described
+above.  If <code>grid-proxy-info</code> shows that you have a proxy, you should
+be able to connect to any <code>gsissh</code>-enabled machine.  Note that not
+every target supports <code>gsissh</code>: <code>kraken-pwd</code>
+(<code>tg-login-pwd</code>) does support it, but <code>kraken</code>,
+<code>login</code>, and <code>verne</code> at NICS only accept OTP
+authentication.  If GSI authentication fails, <code>gsissh</code> will default
+to standard keyboard-interactive.</p> 
+<pre>
+  ncsa> gsissh kraken-pwd.nics.teragrid.org
+</pre>
+
+<p>It is not necessary to specify a username, your proxy identity is
+automatically mapped to the username on the machine you are trying to
+access.</p>
+
+<h4>Using Gridftp</h4>
+
+<p>You now have the required proxy certificate and can use GridFTP.  The client
+that NICS supports for <a
+href="http://www.globus.org/toolkit/docs/development/4.1.1/data/gridftp/globus-url-copy.html">GridFTP
+</a> is globus-url-copy.  The URL for the NICS GridFTP is
+gridftp.nics.teragrid.org. A listing of other GridFTP servers around the
+teragrid can be found <a
+href="http://teragrid.org/userinfo/data/transfer_location.php">here</a>.</p>
+
+<p>For example, to copy everything in Joe's directory on a Lustre file system
+to the corresponding directory on the XT5, use the following command:</p>
+
+<pre> % globus-url-copy -r \
+    gsiftp://gridftp-co.ncsa.teragrid.org:2811/joe/ \
+    gsiftp://gridftp.nics.teragrid.org/lustre/scratch/joe/</pre>
+
+<p>Note that the tailing forward slashes are required for directories.  If the
+<code>-r</code> (recursive) is omitted and a directory is being transferred,
+the files in that directory will be transferred, but not the files in
+subdirectories.</p>
+
+<p>You may also use GridFTP via <code>uberftp</code>, either one-liners or
+interactively.  The syntax of <code>uberftp</code> is very similar to
+<code>sftp</code>.</p>
+
+</p>
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+<p>All versions of this software are provided by the system vendor and are not installed by NICS staff.

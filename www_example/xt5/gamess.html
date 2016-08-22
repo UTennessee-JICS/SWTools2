@@ -1,0 +1,46 @@
+<h1>GAMESS</h1>
+
+<p> Category: Science Apps-Chemistry
+
+<h2>Description</h2>
+
+<p> The General Atomic and Molecular Electronic Structure System (GAMESS) is a general ab initio quantum chemistry package.  Briefly, GAMESS can compute SCF wavefunctions ranging from RHF, ROHF, UHF, GVB, and MCSCF. Correlation corrections to these SCF wavefunctions include Configuration Interaction, second order perturbation Theory, and Coupled-Cluster approaches, as well as the Density Functional Theory approximation. Nuclear gradients are available, for automatic geometry optimization, transition state searches, or reaction path following. Computation of the energy hessian permits prediction of vibrational frequencies, with IR or Raman intensities. Solvent effects may be modeled by the discrete Effective Fragment potentials, or continuum models such as the polarizable Continuum Model. Numerous relativistic computations are available, including third order Douglas-Kroll scalar corrections, and various spin-orbit coupling options. The Fragment Molecular Orbital method permits use of many of these sophisticated treatments to be used on very large systems, by dividing the computation into small fragments. Nuclear wavefunctions can also be computed, in VSCF, or with explicit treatment of nuclear orbitals by the NEO code.
+
+<p> A variety of molecular properties, ranging from simple dipole moments to frequency dependent hyperpolarizabilities may be computed. Many basis sets are stored internally, together with effective core potentials or model core potentials, so that essentially the entire periodic table can be considered.
+
+<h2>Use</h2>
+
+One way to use the GAMESS as provided by NICS is to load the gamess module and then use the "qgms" script to submit a batch job.
+
+<pre>
+module avail gamess
+module load gamess
+qgms <inputfile>.inp
+</pre>
+
+<p> When the gamess module is loaded, the PATH has been updated to
+include qgms, rungms, and gamess.00.x.  We assume you know how to use
+gamess.
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>pathscale</th>
+	<th>gnu</th>
+	<th>Other</th>
+<tr>
+	<th>2008Mar04</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.3_quadcore</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+
+</table>

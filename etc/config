@@ -1,0 +1,34 @@
+# map the machine's hostname to the directory in swtree
+[machines]
+or-condo-login = cs400
+
+[locations]
+sw_root     = /software/dev_tools/swtree
+templates   = /software/dev_tools/swtools2/templates
+log         = /software/dev_tools/swtools2/logs
+workdir_env = SW_WORKDIR
+
+
+# Define the octal permissions for SWTools file, most likely these need not
+# changing
+
+# list the template files for package and build directory with their default
+# (octal) permissions
+[package_templates]
+support     = 0664
+description = 0664
+versions    = 0664
+.exceptions = 0644
+
+[build_templates]
+remodule    = 0664
+relink      = 0774
+rebuild     = 0774
+retest      = 0774
+status      = 0664
+build-notes = 0664
+
+[permissions]
+_BUILDDIR   = 0775
+_APPDIR     = 0775
+UMASK       = 0002

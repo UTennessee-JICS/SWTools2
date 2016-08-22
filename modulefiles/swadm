@@ -1,0 +1,18 @@
+#%Module
+
+proc ModulesHelp { } {
+    puts stderr "Sets up environment to use swadm 0.1"
+  }
+
+  set apppath /sw/tools/bin
+
+  set sys [ uname machine ]
+  if { $sys == "x86_64" } {
+
+    prepend-path PYTHONPATH       $apppath
+    prepend-path PATH             $apppath
+
+  } else {
+    puts stderr "Module can not be loaded on this system. It is the wrong system."
+  } 
+

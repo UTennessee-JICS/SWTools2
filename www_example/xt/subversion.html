@@ -1,0 +1,80 @@
+<h1>Subversion</h1>
+
+<p> Category: Program Dev-Revision Control
+
+<h2>Description</h2>
+
+<p> Subversion is a version control system designed as a replacement for CVS.  For more information on subversion, see the 
+<a href="http://subversion.tigris.org">official page</a> or view the <a href="http://svnbook.red-bean.com">Subversion Book</a>.  
+When using Subversion, you check out a 'working copy' from a repository and edit the working copy.  These changes are saved to 
+the repository when a 'commit' operation is run (see below).
+
+
+<h2>Use</h2>
+
+<p> To use subversion, one must first load the subversion module.
+
+<pre>
+  module avail subversion
+  module load subversion
+</pre>
+
+<p> Subversion contains several major commands.  They include:<br />
+<pre>
+svn - The main command line client<br />
+svnadmin - Create and maintain repositories<br />
+svnlook - Diagnostic tool to examine (but not change) attributes of a repository<br />
+svnsync - Remote repository mirroring tool
+</pre>
+</p>
+
+
+<p> The most commonly used command is 'svn'.  It supports several subcommands.  These are fully documented in the Subversion Book 
+(URL is above), but several commonly used subcommands are:<br />
+<pre>
+svn add - Specifies files to be added to the repository (but doesn't actually add them)
+svn checkout - Checks out a working copy from the repository
+svn commit - Actually send changes to the repository (changed files, added files, deleted files, etc.)
+svn delete - Deletes items from the local working copy or from the repository
+svn diff - Perform a 'diff' operation between the repository version and the working copy of a file
+svn log - Shows log messages
+svn revert - Undo any changes to the local copy and/or undo scheduling operation (svn add, svn delete).  Changes cannot be undone after they are committed.
+svn status - Show the status of the working copy (including modified files, files to be added, etc.)
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>1.5.0</th>
+	<td></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.1.2</td><td class="hidden2">u</td></tr></table></td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<th>1.4.6</th>
+	<td></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.2</td><td class="hidden2">u</td></tr></table></td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<th>1.6.3</th>
+	<td></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.3</td><td class="hidden2">u</td></tr><tr><td class="hidden">gnu4.1.2</td><td class="hidden2">?</td></tr></table></td>
+	<td></td>
+	<td></td>
+</tr>
+
+</table>

@@ -1,0 +1,60 @@
+<h1>Totalview</h1>
+
+<p> Category: Tools-Debugger
+
+<h2>Description</h2>
+
+<p>The TotalView debugger is a tool that lets you debug, analyze, and tune the performance of complex serial, multiprocessor, and multithreaded programs.  It can be executed either as a GUI (by using the <code>totalview</code> executable) or from a command-line interface (by using the <code>totalviewcli</code> executable).</p>
+
+<p>Since the TotalView GUI is an X-Window application, your system must be set up to allow and run X11 traffic.  It is best to tunnel the X11 traffic through the SSH connection.  To do this, your SSH connection needs to allow X11 forwarding.  This can be accomplished by adding the line <code>ForwardX11 yes</code> to your SSH config file or by using the <code>-X</code> option to SSH.
+
+
+<h2>Use</h2>
+
+<p>Load an appropriate TotalView module.  For example,
+<pre>module load totalview</pre></p>
+
+<p>TotalView can be used in a number of ways.  To debug an existing core file (and not a currently running parallel process), you can launch TotalView with the command:
+<pre>totalview a.out core</pre></p>
+
+<p>If you want to use TotalView to start your job and monitor it as it runs, you must take some additional steps. Because parallel jobs cannot be launched directly from the login nodes, you will need to launch TotalView from within a batch job. The easiest way to do this is to start an interactive batch job as follows:
+<pre>qsub -I -lsize=32,walltime=1:00:00 -A ABC123 -V -qdebug</pre>
+Make sure to use <code>-V</code> as an option to <code>qsub</code> because it will import your current environment (including the <code>DISPLAY</code> variable for the X-Window connection).</p>
+
+<p>Once your job starts, you can launch TotalView from the command line.  The following example starts TotalView on 32 compute cores:
+<pre>totalview aprun -a -n32 ./a.out</pre></p>
+
+<p>It is also possible to connect to an already-running job.  To do this, you need to:
+<ul>
+<li>Determine the job's aprun node using <code>qstat -f &lt;jobid&gt;|grep exec_host</li>
+<li>Log into that node (using <code>ssh -X yod##</code>)</li>
+<li>From that node, start TotalView and connect to the <code>aprun</code> process.</li>
+</ul>
+</p>
+
+
+
+<p>For more information, see the <a href="http://www.totalviewtech.com/Documentation/alltvdocs.htm">documentation</a> on the TotalView Technologies website.
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>8.6.0-1</th>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td><table class="inline"><tr><td class="hidden">binary</td><td class="hidden2">v</td><tr></table></td>
+</tr>
+
+</table>

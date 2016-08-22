@@ -1,0 +1,65 @@
+<h1>AMBER</h1>
+
+<p> Category: Science Apps-Molecular Dynamics 
+
+<h2>Description</h2>
+
+<p> Amber is the collective name for a suite of programs that allow users to carry out molecular 
+dynamics simulations, particularly on biomolecules. None of the individual programs carries 
+this name, but the various parts work reasonably well together, and provide a powerful framework 
+for many common calculations. [3, 4] The term amber is also sometimes used to refer to 
+the empirical force fields that are implemented here. It should be recognized however, 
+that the code and force field are separate: several other computer packages have implemented 
+the amber force fields, and other force fields can be implemented with the amber programs. 
+Further, the force fields are in the public domain, whereas the codes are distributed under a 
+license agreement. 
+
+<p> The Amber software suite is now divided into two parts: AmberTools, a collection of freely 
+available programs mostly under the GPL license, and Amber10, which is centered around the 
+sander and pmemd simulation programs, and which continues to be licensed as before, under a 
+more restrictive license.  
+
+<h2>Use</h2>
+
+<p> Access to the Amber package is provided through the amber module.  This module sets up environmental variables which point to these locations and updates the required paths.  All binaries except for sander and pmemd can be run on service nodes.  These may be used on login nodes and within batch scripts.  The sander and pmemd executables must be run on the compute nodes via aprun. 
+
+<pre>
+module load amber
+qsub [PBS Script]
+</pre>
+
+<p> Within the PBS script, all binaries except sander and pmemd can be run as usual.  The sander and pmemd binaries must be run on the compute nodes via aprun.
+
+</pre>
+aprun -n [number of cores] -N [cores per node] (sander* || pmemd) [program options]
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>9</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">?</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">?</td></tr><tr><td class="hidden">pgi7.2.5</td><td class="hidden2">?</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<th>10</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi7.2.5</td><td class="hidden2">?</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+
+</table>

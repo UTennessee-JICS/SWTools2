@@ -1,0 +1,44 @@
+#%Module
+#@APPLICATION@ apps
+
+set desc	"This modulefile sets up environment to use @APPLICATION@."
+set whatis	"@APPLICATION@ is (give a one line description of this app)"
+set onload	"(Message when module is loaded; may also be blank string)"
+
+#-- Replace string in @--@ as appropriate. This will be used to construct 
+#   the path to the installation dir
+
+set arch	xc30
+set app 	@APPLICATION@ 
+set ver 	@VERSION@
+set build	@BUILD@
+
+#------------------------------------------------
+
+proc ModulesHelp { } {
+  global desc whatis
+  puts stderr "$desc"
+  puts stderr "$whatis"
+}
+
+module-whatis $whatis
+
+if { [ string length $onload ] > 0 } {
+  if [ module-info mode load ] {
+      puts stderr "$onload"
+  }
+}
+
+set app_dir 	/sw/$arch/$app/$ver/$build
+set app_inc	"-I $app_dir/include"
+set app_lib 	"-L $app_dir/lib"
+
+prepend-path    PATH            $app_dir/bin
+prepend-path	LD_LIBRARY_PATH $app_dir/lib
+prepend-path	MANPATH		$app_dir/share/man
+
+set APP		[string toupper $app]
+
+setenv          ${APP}_DIR	$app_dir
+setenv          ${APP}_INC	$app_inc
+setenv          ${APP}_LIB	$app_lib

@@ -1,0 +1,127 @@
+<h1>LibSci</h1>
+
+<p> Category: Libraries-Math
+
+<h2>Description</h2>
+
+<p> Cray XT-LibSci is a collection of single-processor and parallel
+numerical routines tuned for performance on Cray XT series systems.
+Cray XT-LibSci is included in the Cray XT programming environment.
+Generally speaking, it is suggested that users of the Cray XT systems
+call LibSci routines in your application instead of public domain or user-written versions.
+
+<p>LibSci is provided with the Cray Programming Environment and is
+automatically loaded with the PrgEnv module. LibSci provides Fortran
+interfaces for all routines and support for 32- and 64-bit data
+types.
+
+<P> LibSci contains single-processor support for:
+<ul>
+ <li> FFT (Fast Fourier transform, convolution and filtering)
+ <li> BLAS (Basic Linear Algebra Subroutines).  This is based on the
+libGoto library from the University of Texas.
+ <li> LAPACK (Linear Algebra routines)
+ <li> IRT (Iterative Refinement Toolkit)
+ <li> SuperLU_dist (sparse solvers).  Only the distributed-memory parallel
+version of SuperLU is provided.   If you need the serial SUPERLU
+version, Cray provides that in the PETSc module.
+</ul>
+
+<P> LibSci contains multiprocessor support in a distributed memory
+environment for:
+<ul>
+ <li> FFT (Fast Fourier transform, convolution and filtering)
+ <li> ScaLAPACK (parallel Linear Algebra routines)
+ <li> BLACS (Basic Linear Algebra Communication Subprograms)
+ <li> SuperLU_dist (sparse solvers).  Only the distributed-memory parallel
+version of SuperLU is provided. If you need the serial SUPERLU version, 
+Cray provides that in the PETSc module.
+</ul>
+
+<p> Cray XT-LibSci also contains the Iterative Refinement Toolkit (IRT), which is a library of solvers and tools that provides solutions to linear systems using single-precision factorizations while preserving accuracy through mixed-precision iterative refinement.
+
+<p> There are man pages for intro_blas1, intro_blas2, intro_blas3,
+intro_lapack, intro_irt, intro_blacs, intro_scalapack, intro_fft,
+and intro_crafft.  (Note some man pages only exist for some libsci
+versions.)  And there is the "Cray XT Series Programming Environment
+User's Guide" at the <a href="http://docs.cray.com/">Cray Docs</a>
+website.
+
+<h2>Use</h2>
+
+<p> libsci is automatically linked against by the Cray compiler
+wrappers:  cc, CC, and ftn.  
+
+<h2>Revision Information</h2>
+
+<h3>Libsci 10.3.0</h3>
+This version contains 
+<pre>
+      CRAFFT    1.0
+      LibGoto   1.26
+      ScaLAPACK 1.8
+      Bug Fixes
+</pre>
+
+<p>CRAFFT (Cray Adaptive FFT) is a new feature in libsci-10.3.0. CRAFFT uses
+offline and online testing information to adaptively select the best FFT
+algorithm from the available FFT options. CRAFFT provides a very simple
+user interface into advanced FFT functionality and performance.  Planning
+and execution are combined into one call with CRAFFT. The library comes
+packaged with pre-computed plans so that in many cases the planning stage
+can be omitted. Please see the manual page intro_crafft for more information.
+
+<P>Usage note : for the most optimal usage of CRAFFT, please copy the file
+/opt/xt-libsci/10.3.0/fftw_wisdom into the lustre directory where the
+executable is run from. 
+
+<P>LibGoto 1.26 includes enhanced BLAS performance. There are several libsci
+library variants installed with the libsci-10.3.0 package. On quadcore
+XT4 systems, the xtpe-quadcore module is loaded by default and 
+ensures that quadcore-optimized libsci library will be loaded automatically.
+
+<p>To use threaded BLAS, the  thread-enabled libsci library whose name is
+suffixed with '_mp' should be linked explicitly
+<pre>
+   ftn -o myexec -lsci_quadcore_mp
+</pre>
+
+<p>Libsci-10.3 and fftw-3.1.1 are now dependent. If you wish to use fftw
+version 2.1.5 then do the following
+
+<pre>
+module swap fftw/3.1.1 fftw/2.1.5.1
+</pre>
+
+<h3>Libsci 10.2.1</h3>
+
+<p>The xt-libsci 10.2.1 release contains new versions of the scientific
+libraries for quad-core single thread and quad-core multi-thread.
+
+<p> By default, "module load xt-libsci" results in linking with the
+single-core version of the libsci. 
+
+<p>The xtpe-quadcore module is loaded by default.  This is necessary to 
+use the quad-core single thread library.
+This results in these environment variables being set:
+<pre>
+   XTPE_QUADCORE_ENABLED        ON
+   LIBSCI_PRE_LINK_OPTS         -lsci_quadcore  -lsci_quadcore
+   PGI_POST_COMPILE_OPTS        -tp barcelona-64 -tp barcelona-64
+   PATHSCALE_POST_COMPILE_OPTS  -march=barcelona -march=barcelona
+   GNU_POST_COMPILE_OPTS        -march=barcelona -march=barcelona
+   LLVM_AMD_10H                 1
+</pre>
+
+<p>For Quad-core multi-thread, the users must explicitly use the
+"-lsci_mp" compiler option to point to the correct library.
+
+<p>Use of the quad-core libraries in this package requires the
+xtpe-quadcore module which is released in the xt-asyncpe 1.0 (or
+later) package. 
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+<p>All versions of this software are provided by the system vendor and are not installed by NICS staff.

@@ -1,0 +1,53 @@
+<h1>mpiP</h1>
+
+<p> Category: Tools-Performance
+
+<h2>Description</h2>
+
+<p> <a href="http://mpip.sourceforge.net/">mpiP</a> 
+is a lightweight profiling library for MPI applications.
+Because it only collects statistical information about MPI functions,
+mpiP generates considerably less overhead and much less data than
+tracing tools. All the information captured by mpiP is task-local. It
+only uses communication during report generation, typically at the end
+of the experiment, to merge results from all of the tasks into one
+output file.
+
+<p>mpiP has been tested on a variety of C/C++/Fortran applications from 2
+to 4096 processes, including a 3584-process run on ASCI Q and a
+4096-process run on ASCI White. 
+
+
+<h2>Use</h2>
+
+<p> mpiP is available via the standard module commands.
+
+
+<pre>
+  module avail mpip
+  module load mpip/3.1.2
+  cc test.c ${MPIP_LIB}
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Unsupported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>3.1.2</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+
+</table>

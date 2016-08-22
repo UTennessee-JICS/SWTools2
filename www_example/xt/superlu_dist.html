@@ -1,0 +1,60 @@
+<h1>SuperLU_DIST (serial version)</h1>
+
+<p> Category:  Libraries-Math-LinearAlgebra-Sparse
+
+<h2>Description</h2>
+
+SuperLU_DIST, the parallel procesing version of SuperLU,
+contains a set of subroutines to solve a sparse linear system
+A*X=B. It uses Gaussian elimination with partial pivoting (GEPP).
+The columns of A may be preordered before factorization; the
+preordering for sparsity is completely separate from the factorization.
+
+<p> 
+
+<h2>Use</h2>
+
+<p> SuperLU_DIST is available on the XT as part of petsc and we also
+provide a NICS-build in a module.  For typical usage, users should use
+SuperLU from libsci which is automatically linked against by the Cray
+wrappers cc, CC, and ftn.  
+
+<p>Do the following if you wish to use the Cray version of
+SuperLU_DIST:
+
+<pre>
+  module load petsc
+  ftn example.f 
+</pre>
+
+<p>Do the following only if you wish to use the NICS build of
+SuperLU_DIST:
+
+<pre>
+  module avail superlu_dist
+  module load superlu_dist/2.2
+  ftn example.f ${SUPERLU_DIST_LIB}
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>2.3</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+	<td></td>
+</tr>
+
+</table>

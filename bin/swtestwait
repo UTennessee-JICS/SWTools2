@@ -1,0 +1,84 @@
+#!/bin/bash
+
+realpath=`readlink -f .`
+build=`basename $realpath`
+
+version_dir=`dirname $realpath`
+version=`basename $version_dir`
+
+app_dir=`dirname $version_dir`
+app=`basename $app_dir`
+
+swtest -s -a $app -v $version -b $build 2>&1 | tee test.log
+
+#-- grep line whose first word is number and assume that's the PBS jobid
+if [ ! -e .running ]; then
+  echo ".running file does not exist. Failing the test."
+  exit -1
+fi
+jobid=$(grep "^\w[0-9]" .running)
+
+#-- Infinite loop to wait until either $jobid runs or ceases to exist
+
+while true; do
+
+  qstat $jobid &> /dev/null
+  
+  #-- If job is missing for some reason, fail the test
+  if [ $? -ne 0 ]; then
+    echo "Job $jobid is missing or was deleted"
+    echo "Failing this test "
+    rm .running
+    exit -2
+  fi 
+  
+  job_state=$(qstat -f $jobid | grep job_state | awk '{print $3}')
+  if [ "$job_state" == "R" ]; then
+    echo "Submitted job $jobid is running. Following .running ... "
+    break
+  else
+    echo "Waiting for job $jobid to start ... "
+    sleep 10
+  fi
+
+done
+
+
+#-- Start a subshell that check on the existence of .running file 
+#   && $jobid and terminate when its done. Then we use that subshell PID 
+#   with "tail" command to let tail follow the output of the test
+(
+while true; do
+  qstat $jobid &> /dev/null
+  if [ -e .running ] && [ $? -eq 0 ]; then
+    sleep 30
+  else
+    break
+  fi
+done
+) &
+
+trackPID=$!
+tail -f .running --pid=$trackPID
+
+#-- Display whatever got recorded to test.log and status file
+echo "Displaying test.log:"
+cat test.log
+
+echo "Displaying status file:"
+cat status
+
+#-- Check status file, if the file does not exist, or the first line is not
+#   "verified", fail the test
+if [ -e status ]; then
+  status_str=$(head -n 1 status)
+  if [ $status_str == "verified" ]; then
+    stat=0
+  else
+    stat=-1
+  fi
+else
+  stat=-1
+fi
+
+exit $stat

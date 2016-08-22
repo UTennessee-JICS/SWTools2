@@ -1,0 +1,41 @@
+<h1>lgdb</h1>
+
+<p> Category: Tools-Debugger
+
+<h2>Description</h2>
+
+<p> 
+lgdb is used to launch your application and gdbserver processes on remote
+nodes for debugging purposes. In order for gdb to be able to stop the
+application before being executed aprun must encounter a barrier that gdb will
+breakpoint on. Simple command programs such as ls that will not trigger aprun
+to trigger this breakpoint are not supported.  Additionally lgdb can be used to
+attach to an already running application by supplying the PID of the aprun
+process that launched the application.  When running lgdb the present working
+directory should be accessible by a remote node (nid).
+
+<p>
+lgdb is used to launch an application. After lgdb is run it will give
+directions on how to run gdb and attach to processes. The gdb that ships
+with lgdb should always be used over any other version.
+
+
+<h2>Use</h2>
+
+Load the xt-lgdb module.  Do a "man lgdb" for more information.
+
+<p> 
+<pre>
+     lgdb [-vhQDd] [-l ranks] [-c aprun_command] [-g path_to_gdb]
+          [-s path_to_gdbserver] [-H path_to_lgdbd] [-I aprun_input_file]
+          [-O aprun_output_file] [-L path_to_library] ...
+
+     lgdb [-vhQDd] [-l ranks] [-p aprun_pid] [-g path_to_gdb]
+          [-s path_to_gdbserver] [-H path_to_lgdbd] [-L path_to_library] ...
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+<p>All versions of this software are provided by the system vendor and are not installed by NICS staff.

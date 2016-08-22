@@ -1,0 +1,46 @@
+<h1>Espresso</h1>
+
+<p> Category: Science Apps-Chemistry
+
+<h2>Description</h2>
+
+<p> The Extensible Simulation Package for RESearch on SOft matter (Espresso) is a versatile software package for the scientific Molecular Dynmaics simulations and analysis of coarse-grained atomistic or bead-spring models as they are used in soft matter research, with emphasis on charged systems.  Further information on the Espresso software package may be found at the <a href="http://espressowiki.mpip-mainz.mpg.de/wiki/index.php/Main_Page">Espresso Wiki</a>.</p>
+
+
+<h2>Use</h2>
+
+<p>To use Espresso, first install the espresso module with <code>module load espresso</code>.  Espresso uses TCL to parse inputs, so certain files must be available at runtime.  By following the directions given at module load, you can copy those files to your <code>/lustre/scratch</code> directory so that Espresso can read them.  The environment variables must be set at runtime, so they should be set in the batch script, or the batch script should import them with <code>#PBS -V</code>.  The module should add the Espresso binary to your path, it is called <code>Espresso_bin</code>.</p>
+
+<p>If you have this module loaded in your <code>.bashrc</code> file, <code>stderr</code> should be piped to <code>/dev/null</code> to prevent certain errors.</p>
+
+<pre>
+module show espresso
+module load espresso
+mkdir /lustre/scratch/$USER/espresso_example
+cp -r $ESPRESSO_REQS /lustre/scratch/$USER/espresso_example
+export ESPRESSO_SCRIPTS=/lustre/scratch/$USER/espresso_example/scripts
+export TCL_LIBRARY=/lustre/scratch/$USER/espresso_example/library
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Unsupported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>2.1.0</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.3</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+	<td></td>
+</tr>
+
+</table>

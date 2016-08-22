@@ -1,0 +1,43 @@
+<h1>NWChem</h1>
+
+<p> Category: Science Apps-Chemistry 
+
+<h2>Description</h2>
+
+<p>NWChem is a computational chemistry package that is designed to run on high-performance parallel supercomputers as well as conventional workstation clusters. It aims to be scalable both in its ability to treat large problems efficiently, and in its usage of available parallel computing resources. NWChem has been developed by the Molecular Sciences Software group of the Environmental Molecular Sciences Laboratory (EMSL) at the Pacific Northwest National Laboratory (PNNL). Most of the implementation has been funded by the EMSL Construction Project. <a href="http://www.emsl.pnl.gov/docs/nwchem/nwchem.html">See the NWChem Home Page</a>. 
+
+ 
+<h2>Use</h2>
+
+<p> In order to use NWChem you must point the binary toward the location for the basis set library.
+This is done with the environmental variable $NWCHEM_BASIS_LIBRARY.  Additionally, you must point the binary toward the location of a file named .nwchemrc.
+This is done with the environmental variable $HOME_NWCHEMRC.  These environmental variables are set in the nwchem module and should require no manual intervention.
+
+<pre>
+module load nwchem
+
+aprun -n [number of cores] -S [number of cores per Socket] nwchem [input file] > [output file]
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>5.1</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">u</td></tr><tr><td class="hidden">pgi9.0.1_armci</td><td class="hidden2">u</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">u</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+
+</table>

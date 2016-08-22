@@ -1,0 +1,32 @@
+<h1>Apprentice2</h1>
+
+<p> Category: Tools-Performance
+
+<h2>Description</h2>
+
+<p> Cray Apprentice2 is a post-processing performance data visualization tool. After you instrument a program for a performance analysis experiment, execute the instrumented program, and generate one or more performance analysis data files, use Cray Apprentice2 to explore the experiment data and generate a variety of interactive graphical reports.
+
+<p> Cray Apprentice2 includes an online help system. All other information about using Cray Apprentice2 is presented in the help system, which is accessible whenever Cray Apprentice2 is running.
+
+<p> Cray Apprentice2 is a GUI tool that requires that your workstation support the X Window System. Depending on your system configuration, you may need to use the ssh -X option to enable X Window System support in your shell session. In some cases you may even need to enter a command like xhost + in order to enable X Window System hosting on your workstation.
+
+<h2>Use</h2>
+
+<p> The Cray Apprentice2 module must be loaded before you can use Cray Apprentice2. The CrayPat module is required when instrumenting programs and running performance analysis experiments, but is not required when using Cray Apprentice2.
+
+<p>
+
+<pre>
+ module avail apprentice2
+ module load apprentice2
+ app2
+</pre>
+
+<p> To use Cray Apprentice2 to trace calls down to the source file line level, you must either have the original source files available in the same path as they were in when you compiled the program, or else you must remap the paths to the original files. The method for remapping source file paths is documented in the help system.
+
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+<p>All versions of this software are provided by the system vendor and are not installed by NICS staff.

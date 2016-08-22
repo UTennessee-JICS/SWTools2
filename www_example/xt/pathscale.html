@@ -1,0 +1,104 @@
+<h1>Pathscale</h1>
+
+<p> Category: Program Dev-Compilers
+
+<h2>Description</h2>
+
+<p> Cray provides the Pathscale compilers as part of several programming environments.  Versions 3.2 is available.  Pathscale was bought by Cray to provide Pathscale compiler support, but no new development is planned.
+
+<P> XTs have two kinds of nodes:
+
+<ol>
+ <li> Compute nodes running the CNL OS.
+ <ul>
+  <li> To build code for the compute nodes, you should use the Cray wrappers cc, CC, and ftn.
+  <li> The wrappers will call the appropriate PGI compiler which will use the appropriate header files and link against the appropriate libraries.
+ </ul>
+ <li> Service and login nodes running Linux.
+ <ul>
+  <li> To build code for the Linux service nodes, you can call the Pathscale compilers directly.  (See list below.)
+  <li> We strongly suggest that you don't call the Pathscale compilers directly if you are building code to run on the compute nodes.
+ </ul>
+</ol>
+
+<p> The Cray wrappers cc, CC, and ftn will automatically link against MPI (-lmpi) and SciLib (-lsci).  This is not true when calling the Pathscale compilers directly.  See the cc, CC, and ftn man pages for more information on their usage.
+
+<p> To see man pages on Pathscale compilers with a full list of compiler options, first make sure the "PrgEnv-pathscale" module is loaded, and then do a man on any of the following:
+<ul>
+ <li> pathcc 
+ <li> pathCC 
+ <li> pathf90/pathf95
+</ul>
+
+<p> For more detailed information, see <a href="http://www.pathscale.com/">Pathscale documentation</a> and <a href="http://docs.cray.com">Cray's documentation</a>.
+
+
+<h2>Use</h2>
+
+<p>It is best to review the pathcc, pathCC, and pathf95 man pages for a list of their options.  You should also check out the eko
+man page, which has the complete list of options for the Pathscale Compiler suite.
+
+<p>To use the Cray wrappers with the Pathscale compilers, the PrgEnv-pathscale module should be loaded:
+
+<pre>
+  module avail PrgEnv
+  module swap PrgEnv-pgi PrgEnv-pathscale        # this loads some version of pathscale, currently 3.2
+</pre>
+
+To just use the Pathscale compilers directly, just load the pathscale module you want:
+
+<pre>
+  module avail pathscale
+  module load pathscale/3.2           # Note that this does not changed the Cray wrappers.
+</pre>
+
+It is possible to use the Pathscale compiler versions directly without loading the Cray Programming Environments, but note that
+the Cray wrappers will probably not work as expected if you do that.
+
+
+
+<h2>Further Information</h2>
+
+<h3>Enabling Quad-core Instructions</h3>
+
+<p>Note that with CNL 2.0.49 and above, the following options are
+set automatically by the xtpe-quadcore module (loaded by default),
+which enable quad-core instructions when compiling.  This is actually
+quite important to get good performance.
+<pre>
+jaguar12> module display xtpe-quadcore
+-------------------------------------------------------------------
+/opt/xt-asyncpe/1.0/modulefiles/xtpe-quadcore:
+
+prepend-path     PE_PRODUCT_LIST XTPE_QUADCORE
+setenv           XTPE_QUADCORE_ENABLED ON
+setenv           LIBSCI_PRE_LINK_OPTS  -lsci_quadcore
+setenv           PGI_POST_COMPILE_OPTS   -tp barcelona-64
+setenv           PATHSCALE_POST_COMPILE_OPTS  -march=barcelona
+setenv           GNU_POST_COMPILE_OPTS  -march=barcelona
+setenv           LLVM_AMD_10H 1
+-------------------------------------------------------------------
+</pre>
+<p> However, be aware that the "barcelona" option does not work with
+older versions of the compiler.
+<table border="1" >
+<tr><th>Version<th>barcelona support</tr>
+<tr><td align=center>3.2<td align=center>yes</tr>
+</table>
+
+<h3>Underscoring</h3>
+<p> The Pathscale Fortran compiler (pathf90) by default adds two underscores 
+to the symbol names.  However, the Cray ftn wrapper to pathf90 has 
+"-fno-second-underscore" on by default.  So, the default behavior is 
+different between pathf90 and ftn (using pathf90).  
+
+<p> It is often the case that applications will have trouble resolving
+symbols when using Pathscale compilers because of the 2 underscores.  
+It seems that use of -fno-second-underscore often avoids these
+problems.  All packages that the NICS has built for the XT5 with pathf90
+directly <b>were</b> built with "-fno-second-underscore".  
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+<p>All versions of this software are provided by the system vendor and are not installed by NICS staff.

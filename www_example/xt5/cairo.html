@@ -1,0 +1,49 @@
+<h1>Cairo</h1>
+
+<p> Category: Analysis-Graphics
+
+<h2>Description</h2>
+
+<p> 
+Cairo is a 2D graphics library with support for multiple output devices. Currently supported output targets include the X Window System, Quartz, Win32, image buffers, PostScript, PDF, and SVG file output. 
+<p>
+Cairo is designed to produce consistent output on all output media while taking advantage of display hardware acceleration when available (eg. through the X Render Extension).
+<p>
+The cairo API provides operations similar to the drawing operators of PostScript and PDF. Operations in cairo including stroking and filling cubic Béer splines, transforming and compositing translucent images, and antialiased text rendering. All drawing operations can be transformed by any affine transformation (scale, rotation, shear, etc.)
+<p>
+Cairo is implemented as a library written in the C programming language, but bindings are available for several different programming languages.
+<p>
+Cairo is free software and is available to be redistributed and/or modified under the terms of either the GNU Lesser General Public License (LGPL) version 2.1 or the Mozilla Public License (MPL) version 1.1 at your option.
+
+<h2>Use</h2>
+
+<p> Cairo is available as a module.  It has only been built with gcc.
+
+<pre>
+  module avail cairo
+  module load cairo
+  gcc test.c ${CAIRO_LIB}
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Unsupported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>pathscale</th>
+	<th>gnu</th>
+	<th>Other</th>
+<tr>
+	<th>1.8.6</th>
+	<td></td>
+	<td></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.1.2</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+</tr>
+
+</table>

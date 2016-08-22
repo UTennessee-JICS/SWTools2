@@ -1,0 +1,566 @@
+<h1>FPMPI/FPMPI_papi</h1>
+
+<p> Category:  Tools-Performance-Profiling</p>
+
+<h2>Description</h2>
+
+<p> FPMPI and FPMPI_papi are light-weight profiling libraries that use the pmpi
+hooks, as specified in the MPI standard.  Applications linked against one of
+these libraries will gather statistics about MPI use.  If using FPMPI_papi,
+PAPI counter data will also be collected.</p>
+
+<h2>Use</h2>
+
+<p>Users need only relink their codes with the fpmpi or fpmpi_papi module
+loaded in order to use the libraries.  Applications built in this way will
+produce a <em>profile.txt</em> file upon completion.  NOTE: Loading fpmpi_papi
+will also load xt-papi.</p>
+
+<p>
+Any Fortran or C compiler can be used with the library.
+</p>
+<h3>Using FPMPI</h3>
+<pre>
+$ module load fpmpi
+$ make
+</pre>
+
+<h3>Using FPMPI_papi</h3>
+<pre>
+$ module load fpmpi_papi
+$ make
+</pre>
+
+
+<h2>Further Information</h2>
+
+<h3>
+DESCRIPTION
+</h3>
+<p>
+<b>fpmpi</b> is a MPI profiling library. If linked with a program which uses MPI, it
+intercepts MPI library calls via the MPI profiling interface. It times the call to the
+underlying system library MPI routine as well as gathering other statistics such as
+message length. When MPI_Init is called, the counters are initialized and started. When
+MPI_Finalize is called, a file is written with a performance summary report. All
+profiling output is written by process rank 0. The default output file name is
+<b>profile.txt</b>.
+</p>
+<p>
+For most routines, both C and Fortran calls are profiled, but there are a few exceptions.
+</p>
+<p>
+Some other per-process information is also reported, including CPU times, memory usage,
+and performance counters.
+</p>
+<p>
+For collective routines, a barrier is executed prior to the collective operation. The
+time spent at this barrier is reported as synchronization time for the routine.
+</p>
+<p>
+A load imbalance factor is calculated for each item reported. This value can indicate
+cases where one process is doing more work than others, and therefore is limiting the
+parallel scalability of the application. A perfectly distributed job would report 0% load
+imbalance for all items.
+</p>
+<h3>
+INFORMATION REPORTED
+</h3>
+<table border="1"
+       cellspacing="0"
+       cellpadding="4">
+<tr>
+<th>
+Report Section
+</th>
+<th>
+Contents
+</th>
+</tr>
+<tr>
+<td>
+Barriers and Waits
+</td>
+<td>
+The number of calls and total execution time is reported for each profiled MPI routine.
+</td>
+</tr>
+<tr>
+<td>
+Message Routines
+</td>
+<td>
+The number of calls, sum of the message sizes, and total execution time is reported for
+each profiled MPI routine. Each message is recorded in one of 28 buckets, depending upon
+the message size. For some collective routines, sychronization time is also reported.
+</td>
+</tr>
+<tr>
+<td>
+Message Totals
+</td>
+<td>
+Number of calls, sum of the message sizes, execution time, and communication rate for
+message routines, aggregated by type.
+</td>
+</tr>
+<tr>
+<td>
+Performance Counters
+</td>
+<td>
+Cycles, floating point ops, MFLOPS, and average vector length.
+</td>
+</tr>
+<tr>
+<td>
+Communication Partners
+</td>
+<td>
+The number of unique point-to-point partners (sources for a receive or destination for a
+send).
+</td>
+</tr>
+<tr>
+<td>
+MPI Callers
+</td>
+<td>
+By default, the number of calls, sum of message sizes, total execution time, and
+synchronization time is printed for each unique call site to a profiled MPI function. The
+name of the calling function, along with the source file name and the line number of the
+call within the source, is also printed. The default table size can accommodate 1000
+unique call sites to profiled MPI routines, and the default stack unwind depth is 8. See
+below for environment variables that affect this report.
+</td>
+</tr>
+</table>
+<p>
+Each line item in the report contains these six values.
+</p>
+<ul>
+<li>The minimum value for any process.
+</li>
+<li>The maximum value for any process.
+</li>
+<li>The average value for all processes.
+</li>
+<li>The load imbalance factor for this value.
+</li>
+<li>The rank of the process reporting the minimum value.
+</li>
+<li>The rank of the process reporting the maximum value.
+</li>
+</ul>
+<p>
+Times are reported in seconds.
+</p>
+<p>
+Message sizes are reported in bytes.
+</p>
+<p>
+Communication rates are reported in millions of bytes per second.
+</p>
+<p>
+The load imbalance factor is reported as the percentage difference between the maximum
+value and the minimum value (i.e., (max-min)/max). <b>0%</b> indicates no load imbalance.
+<b>100%</b> indicates a large imbalance.
+</p>
+<p>
+While FPMPI is portable to any system supporting the MPI profiling interface, not all
+features are available on all supported systems. Hardware performance counters differ
+between systems, and counters are not supported on some systems. The MPI Callers feature
+is only available on Cray X1 systems.
+</p>
+<h3>
+MPI ROUTINES PROFILED
+</h3>
+<table>
+<tr>
+<td valign="top">
+<div>
+MPI_Allgather
+</div>
+<div>
+MPI_Allgatherv <b>*</b>
+</div>
+<div>
+MPI_Allreduce
+</div>
+<div>
+MPI_Alltoall
+</div>
+<div>
+MPI_Alltoallv
+</div>
+<div>
+MPI_Barrier
+</div>
+<div>
+MPI_Bcast
+</div>
+<div>
+MPI_Bsend
+</div>
+<div>
+MPI_Finalize
+</div>
+</td>
+<td valign="top">
+<div>
+MPI_Gather
+</div>
+<div>
+MPI_Gatherv <b>*</b>
+</div>
+<div>
+MPI_Ibsend
+</div>
+<div>
+MPI_Init
+</div>
+<div>
+MPI_Irecv
+</div>
+<div>
+MPI_Irsend
+</div>
+<div>
+MPI_Isend
+</div>
+<div>
+MPI_Issend
+</div>
+<div>
+MPI_Pack
+</div>
+</td>
+<td valign="top">
+<div>
+MPI_Recv
+</div>
+<div>
+MPI_Reduce
+</div>
+<div>
+MPI_Reduce_scatter <b>*</b>
+</div>
+<div>
+MPI_Rsend
+</div>
+<div>
+MPI_Scan
+</div>
+<div>
+MPI_Scatter
+</div>
+<div>
+MPI_Scatterv <b>*</b>
+</div>
+<div>
+MPI_Send
+</div>
+<div>
+MPI_Sendrecv
+</div>
+</td>
+<td valign="top">
+<div>
+MPI_Sendrecv_replace
+</div>
+<div>
+MPI_Ssend
+</div>
+<div>
+MPI_Unpack
+</div>
+<div>
+MPI_Wait
+</div>
+<div>
+MPI_Waitall
+</div>
+<div>
+MPI_Waitany
+</div>
+<div>
+MPI_Waitsome <b>*</b>
+</div>
+</td>
+</tr>
+<tr>
+<td colspan="4">
+<p>
+<b>*</b> Fortran call not profiled in <b>-s default64</b> mode.
+</p>
+</td>
+</tr>
+</table>
+<h3>
+ENVIRONMENT VARIABLES
+</h3>
+<p>
+These environment variables can be defined before executing a program linked with the
+profiling library to alter the data gathering and reporting behavior.
+</p>
+<table border="1"
+       cellspacing="0"
+       cellpadding="8">
+<tr>
+<td>
+MPI_PROFILE_SUMMARY
+</td>
+<td>
+Suppresses writing of the profile_<b>x</b>_of_<b>y</b>.txt files. Only the
+<b>profile.txt</b> summary file is written.
+</td>
+</tr>
+<tr>
+<td>
+MPI_PROFILE_FILE
+</td>
+<td>
+Profile output file name. If set to "-", the output is written to standard output. The
+default is <b>profile.txt</b>.
+</td>
+</tr>
+<tr>
+<td>
+MPI_PROFILE_DIR
+</td>
+<td>
+Profile output directory name. This value is used as a path prefix for all of the profile
+output files (profile.txt, profile_x_of_y.txt, and profile_all.txt). The default is the
+current directory.
+</td>
+</tr>
+<tr>
+<td>
+MPI_PROFILE_DISABLE
+</td>
+<td>
+If defined, profiling is disabled. No statitics are collected, and no profile reports are
+written.
+</td>
+</tr>
+<tr>
+<td>
+MPI_PROFILE_SYNC_DISABLE
+</td>
+<td>
+If defined, the extra MPI_Barrier call used to calculate synchronization time is skipped.
+Synchronization time for collective operations is omitted from the report.
+</td>
+</tr>
+<tr>
+<td>
+MPI_PROFILE_HWPC_DISABLE
+</td>
+<td>
+If defined, FPMPI does not access the the hardware performance counters. Performance
+counters are omitted from the report. Use this setting to run FPMPI with other tools that
+access the performance counters.
+</td>
+</tr>
+<tr>
+<td>
+MPI_PROFILE_TABLE_SIZE
+</td>
+<td>
+<p>
+<b>This variable enables the stack traceback feature, and works in conjunction with
+MPI_PROFILE_UNWIND_LEVELS and MPI_PROFILE_WRAPPER_LEVELS.</b> It sets the number of
+entries allocated for the MPI caller table. The default table size is 1000. Setting this
+variable to 0 disables this feature. Each entry takes 88 bytes. When this feature is
+enabled, there is extra execution time overhead for each profiled MPI call.
+</p>
+<p>
+The table is managed with a hashed index, so for efficient updates the table size should
+be much larger than the number of calls to profiled MPI functions within the program
+source. If there are more unique calls sites to profiled MPI functions within the program
+than the number of entries in the table, some call sites are not included in the report.
+</p>
+</td>
+</tr>
+<tr>
+<td>
+MPI_PROFILE_UNWIND_LEVELS
+</td>
+<td>
+The number of levels to unwind while printing the call stack traceback for profiled MPI
+function calls. The default is 8, which prints the routine which called the profiled MPI
+function and up to 7 levels of call stack. Values less than 1 are ignored. Setting larger
+values may increase the execution time overhead of each profiled MPI call. <b>This
+variable has no effect unless MPI_PROFILE_TABLE_SIZE is non-zero.</b>
+</td>
+</tr>
+<tr>
+<td>
+MPI_PROFILE_WRAPPER_LEVELS
+</td>
+<td>
+Some applications have a thin wrapper function for all message passing calls. The default
+caller report will then list these wrapper functions rather than the callers of the
+wrappers. If MPI_PROFILE_WRAPPER_LEVELS is set, that depth of calls is skipped before
+reporting the calling function. Typically, MPI_PROFILE_WRAPPER_LEVELS=1 is used, but a
+larger number is applicable for applications with thicker insulation.
+MPI_PROFILE_WRAPPER_LEVELS is an alternative to the more general
+MPI_PROFILE_UNWIND_LEVELS, and incurs less overhead. <b>This variable has no effect
+unless MPI_PROFILE_TABLE_SIZE is non-zero.</b>
+</td>
+</tr>
+</table>
+<h3>
+PROGRAMMER INTERFACE
+</h3>
+<p>
+Since FPMPI intercepts MPI calls, no programmer interface is necessary for normal usage.
+calling MPI_Init() initializes FPMPI, and MPI_Finalize() will cause the output files to
+be written. A function is available to control data gathering.
+</p>
+<pre>
+void fpmpi_enable(int flag);
+</pre>
+<pre>
+INTEGER FLAG
+CALL FPMPI_ENABLE(flag)
+</pre>
+<p>
+fpmpi_enable() can be called any time during the run. If the flag is 0, data gathering is
+disabled. If the flag is non-zero, data gathering is enabled. MPI calls are still
+intercepted regardless of the flag setting, but counters are only updated if data
+gathering is enabled. By default, if fpmpi_enable() is never called, data gathering is
+enabled.
+</p>
+<p>
+For example, by disabling data gathering immediately after MPI_Init, but then placing an
+enable/disable sequence around a portion of code, the data gathering and reporting will
+be isolated to the single region.
+</p>
+<h3>
+EXAMPLE OUTPUT
+</h3>
+<p>
+This is an edited/abbreviated <b>profile.txt</b> output file. A complete example file is also available.
+</p>
+<pre>
+<code>
+Program hpcc
+MPI_Finalize called at: Thu Dec 11 12:00:39 2003
+
+Number of processors: 4
+
+---- Process Stats min max avg imbl ranks
+Wall Clock Time (sec) 2.993424 2.993838 2.993722 0% 0/2
+User CPU Time (sec) 2.536192 2.990208 2.799610 15% 2/0
+System CPU Time (sec) 0.705358 1.808334 1.069694 61% 3/0
+Memory Usage (MB) 262.500000 310.562500 286.531250 15% 0/2
+
+---- Performance Counters min max avg imbl ranks
+Cycles 2827527168 3577768720 3262412021 21% 0/1
+Floating Point Ops 182135883 187799519 185148507 3% 2/1
+MFLOPS 20.996272 26.073068 22.897198 19% 1/0
+Average Vector Length 50.394346 53.772067 51.934981 6% 0/2
+
+---- Barriers and Waits min max avg imbl ranks
+MPI_Barrier
+Number of Calls 55 55 55 0% 0/0
+Execution Time 0.054150 0.209002 0.160982 74% 0/3
+
+---- Message Routines min max avg imbl ranks
+MPI_Bcast size 8-16B
+Number of Calls 281 281 281 0% 0/0
+Total Bytes 4496 4496 4496 0% 0/0
+Execution Time 0.001389 0.012208 0.009087 89% 0/3
+MPI_Reduce size 1024B-4KB
+Number of Calls 1 1 1 0% 0/0
+Total Bytes 1984 1984 1984 0% 0/0
+Execution Time 0.000016 0.000027 0.000022 42% 1/0
+
+---- Message Totals min max avg imbl ranks
+Blocking send calls 4025 4118 4057 2% 2/0
+Blocking send size 447857748 455297336 451518183 2% 2/0
+Blocking send time 0.206829 0.229782 0.217801 10% 3/1
+Blocking comm rate 1949.342158 2199.849267 2076.363917 11% 1/3
+Immediate send calls 3565 3565 3565 0% 0/0
+Immediate send size 396031096 396031096 396031096 0% 0/0
+Immediate send time 0.604144 0.749317 0.681367 19% 3/1
+Immediate comm rate 528.523066 655.524317 586.190546 19% 1/3
+Collective send calls 60 60 60 0% 0/0
+Collective send size 1476088 1476088 1476088 0% 0/0
+Collective send time 0.046108 0.046574 0.046428 1% 1/3
+Collective comm rate 31.693486 32.013415 31.793835 1% 3/1
+Collective sync time 0.013680 0.041194 0.027262 67% 0/3
+
+---- Communication Partners min max avg imbl ranks
+MPI_Send 3 4 3.2 25% 0/1
+MPI_Sendrecv 3 3 3.0 0% 0/0
+MPI_Isend 3 3 3.0 0% 0/0
+MPI_Recv 3 4 3.2 25% 0/1
+MPI_Irecv 3 3 3.0 0% 0/0
+
+---- MPI Callers min max avg imbl ranks
+Number of Calls 1 1 1 0% 0/0
+Total Bytes 8 8 8 0% 0/0
+Execution Time 0.000004 0.000005 0.000005 7% 0/3
+Number of Calls 1587 1587 1587 0% 0/0
+Total Bytes 198011904 198011904 198011904 0% 0/0
+Execution Time 0.010543 0.012525 0.011501 16% 3/1
+</code>
+</pre>
+<h3>
+ADDITIONAL OUTPUT FILES
+</h3>
+<p>
+By default and when the library is compiled with <b>-DALL_RANKS</b>, then additional
+output files are written when the application terminates (not when MPI_Finalize is
+called). Each MPI process writes a file named
+<b>profile_<i>rank</i>_of_<i>size</i>.txt</b>. These files are in a machine-readable text
+format, and are designed for input to <b>fplot</b>, a parallel performance modeling and
+extrapolation tool. Above some threshold, FPMPI will instead produce a
+<b>profile_all.txt</b>.
+</p>
+<h3>
+RESTRICTIONS
+</h3>
+<p>
+FPMPI does not work well alongside other libraries which also exploit the MPI profiling
+interface.
+</p>
+<p>
+The performance counters feature may not work as expected when coupled with the CrayPat
+PAT_RT_HWPC feature or pat_hwpc.
+</p>
+<p>
+Using the FPMPI call stack traceback features with the MPI MPMD (multiple binary launch)
+capability may result in program aborts or confusing and erroneous reporting.
+</p>
+
+<h2>Support</h2><p>This package has the following support level : Unsupported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>pathscale</th>
+	<th>gnu</th>
+	<th>Other</th>
+<tr>
+	<th>1.1</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.5</td><td class="hidden2">?</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<th>1.0</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.3</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+
+</table>

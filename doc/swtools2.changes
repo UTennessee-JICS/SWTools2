@@ -1,0 +1,600 @@
+diff -u -r swtools-1.0/bin/addbuild_addpackage.py swtools2/bin/addbuild_addpackage.py
+--- swtools-1.0/bin/addbuild_addpackage.py	2010-12-10 10:01:49.125730000 -0500
++++ swtools2/bin/addbuild_addpackage.py	2016-05-19 10:28:50.328180000 -0400
+@@ -113,7 +113,7 @@
+         # Make sure that the application directory already exists
+         
+         if not os.path.isdir(application_path):
+-            error("%s (application directory) does not exist" % application_path)            
++            error("%s (application directory) does not exist" % application_path)
+         
+         # If version is a "tag" then get_versions will return the correct version from the version file
+         # If it is not a "tag" then if will merely return the path to that directory
+@@ -127,7 +127,7 @@
+       
+         # Set the build path
+       
+-        build_path = version_path + "/" + build
++        build_path = os.path.join(version_path, build)
+       
+         # Try to create the build directory
+         
+@@ -138,34 +138,41 @@
+     
+         # Set the proper permissions on the build dir. Read the octal permissions string from the config file
+         
+-        os.chmod(build_path,builddir_perms())
++        os.chmod(build_path, int(builddir_perms(), 8))
+     
+         # These are the files that will be copied when an addbuild is performed
+         
+         file_permission_pairs  = addbuild_templates()
+         destination_path = build_path
+-    
++        
+         # Make the owner file
+     
+         make_owner_file(destination_path)
+         print "creating %s/.owners" % destination_path
++        
++        template_dir = template_directory()
+     
+     elif action == "addpackage":
+         
+         # Try to create the application directory
+         
++        if os.path.exists(application_path) \
++           and os.path.isdir(application_path):
++            print "%s already exists" % application_path
++            return
++            
+         try:
+             os.mkdir(application_path)
+         except:
+             error("Cannot create %s" % application_path)
+ 
+-        os.chmod(application_path,appdir_perms())
++        os.chmod(application_path,int(appdir_perms(),8))
+ 
+         # These are the files that will be copied when an addpackage is performed
+         
+         file_permission_pairs = addpackage_templates()
+         destination_path = application_path
+-
++        
+         # Create .check4newver
+ 
+         make_check4newver_file(application_path)
+@@ -175,24 +182,26 @@
+         print "creating %s" % (application_path+"/.check4newver")
+         print "\t%s: new version installed\n\t%s: next check of %s on %s\n" % (today,today,application_path,days_until_check)
+         
++        template_dir = os.path.join(template_directory(), '..')
++        
+     # Copy the files
+ 
+-    for file, permission in file_permission_pairs.iteritems():
++    for (file, permission) in file_permission_pairs:
++        source = os.path.join(template_dir, file)
++        target = os.path.join(destination_path, file)
+         try:
+-            shutil.copy(template_directory()+"/"+file,destination_path+"/"+file)
++            shutil.copy(source, target)
+         except:
+             error("could not create %s . Check the template directory" % (destination_path+"/"+file))
+         
+-        print "creating %s%s%s" % (destination_path,"/",file)
++        print "creating %s" % (target)
+      
+         # Double check the permissions
+         
+         try:
+-            os.chmod(destination_path+"/"+file,permission)
++            os.chmod(target, int(permission, 8))
+         except:
+-            error("%s%s%s has invalid permission string (%s) or does not exist. Check the directory and sw_config." % (destination_path,"/",file,permission))
++            error("%s%s%s has invalid permission string (%s) or does not exist. \
++                   Check the directory and config." % (target, permission))
+     
+     print "  %s successful." % action
+-
+-   
+-   
+Only in swtools-1.0/bin: chdelim
+diff -u -r swtools-1.0/bin/config.py swtools2/bin/config.py
+--- swtools-1.0/bin/config.py	2010-12-10 10:01:49.125730000 -0500
++++ swtools2/bin/config.py	2016-06-02 14:36:56.237425000 -0400
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/env python
+ '''
+ NAME
+     config.py
+@@ -95,38 +95,32 @@
+ import getpass
+ import datetime
+ import unittest
++import ConfigParser
++from difflib import SequenceMatcher
+ 
+ ##############################################################################
+ # Generic functions used by config.py
+ ##############################################################################
+ 
+-def read_config_file(VARIABLE):
++def read_config_file():
+     '''
+     This funtion reads sw_config and returns the string on the right hand side
+     of VARIABLE=VALUE. This function does all of the nescessary newline and 
+     whitespace stripping, and this funtion also handles comments.
+     '''
+     
+-#     print "read_config_file: sys.argv[0] = '%s'" % sys.argv[0]
+-#     source_path = sys.argv[0].rsplit("/",1)[0]
+-#     if source_path != "":
+-#         source_path = source_path+"/"
+-    source_path = os.path.dirname(sys.argv[0])
+-# tpb vvv
+-    c = os.getenv('SW_ROOT')
+-    if c != None and c != '':
+-        source_path = c
+-# tpb ^^^
+-    # print("read_config_file: source_path == '%s'" % source_path)
+-    config_file = open(source_path+"/sw_config")
+-    lines = config_file.readlines()
+-    
+-    for line in lines:
+-        if line[0] != "#":
+-            if VARIABLE in line:
+-                VARIABLE = line.split("=")[1]
+-                return VARIABLE.strip("\n")
+-
++    config = ConfigParser.ConfigParser()
++    
++    swt_root \
++      = os.environ.get('SWT_ROOT', \
++                       os.path.join(os.path.dirname(sys.argv[0]),'..'))
++    
++    sw_config \
++      = os.environ.get('SW_CONFIG', \
++                       config.read(os.path.join(swt_root, 'etc/', 'config')))
++    
++    config.read(sw_config)
++    return config
+ 
+ ##############################################################################
+ # Functions that read variables effecting all of the swtools
+@@ -140,21 +134,23 @@
+     if currentmachine == None:
+         currentmachine = machinename()
+     
+-    machines = read_config_file("MACHINES")
+-    machines = machines.split(",")
+-
+-    for machine in machines:
+-        (mname, arch) = machine.split(':')
+-        # if currentmachine in mname:
+-        if currentmachine == mname:
+-            return arch
++    config = read_config_file()
++    machines = config.items('machines')
++    
++    r = 0.0
++    for (mname, arch) in machines:
++        if ( SequenceMatcher(None, currentmachine, mname).ratio() > r ):
++            r = SequenceMatcher(None, currentmachine, mname).ratio()
++            cur_arch = arch
++    
++    return os.environ.get('SW_ARCH', cur_arch)
+ 
+ def log_directory():
+     '''
+     Returns the log drectory defined in sw_config
+     '''
+-    
+-    return read_config_file("LOG_DIRECTORY")
++    config = read_config_file()
++    return os.path.abspath(config.get('locations', 'log'))
+ 
+ 
+ def machinename():
+@@ -167,28 +163,32 @@
+     '''
+     Returns the root directory as defined in sw_config
+     '''
+-    
+-    return read_config_file("SOFTWARE_ROOT_DIRECTORY")
++    config = read_config_file()
++    return os.environ.get('SW_ROOT', \
++                          os.path.abspath(config.get('locations', 'sw_root')))
+ 
+ def template_directory():
+     '''
+-    Returns the template directory as defined in sw_config
++    Returns the template directory per arch as defined in sw_config
+     '''
+-    
+-    return read_config_file("TEMPLATE_DIRECTORY")
++    config = read_config_file()
++    arch = getarch()
++    return os.path.join(config.get('locations', 'templates'), arch)
++
+     
+ def valid_machines():
+     '''
+     This returns a list of machines that have been defined in sw_config
+     '''
+     
+-    machine_arch_pairs = read_config_file("MACHINES").split(",")
+-    machines = []
++    config = read_config_files()
++    machines = config.items('machines')
+     
+-    for pair in machine_arch_pairs:
+-        machines.append(pair.split(":")[0])
+-
+-    return machines
++    valid_mach = []
++    for (mname, arch) in machines:
++      valid_mach.append(mname)
++    
++    return valid_mach
+ 
+ 
+ def valid_architectures():
+@@ -196,22 +196,15 @@
+     This returns a list of architectures that have been defined in sw_config
+     '''
+     
+-    machine_arch_pairs = read_config_file("MACHINES").split(",")
+-    architectures = []
++    config = read_config_files()
++    machines = config.items('machines')
+     
+-    for pair in machine_arch_pairs:
+-        if pair.split(":")[1] not in architectures:
+-            architectures.append(pair.split(":")[1])
++    valid_arch = []
++    for (mname, arch) in machines:
++      valid_arch.append(mname)
+     
+-    return architectures
++    return list(set(valid_arch))
+ 
+-def valid_versions(): 
+-    '''
+-    This returns a list of valid version identifiers. This is read from sw_config
+-    '''
+-    
+-    valid_versions = read_config_file("VALID_VERSIONS")
+-    return valid_versions.split(",")
+ 
+ ##############################################################################
+ # Functions that read variables effecting addbuild/addpackage 
+@@ -222,40 +215,34 @@
+     This returns the list of files to be copied when an addbuild is run.
+     '''
+     
+-    template_pemission_pairs = read_config_file("ADDBUILD_TEMPLATES").split(",")
+-    file_permission_pairs = {}
+-    for pair in template_pemission_pairs:
+-        currentpair = pair.split(":")
+-        file_permission_pairs[currentpair[0]] = int(currentpair[1],8)
+-
+-    return file_permission_pairs
++    config = read_config_file()
++    return config.items('build_templates')
+ 
+ def addpackage_templates():
+     '''
+     This returns the list of files to be copied when an addpackage is run
+     '''
+     
+-    template_pemission_pairs = read_config_file("ADDPACKAGE_TEMPLATES").split(",")
+-    file_permission_pairs = {}
+-    for pair in template_pemission_pairs:
+-        currentpair = pair.split(":")
+-        file_permission_pairs[currentpair[0]] = int(currentpair[1],8)
+-
+-    return file_permission_pairs
++    config = read_config_file()
++    return config.items('package_templates')
+ 
+ def builddir_perms():
+     '''
+     This returns an octal permissions string that the newly created build directory 
+     wil be chmodded to
+     '''
+-    return int(read_config_file("BUILDDIR_PERMISSIONS"),8)
++    config = read_config_file()
++    return config.get('permissions', '_BUILDDIR')
++
+ 
+ def appdir_perms():
+     '''
+     This returns an octal permissions string that the newly created application directory 
+     wil be chmodded to
+     '''
+-    return int(read_config_file("APPDIR_PERMISSIONS"),8)
++    
++    config = read_config_file()
++    return config.get('permissions', '_APPDIR')
+ 
+ ##############################################################################
+ # Functions that read variables effecting duplicate
+@@ -299,10 +286,13 @@
+     When a rebuild/relink/retest is run, the umask is changed at the start of 
+     script execution. This script gets the value of that umask.
+     '''
+-    return int(read_config_file("DEFAULT_UMASK"),8)
++    config = read_config_file()
++    return config.get('permissions', 'UMASK')
+ 
+ def get_work_environment():
+-    return read_config_file("REBUILD_RELINK_RETEST_WORK_ENVVAR")
++    
++    config = read_config_file()
++    return config.get('locations', 'workdir_env')
+ 
+ ##############################################################################
+ # Functions that read variables effecting version
+@@ -320,11 +310,6 @@
+ # Functions that read variables effecting report
+ ##############################################################################
+ 
+-def application_exceptions():
+-    '''
+-    This returns a list of directories that swreport should ignore inside the application directorys.
+-    '''
+-    return read_config_file("APPLICATION_LEVEL_EXCEPTIONS").split(",")
+ 
+ def application_required_files():
+     '''
+diff -u -r swtools-1.0/bin/duplicate.py swtools2/bin/duplicate.py
+--- swtools-1.0/bin/duplicate.py	2010-12-10 10:01:49.125730000 -0500
++++ swtools2/bin/duplicate.py	2011-08-11 15:05:03.151150000 -0400
+@@ -257,32 +257,44 @@
+     if (nlfile == None):
+         return
+     elif not os.path.isfile(nlfile):
+-        error("$SW_ENVFILE is set but does not point to a valid file. It"
++        error("$SW_MODFILE is set but does not point to a valid file. It"
+               + " should contain the path of a file with updated module"
+               + " commands for the duplicate builds.")
+ 
+     indirect_edit_done = False
++
++    onlyupdateremodule = False
++
+     for filename in duplicate_files():
+         fpath = "%s/%s" % (bpath, filename)
+         f = open(fpath, 'r')
++        lines = []
+         lines = f.readlines()
+         f.close()
+ 
+-        start, end = find_duplicate_start_end_flags(lines)
++#mrf
++        if (filename == "remodule") and (os.path.isfile(fpath)):   # assume remodule is listed first in config file
++            remoduleexists = True
++
++        if ((remoduleexists) and (filename == "remodule")) or ((not remoduleexists) and (filename != "remodule")):
++           start, end = find_duplicate_start_end_flags(lines)
++#mrf
++
++           # I think the following could be rewritten possibly without the loop
++           # can't quite figure out what Nick has it doing
++           for i in range(start+1,end):
++               q = re.findall(r'\. (\S+)', lines[end-1].strip())
++               print q
++               if (q != []) and (not indirect_edit_done):
++                   edit_env_file(nlfile, editable='%s/%s' % (bpath, q[0].split("/")[-1] ))
++                   indirect_edit_done = True
++                   break
+ 
+-        for i in range(start+1,end):
+-            q = re.findall(r'\. (\S+)', lines[end-1].strip())
+-            print q
+-            if (q != []) and (not indirect_edit_done):
+-                edit_env_file(nlfile, editable='%s/%s' % (bpath, q[0].split("/")[-1] ))
+-                indirect_edit_done = True
+-                break
+-
+-        try:
+-            if q == []:
+-                edit_env_file(nlfile, editable=fpath, lines=lines)
+-        except UnboundLocalError:
+-            pass
++           try:
++               if q == []:
++                   edit_env_file(nlfile, editable=fpath, lines=lines)
++           except UnboundLocalError:
++               pass
+ 
+     
+ # ---------------------------------------------------------------------------
+Only in swtools-1.0/bin: environment.csh
+Only in swtools-1.0/bin: environment.sh
+Only in swtools-1.0/bin: listallapps
+Only in swtools-1.0/bin: nccsld_env.sh
+Only in swtools-1.0/bin: nccsld_process.pl
+diff -u -r swtools-1.0/bin/rebuild_retest_relink.py swtools2/bin/rebuild_retest_relink.py
+--- swtools-1.0/bin/rebuild_retest_relink.py	2010-12-10 10:01:49.125730000 -0500
++++ swtools2/bin/rebuild_retest_relink.py	2016-05-19 11:30:51.236066000 -0400
+@@ -21,66 +21,6 @@
+                   dryrun option.
+ 
+ 
+ from swadm import *
+ from config import *
+@@ -97,7 +37,7 @@
+ def main(application,version,build,build_path,
+          log,stdoutflag,action,debug,resume, dryrun=False):
+     
+-    old_umask = os.umask(get_umask())
++    old_umask = os.umask(int(get_umask(),8))
+ 
+     # If logging is enabled, use the Tee class to copy stdout to log
+ 
+@@ -243,7 +183,8 @@
+         # doesn't own the files. Thats OK. We mainly want to make sure that the all of the newly created files
+         # are world readable/writeable
+         os.system("chmod -R ug+w,a+rX " +currentbuild +" > /dev/null 2>&1")
+-        os.system("chown -R :ccsstaff " +currentbuild +" > /dev/null 2>&1")
++        # changing this to :install, was :ccsstaff - 03-16-2011 Scott S.
++        os.system("chown -R :install " +currentbuild +" > /dev/null 2>&1")
+ 
+        
+     # Restore the umask to the previous umask (before the script was run)
+diff -u -r swtools-1.0/bin/reporthtml.py swtools2/bin/reporthtml.py
+--- swtools-1.0/bin/reporthtml.py	2010-12-10 10:01:49.125730000 -0500
++++ swtools2/bin/reporthtml.py	2016-05-18 13:34:33.607153000 -0400
+@@ -164,7 +164,7 @@
+             os.mkdir(webhome()+"/"+arch.split("/")[-1])
+ 
+         machinefile = open(webhome()+"/"+arch.split("/")[-1]+"/alphabetical.html","w")
+-        machinefile.write('<a href="?&view=category">Category View</a>')
++        machinefile.write('<a href="?&view=category">[switch to Category View]</a>')
+         machinefile.write('<ul class="sw">')
+ 
+         for app in apps:       # Nick's implementation
+@@ -236,7 +236,8 @@
+         # Write out the machine specific categorical listing of applications
+         
+         machinedescripfile = open(webhome()+"/"+arch.split("/")[-1]+"/category.html","w")
+-        machinedescripfile.write('<a href="../software/">Alphabetical View</a>')
++        #machinedescripfile.write('<a href="../software/">Alphabetical View</a>')
++        machinedescripfile.write('<a href="?&view=alphabetical">[switch to Alphabetical View]</a>')
+         machinedescripfile.write('<ul class="sw">') 
+         for key in keys:
+                 machinedescripfile.write("<li>"+key+"</li>\n")
+@@ -264,8 +265,8 @@
+         machinefile.write("</ul>")
+         machinefile.close()
+     
+-        if architecture != "*":
+-            return
++        #if architecture != "*":
++            #return
+ 
+ #mrf:start   
+     # get showos setting (set in sw_config)
+@@ -295,6 +296,8 @@
+                     os.mkdir(webhome()+"/"+archs[i].split("/")[-1])
+                 
+                 descripfile = open(webhome()+"/"+archs[i].split("/")[-1]+"/"+app+".html","w")    
++                #if debug:
++                  #print "file is:"+ webhome()+"/"+archs[i].split("/")[-1]+"/"+app+".html"    
+                 
+                 # Suck the text out of the application description file
+                 try:
+diff -u -r swtools-1.0/bin/swadm.py swtools2/bin/swadm.py
+--- swtools-1.0/bin/swadm.py	2010-12-10 10:01:49.125730000 -0500
++++ swtools2/bin/swadm.py	2016-05-19 11:30:51.236066000 -0400
+@@ -245,35 +245,26 @@
+ 
+     # Build the applications path
+ 
+-    application_path = glob.glob(software_root()+"/"+getarch()+"/"+app)
+-    
++    application_path = []
++    application_path.append(os.path.join(software_root(), getarch(), app))
++        
+     if application_path == []:
+         error("No applications match your criteria")
+ 
+-    for exception in application_exceptions():
+-        exc = "%s/%s/%s" % (software_root(), getarch(), exception)
+-        if (exc) in application_path:
+-            application_path.remove(exc)
+-
+     # Build the versions path
+-
+     version_path = []
+-    if vspec in valid_versions():
+-        version_path = get_versions(application_path,vspec)
+-    else:
+-        for currentapplication in application_path:
+-            if os.path.isdir(currentapplication+"/"+vspec):
+-                version_path.append(currentapplication+"/"+vspec)
+-                print version_path
+-            else:
+-                error("%s does not exist" % (currentapplication+"/"+vspec) )
++    for currentapplication in application_path:
++        if os.path.isdir(os.path.join(currentapplication, vspec)):
++            version_path.append(os.path.join(currentapplication, vspec))
++        else :
++            error("%s does not exist" % (currentapplication+"/"+vspec) )
+ 
+     # Build the build path 
+ 
+     build_path = []
+ 
+     for currentversion in version_path:
+-        for currentbuild in glob.glob(currentversion+"/"+bspec):
++        for currentbuild in glob.glob(os.path.join(currentversion,bspec)):
+             build_path.append(currentbuild)    
+ 
+     if build_path == []:
+Only in swtools2/bin: swbuildhere
+diff -u -r swtools-1.0/bin/swbuild.py swtools2/bin/swbuild.py
+--- swtools-1.0/bin/swbuild.py	2010-12-10 10:01:49.125730000 -0500
++++ swtools2/bin/swbuild.py	2016-06-02 14:36:56.237425000 -0400
+@@ -95,6 +95,6 @@
+ parser.check_required("-a")
+ parser.check_required("-b")
+ 
+-rebuild_retest_relink.main(opts.app,opts.version,opts.build,[],
+-                           opts.log,opts.stdout,"rebuild",opts.debug,
++rebuild_retest_relink.main(opts.app, opts.version, opts.build, [],
++                           opts.log, opts.stdout, "rebuild", opts.debug,
+                            opts.resume)
+Only in swtools2/bin: swbuildwait
+Only in swtools-1.0/bin: sw_config
+Only in swtools2/bin: swtesthere
+Only in swtools2/bin: swtestwait
+Only in swtools2/doc: swtools.change
+Only in swtools2: etc
+Only in swtools2: LICENSE.swtools
+diff -u -r swtools-1.0/modulefiles/swtools swtools2/modulefiles/swtools
+--- swtools-1.0/modulefiles/swtools	2009-12-17 13:05:38.642771000 -0500
++++ swtools2/modulefiles/swtools	2016-05-18 13:34:33.607153000 -0400
+@@ -5,16 +5,10 @@
+   }
+ 
+ set sys [ uname machine ]
+-#if { $sys == "x86_64" } {
+-  module load python
+-#} elseif { $sys == "ppc64" } {
+-#  module load linux/python/2.5.2
+-#}
+ 
++set apppath /nics/e/sw/tools/bin
+ 
+-  set apppath /nics/e/sw/tools/bin
+-
+-  prepend-path PYTHONPATH       $apppath
+-  prepend-path PATH             $apppath
++prepend-path PYTHONPATH       $apppath
++prepend-path PATH             $apppath
+ 
+ 
+Only in swtools2: sbin
+Only in swtools-1.0/templates: apptest.pbs
+Only in swtools-1.0/templates: build-notes
+Only in swtools2/templates: cs300
+Only in swtools2/templates: cs400
+Only in swtools2/templates: modulefiles
+Only in swtools-1.0/templates: rebuild
+Only in swtools-1.0/templates: rebuild2
+Only in swtools-1.0/templates: rebuild.test
+Only in swtools-1.0/templates: relink
+Only in swtools-1.0/templates: relink2
+Only in swtools-1.0/templates: relink.test
+Only in swtools-1.0/templates: remodule
+Only in swtools-1.0/templates: retest
+Only in swtools-1.0/templates: retest2
+Only in swtools-1.0/templates: retest.test
+Only in swtools-1.0/templates: status
+Only in swtools-1.0/templates: test.pbs
+Only in swtools2/templates: xc30

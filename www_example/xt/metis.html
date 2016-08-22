@@ -1,0 +1,43 @@
+<h1>Metis</h1>
+
+<p> Category: Libraries-Math
+
+<h2>Description</h2>
+
+<p> 
+METIS is a set of serial programs for partitioning graphs, partitioning finite element meshes, and producing fill reducing orderings for sparse matrices. The algorithms implemented in METIS are based on the multilevel recursive-bisection, multilevel k-way, and multi-constraint partitioning schemes.
+
+<h2>Use</h2>
+
+<p>
+Metis is available as a module.  
+
+<pre>
+module avail metis
+module load metis
+gcc/pathcc/pgcc test.c ${METIS_LIB}
+</pre>
+
+Cray only provides ParMetis as part of its petsc package (not Metis.)
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>4.0.1</th>
+	<td><table class="inline"><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">?</td></tr><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+</tr>
+
+</table>

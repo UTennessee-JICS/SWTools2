@@ -1,0 +1,83 @@
+<h1>HDF5</h1>
+
+<p>Category: Libraries-IO
+
+<h2>Description</h2>
+
+<p>The Hierarchical Data Format (HDF) project involves the development and support of software and file formats for scientific data management. The HDF software includes I/O libraries and tools for analyzing, visualizing, and converting scientific data. 
+
+<p>There are two HDF formats, HDF (4.x and previous releases) and HDF5. These formats are completely different and NOT compatible, but conversion software is available for converting HDF4 data to HDF5, and vice versa.
+
+<p>For more information see the <a href="http://www.hdfgroup.org/HDF5/">HDF home page</a>. 
+
+<h2>Use</h2>
+
+<p>HDF5 is available as a module.  Cray and NICS both provide some hdf5 builds:   a "module avail" will show the various hdf5 modules available.  There are parallel and serial versions of HDF5.  
+
+<p>The Cray HDF5 modules work seemlessly within the environment, and so just the act of loading the appropriate hdf5 module will link your code with the hdf5 libraries.  These installations were NOT built with SZIP compression support.  Note:  if you change the PrgEnv AFTER loading an hdf5 module, you must "update" or reload the hdf5 modulefile - this is true for both Cray and NICS built hdf5 libraries.
+
+<p>With NICS HDF modules, the following examples can be used to compile and link your program (hdf5example.f90) to the HDF libraries.   These builds were compiled with SZIP support.
+
+<p>For parallel HDF5:
+<pre>
+
+FORTRAN 
+  ftn hyperslab.f90 ${HDF5_FLIB}
+     OR
+  h5pfc hyperslab.f90
+</pre>
+
+The environment variables given above are set in the module file - they are locally defined.  
+
+<pre>
+C 
+  cc -o hdf5example.x hdf5example.c ${HDF5_CLIB}
+     OR
+  h5pcc -o hdf5example.x hdf5example.c
+
+Note the difference between HDF5_FLIB and HDF5_CLIB for Fortran and C, respectively.
+
+</pre>
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>1.8.3</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5_par</td><td class="hidden2">u</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi9.0.1_par</td><td class="hidden2">u</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.2_par</td><td class="hidden2">u</td></tr><tr><td class="hidden">gnu4.1.2</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<th>1.6.7</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.3</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi7.2.3_par</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5_par</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi9.0.1_par</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.2.4</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.3.2_par</td><td class="hidden2">u</td></tr><tr><td class="hidden">gnu4.2.4_par</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2_par</td><td class="hidden2">u</td></tr><tr><td class="hidden">pathscale3.2</td><td class="hidden2">u</td></tr></table></td>
+	<td></td>
+</tr>
+<tr>
+	<th>1.6.9</th>
+	<td><table class="inline"><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5_par</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi9.0.1_par</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.3</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.3.3_par</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2_par</td><td class="hidden2">v</td></tr><tr><td class="hidden">pathscale3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">cray7.1.1</td><td class="hidden2">?</td><tr></table></td>
+</tr>
+<tr>
+	<th>1.8.2</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.5_par</td><td class="hidden2">u</td></tr><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5_par</td><td class="hidden2">u</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi9.0.1_par</td><td class="hidden2">u</td></tr><tr><td class="hidden">pgi7.2.5</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.2_par</td><td class="hidden2">u</td></tr><tr><td class="hidden">gnu4.1.2</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2_par</td><td class="hidden2">u</td></tr><tr><td class="hidden">pathscale3.2</td><td class="hidden2">u</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">testcray</td><td class="hidden2">u</td><tr></table></td>
+</tr>
+
+</table>

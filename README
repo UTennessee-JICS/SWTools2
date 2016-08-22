@@ -1,0 +1,64 @@
+SWTools is python code combined with a directory hierarchy and rules to
+create an infrastructure for software management; or SoftWare Tools.
+SWTools was created to help manage third-party software installations at
+supercomputer centers.  It was designed to keep the installations
+consistent and up-to-date while trying to avoid problems encountered
+with previous software repositories.  
+
+
+After having gained significant experience with previous filesystems
+where third party software installations were located, the SWTools
+creators had several distinct goals in mind when they approached the
+task of designing the NCCS' new software management system SWTools. The
+main goal of the new design was to have a system that was strongly
+hierarchical, with rules for naming, installing, and documenting that
+could be enforced in automated way. In addition, the authors sought to
+automate as much of the software maintenance process as possible. 
+
+Foremost, the authors wished to be able to build, link, or test any
+installed application on any system at any time. One problem that all
+software installers and maintainers face is the problem of upgrades,
+whether those happen to be compiler upgrades, operating system upgrades
+or application upgrades. Any time one of those events occurs, a huge
+amount of work has to be done. At the very least, after the upgrade is
+installed, all applications that depend on it must be retested. In the
+case of OS upgrades, the maintainer may have to relink a significant
+number of the applications on the system in order to fix problems
+relating to new system libraries. Compiler upgrades are somewhat simpler
+in that they usually do not break any of the existing system
+applications, but nonetheless, any third party libraries that are
+provided on that system should be compiled with the new compiler, which
+can be viewed as a simple regression test of the compiler.
+
+The authors also sought to automate the collection of as much reporting
+data as possible. In the new system, all provided documentation will be
+written by the application installers. This theoretically will keep the
+documentation as up to date as possible. Also, inventory and user
+documentation will be kept up to date dynamically. That is, the same
+documentation that the installer writes for local users of the system
+will be made available online, and all web based inventory information
+will be dynamically updated. Locally, a site can institute a workflow to
+include a review process [by the core software administration team] for
+the documentation if deemed necessary.  The core software administration
+team will ultimately be responsible for making sure all applications and
+packages conform to the rules that have been set out, and that all
+information presented is high quality in nature.
+
+
+Highlights of SWTools are:
+
+ - helps manage installations of third-party software
+ - provides testing infrastructure
+ - uses a structured hierarchy
+ - helps ensure consistency of installations across packages
+ - checks for conformance to established rules
+ - creates web pages
+
+
+These benefits make managing third-party software more efficient.  The
+consistency alone is a huge payoff for organizations that have many
+people contributing to software maintenance.
+
+
+See doc/manual.pdf for a complete description and installation 
+instructions.

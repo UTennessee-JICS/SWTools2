@@ -1,0 +1,43 @@
+<h1>UMFPACK</h1>
+
+<p>Category: Libraries-Math
+
+<h2>Description</h2>
+
+A set of routines solving sparse linear systems via LU
+factorization.  Requires three other packages:  the BLAS (dense matrix
+operations), AMD (sparse matrix minimum degree ordering), and UFconfig.
+Includes a C-callable and MATLAB interface, and a basic FORTRAN 77
+interface to a subset of the C-callable routines.  Requires AMD Version
+2.0 or later.
+
+<h2>Use</h2>
+This library is only built for use on the service nodes.
+
+<pre>
+module load umfpack
+cc -o example example.c ${UMFPACK}
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Unsupported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>5.1.1</th>
+	<td></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.1.2</td><td class="hidden2">u</td></tr></table></td>
+	<td></td>
+	<td></td>
+</tr>
+
+</table>

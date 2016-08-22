@@ -1,0 +1,78 @@
+<h1>NumPy</h1>
+
+<p> Category: Program Dev-Tools
+
+<h2>Description</h2>
+
+<p>NumPy is the fundamental package needed for scientific computing with Python. It contains:
+
+<UL type="square">
+<LI> A powerful N-dimensional array object 
+<LI> Sophisticated broadcasting functions 
+<LI> Basic linear algebra functions 
+<LI> Basic Fourier transforms 
+<LI> Sophisticated random number capabilities 
+<LI> Tools for integrating Fortran code. 
+<LI> Tools for integrating C/C++ code. 
+</UL>
+
+<p>Besides its obvious scientific uses, NumPy can also be used as an efficient multi-dimensional container of generic data. Arbitrary data-types can be defined. This allows NumPy to seamlessly and speedily integrate with a wide variety of databases. NumPy derives from the old Numeric code base and can be used as a replacement for Numeric.   It also adds the features introduced by Numarray and can also be used to replace Numarray.  
+
+<p>Numeric users should find the transition relatively easy (although not without some effort).  There is a module (numpy.oldnumeric.alter_code1) that can make most of the necessary changes to your Python code that used Numeric to work with NumPy's Numeric compatibility module. 
+
+<p>Users of numarray can also transition their code using a similar module (numpy.numarray.alter_code1) and the numpy.numarray compatibility layer. 
+
+<p>C-code written to either package can be easily ported to NumPy using "numpy/oldnumeric.h" and "numpy/libnumarray.h" for the Numeric C-API and the Numarray C-API respectively. Sourceforge download site
+
+<p>There is a book available "Guide to NumPy" which details NumPy. 
+Questions?  Ask them at the numpy-discussion@scipy.org mailing list.
+
+<p>Much of the documentation for Numeric and Numarray is applicable to the new NumPy package.  However, there are significant feature improvements.  A complete guide to the new system has been written by the primary developer, Travis Oliphant. It is now in the public domain.  
+Other Documentation is available at the scipy website and in the docstrings (which can be extracted using pydoc). Free Documentation for Numeric (most of which is still valid) is here or as a pdf file.   Obviously you should replace references to Numeric in that document with numpy (i.e. instead of import Numeric, use import numpy).  
+
+<p>For about 6 months at the end of 2005, the new package was called SciPy Core (not to be confused with the full SciPy package which remains a separate package), and so you will occasionally see references to SciPy Core floating around.    It was decided in January 2006 to go with the historical name of NumPy for the new package.  Realize that NumPy (module name numpy) is the new name.   Because of the name-change, there were a lot of dicussions that took place on scipy-dev@scipy.org and scipy-user@scipy.org.  If you have a question about the new system, you may wish to run a search on those mailing lists as well as the main NumPy list (numpy-discussion@lists.sourceforge.net)
+
+
+<h2>Use</h2>
+
+<p> To use numpy load the modules python/2.5.2 and numpy/1.2.1
+<pre>
+module load python/2.5.2
+module load numpy/1.2.1
+</pre>
+
+Modify your python scripts to import the numpy package as in the follwing example.
+
+<pre>
+#! /usr/bin/env python
+
+import numpy
+
+def main():
+    tmparray = numpy.random.random_sample(10)
+    print "tmparray=",tmparray
+
+main()
+
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Unsupported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "3">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>Other</th>
+<tr>
+	<th>1.2.1</th>
+	<td></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.1.2</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+</tr>
+
+</table>

@@ -1,0 +1,47 @@
+<h1>AZTEC</h1>
+
+<p> Category: Libraries-Math-Sparse
+
+<h2>Description</h2>
+
+<p> Aztec is a standalone parallel iterative solver for large systems of 
+sparse linear equations. It is a standalone package developed by Sandia 
+National Laboratory in the mid 90s. The library is written in C and MPI and 
+is callable from Fortran. Aztec is now superseded by the Trilinos solver 
+framework, http://trilinos.sandia.gov.  You can also refer to the user manual 
+available in /sw/sources/aztec/doc for additional information.    
+
+<h2>Use</h2>
+
+<p>
+Load the aztec module.
+<pre>
+  module avail aztec
+  module load aztec/2.1
+  cc test.c ${AZTEC_LIB}
+</pre>
+Note that if you change the programming environment after loading the
+aztec module, you will have to reload or update the aztec module.
+
+
+<h2>Support</h2><p>This package has the following support level : Unsupported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>2.1</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.3</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi9.0.1</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.2</td><td class="hidden2">v</td></tr><tr><td class="hidden">gnu4.2.0</td><td class="hidden2">v</td></tr></table></td>
+	<td><table class="inline"><tr><td class="hidden">pathscale3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+</tr>
+
+</table>

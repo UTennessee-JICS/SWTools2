@@ -1,0 +1,57 @@
+<h1>FASTMV</h1>
+
+<p> Category: Libraries-Math
+
+<h2>Description</h2>
+
+<p> 
+Fast_mv is a library of high-performance math intrinsic functions. The
+library functions can be used in PGI and PathScale programs. You can
+use these functions without changing your programs, or you can call
+them directly.
+
+<p>The library contains:
+<ul>
+<li>  exp(), the 64-bit exponential function (the constant e raised to a power)
+<li>  expf(), the 32-bit exponential function (the constant e raised to a power)
+<li>  frda_exp(), the 64-bit exponential function for all elements in an array
+<li>  frsa_expf(), the 32-bit exponential function for all elements in an array
+<li>  cos(), the 64-bit cosine function
+<li>  sin(), the 64-bit sine function
+<li>  sincos(), the 64-bit sine and cosine function
+<li>  log(), the 64-bit logarithm (base e) function
+<li>  logf(), the 32-bit logarithm (base e) function
+<li>  frda_log(), the 64-bit logarithm (base e) function for all elements
+        in an array
+</ul>
+
+
+<h2>Use</h2>
+
+<p> 
+To use Fast_mv functions, first load the libfast module:
+<pre>
+    % module load libfast
+</pre>
+After loading the module, you can do a man of "intro_fast_mv" or "cos" 
+for more information including "cautions" and "examples".
+
+<p>
+Then include -lfast_mv on the compiler command line:
+<pre>
+    % ftn -o program program.f90 -lfast_mv
+    % cc -o program program.c -lfast_mv
+</pre>
+
+Note:  If you include -l options for other math libraries on the
+link command, the -lfast_mv argument must come first.
+
+<p>   The library also has array versions of some functions. Array versions
+compute the function for all elements of an argument array and store
+the results in a second array. Array functions are usually the fastest
+way to compute a function when it must be performed many times.
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+<p>All versions of this software are provided by the system vendor and are not installed by NICS staff.

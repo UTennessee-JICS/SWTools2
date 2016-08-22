@@ -1,0 +1,72 @@
+<h1>Title</h1>
+
+<p> Category: Science Apps-Electron Structure
+
+<h2>Description</h2>
+
+<p> Quantum-ESPRESSO (opEn-Source Package for Research in Electronic Structure, Simulation, and Optimization) 
+is a suite for electronic structure and materials modeling using Density Functional Theory, 
+plane waves, and pseudopotentials. </p> 
+
+<p>Quantum-ESPRESSO contains the following packages:</p>
+<ul class="indent">
+<li> Plane-Wave/Self-Consistent-Field: Called using <code>pw.x</code>, this package can calculate:</li>
+<ul class="intent">
+	<li> ground-state energy and one-electron (Kohn-Sham) orbitals</li>
+	<li> atomic forces, stresses, and structural optimization</li>
+	<li> molecular dynamics on the ground-state Born-Oppenheimer surface, also with variable-cell</li>
+	<li> Nudged Elastic Band (NEB) and Fourier String Method Dynamics (SMD) for energy barriers and reaction paths</li>
+	<li> phonon frequencies and eigenvectors at a generic wave vector, using Density-Functional Perturbation Theory</li>
+	<li> effective charges and dielectric tensors</li>
+	<li> electron-phonon interaction coefficients for metals</li>
+	<li> interatomic force constants in real space</li>
+	<li> third-order anharmonic phonon lifetimes</li>
+	<li> Infrared and Raman (nonresonant) cross section</li>
+	<li> macroscopic polarization and finite electric fields via Berry Phase </li>
+</ul>
+<li> Car Parrinello: Called using <code>cp.x</code>, this package can calculate:</li>
+<ul class="indent">
+	<li> Car-Parrinello molecular dynamics simulation (neutral and charged cases)
+	<li> Geometry optimization by damped dynamics
+	<li> Constant-temperature simulation with Nosè thermostats (including Nosè-Hoover chains for each atom)
+	<li> Variable-cell (Parrinello-Rahman) dynamics
+	<li> Nudged Elastic Band (NEB) for energy barriers and reaction path
+	<li> Dynamics with Wannier functions and under finite electric fields 
+</ul>
+</ul>
+
+<h2>Use</h2>
+
+<p> To set up the environment to use Quantum-ESPRESSO, load the module using <code>module load q-espresso</code>.  You will need to copy the executable to your lustre workspace and then do runs there.  The path to the installation directory of Quantum-Espresso is set in $Q_ESPRESSO_DIR.
+
+<p> Sample inputs can be found in <code>$Q_ESPRESSO_DIR/examples</code>.
+
+
+<pre>
+  module load q-espresso
+  which executable
+</pre>
+Then copy the exectuable using the full path to Lustre workspace.
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>pathscale</th>
+	<th>gnu</th>
+	<th>Other</th>
+<tr>
+	<th>4.0</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.5</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+
+</table>

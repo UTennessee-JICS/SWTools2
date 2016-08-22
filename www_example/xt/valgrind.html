@@ -1,0 +1,111 @@
+<h1>Valgrind</h1>
+
+<p> Category: Tools-Debugger
+
+<h2>Description</h2>
+
+<p> <a href="http://www.valgrind.org/">Valgrind</a> is an instrumentation framework for
+building dynamic analysis tools. There are Valgrind tools that can
+automatically detect many memory management and threading bugs, and
+profile your programs in detail. You can also use Valgrind to build
+new tools.
+
+<p> The Valgrind distribution currently includes five production-quality
+tools: a memory error detector, a thread error detector, a cache and
+branch-prediction profiler, a call-graph generating cache profiler,
+and a heap profiler. It also includes two experimental tools: a data
+race detector, and an instant memory leak detector. 
+
+<p> The Valgrind tool suite provides a number of debugging and
+profiling tools. The most popular is Memcheck, a memory checking tool
+which can detect many common memory errors such as:
+
+<ul>
+ <li>Touching memory you shouldn't (eg. overrunning heap block boundaries,
+or reading/writing freed memory).
+ <li>Using values before they have been initialized.
+ <li>Incorrect freeing of memory, such as double-freeing heap blocks.
+ <li>Memory leaks.
+</ul>
+
+<p>  Note that programs running under Valgrind run significantly more
+slowly, and use much more memory -- e.g. more than twice as much as
+normal under the Memcheck tool. 
+
+<P> 
+Please consult the <a
+href="http://www.valgrind.org/docs/manual/FAQ.html">Valgrind FAQ</a> and the 
+<a href="http://www.valgrind.org/docs/manual/manual.html">Valgrind
+User Manual</a>, which
+have much more information. Note that the other tools in the Valgrind
+distribution can be invoked with the --tool option.
+
+<h2>Use</h2>
+
+<p> This package is unsupported.  It is <b>not</b> built with MPI
+support.  The checks that come with the package pass.
+If you run into problems, report them but please understand this
+is unsupported.
+
+<p>
+To use valgrind, load the valgrind module.
+
+<pre>
+  module avail valgrind
+  module load valgrind/3.3.1
+</pre>
+<p> Once the valgrind module is loaded, you can check out the valgrind
+manpage for usage information.  What follows below is a simple use
+case of valgrind.
+
+<p> Compile your program with "-g".  Using -O0 is also a good idea, if
+you can tolerate the slowdown. With -O1 line numbers in error messages
+can be inaccurate, although generally speaking Memchecking code
+compiled at -O1 works fairly well. Use of -O2 and above is not
+recommended as Memcheck occasionally reports uninitialised-value
+errors which don't really exist.
+
+<p>If you normally run your program like this:
+
+<pre>
+    myprog arg1 arg2
+</pre>
+
+<p>Use this command line:
+
+<pre>
+    valgrind --leak-check=yes myprog arg1 arg2
+</pre>
+Memcheck is the default tool. The --leak-check option turns on the
+detailed memory leak detector.
+
+
+
+<h2>Support</h2><p>This package has the following support level : Unsupported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>3.4.1</th>
+	<td></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.3</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<th>3.3.1</th>
+	<td></td>
+	<td><table class="inline"><tr><td class="hidden">gnu4.3.2</td><td class="hidden2">v</td></tr></table></td>
+	<td></td>
+	<td></td>
+</tr>
+
+</table>

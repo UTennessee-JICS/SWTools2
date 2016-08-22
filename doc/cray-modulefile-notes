@@ -1,0 +1,30 @@
+The following variables can be set and picked up by the Cray wrappers:
+
+You need to add PRODUCT to PE_PRODUCT_LIST and the options will appear in
+the final command in the order of the products in that list.
+
+{PRODUCT}_INCLUDE_OPTS
+{PRODUCT}_PRE_COMPILE_OPTS
+{PRODUCT}_POST_COMPILE_OPTS
+{PRODUCT}_PRE_LINK_OPTS
+{PRODUCT}_POST_LINK_OPTS
+
+They are evaluated in the following order:
+$CC $PRE_COMPILE_OPTS "$@" $POST_COMPILE_OPTS $INCLUDE_OPTS $CFLAGS
+
+and during linking:
+$CC -Bstatic $pgfmain -Wl,-u,_start,-e,_start,-T$APP_LDS_FILE $START
+$prof_lib $PRE_COMPILE_OPTS $PRE_LINK_OPTS "${__newarglist[@]}"
+-Wl,--start "${__argslibspath[@]}" $POST_COMPILE_OPTS $POST_LINK_OPTS
+$INCLUDE_OPTS $CFLAGS $LIBSPATH "${__argslibs[@]}" $LIBS -Wl,--end
+$END
+
+Interestingly enough I don't see LDFLAGS being evaluated, so it must
+be added in at a different level.  These are actually parsed by
+/opt/xt-tools/bin/build-opts and evaluated by qk-*.  
+
+Another neat thing worth noting is that you can find out what compiler
+you're using by checking $PE_ENV, which could be useful if you need to
+change things slightly depending on which compiler is being used.
+
+But no way to differentiate C and Fortran with these vars.

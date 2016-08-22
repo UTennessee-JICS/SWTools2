@@ -1,0 +1,75 @@
+<h1>DDT</h1>
+
+<p> Category: Tools-Debugger
+
+<h2>Description</h2>
+
+<p> 
+The Distributed Debugging Tool (DDT) is an intuitive, scalable, graphical
+debugger. 
+DDT can be used as a single-process or a multi-process program (MPI)
+debugger. The availability of these capabilities will depend on the licence
+that you have - although multi-process licences are always capable of
+supporting single-process debugging.
+
+<p> Both modes of DDT are capable of debugging multiple threads, including
+OpenMP codes. DDT provides all the standard debugging features (stack trace,
+breakpoints, watches, view variables, threads etc.) for every thread running as
+part of your program, or for every process - even if these processes are
+distributed across a cluster using an MPI implementation.
+
+<p> C, C++, Fortran and Fortran 90/95/2003 are all supported by DDT, along with
+a large number of platforms, compilers and all known MPI libraries.
+
+<p> <a href=http://www.allinea.com/downloads/userguide.pdf>DDT User Guide</a>.
+
+<h2>Use</h2>
+
+<p> 
+DDT is currently only available on a trial basis until mid Sep 09.  
+If you would like
+this on a permanent basis, please let NICS know at "help at teragrid.org".
+
+<p><b>First time users:</b>  Note that the first time you use DDT, 
+there will need to be some configuration.  A site-wide configuration
+has been done for most settings.  But you will need to change a few 
+settings (like PBS account and number of processes/threads to debug.)
+
+<p>When compiling the program that you wish to debug, you must add the debug
+flag to your compile command. For the most compilers this is -g. It is also
+advisable to turn off compiler optimisations as these can make debugging appear
+strange and unpredictable. If your program is already compiled without debug
+information you will need to remake the files that you are interested in again.
+
+<p>
+You can either use it in an interactive batch job or have DDT submit a 
+batch job for you.  In the latter case, it does MPI only with 1 process 
+per core. 
+
+<pre>
+ module load ddt
+ ddt [program_name [arguments]]
+</pre>
+
+
+<h2>Support</h2><p>This package has the following support level : Unsupported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>2.4.1</th>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td><table class="inline"><tr><td class="hidden">binary</td><td class="hidden2">v</td><tr></table></td>
+</tr>
+
+</table>

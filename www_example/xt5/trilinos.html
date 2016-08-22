@@ -1,0 +1,56 @@
+<h1>AZTEC</h1>
+
+<p> Category: Libraries-Math-Parallel Solver Suite
+
+<h2>Description</h2>
+
+<p> Trilinos is a suite of parallel object-oriented software framework for 
+the solution of large-scale, complex multi-physics engineering and scientific 
+problems. It is a product of Sandia National Laboratory. For detail 
+information, please visit <a
+href="http://trilinos.sandia.gov">http://trilinos.sandia.gov</a>.
+
+<h2>Use</h2>
+
+<p>
+Load the Trilinos module.
+<pre>
+  module avail trilinos
+  module load trilinos/8.0.3
+  cc test.c ${TRILINOS_PATH} -l[the needed libraries in a correct order]
+</pre>
+Note that if you change the programming environment after loading the
+aztec module, you will have to reload or update the aztec module.
+Please refer to examples in 
+${TRILINOS_DIR}/examples/aztecoo/UG_Ex1
+for additional information.
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>pathscale</th>
+	<th>gnu</th>
+	<th>Other</th>
+<tr>
+	<th>9.0.3</th>
+	<td><table class="inline"><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">?</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<th>8.0.3</th>
+	<td><table class="inline"><tr><td class="hidden">pgi7.2.3</td><td class="hidden2">v</td></tr><tr><td class="hidden">pgi8.0.5</td><td class="hidden2">?</td></tr></table></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+
+</table>

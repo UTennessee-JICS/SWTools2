@@ -1,0 +1,96 @@
+ISSH</h1>
+
+<p> Category: Tools-Grid
+
+<h2>Description</h2>
+
+<p> 
+GSI-OpenSSH is a modified version of OpenSSH that adds support for GSI
+authentication and credential forwarding (delegation), providing a single
+sign-on remote login and file transfer service. 
+
+<p> This is only supported on Kraken with the kraken-gsi nodes.
+
+
+<h2>Use</h2>
+
+<p>
+GSISSH is part of globus and as such you must load the globus module
+to have gsissh in your path.
+
+
+<h4>GSISSH</h4>
+<p>The <a href="http://www.nics.tennessee.edu/computing-resources/kraken/access#one-time_password_authentication">RSA One-Time Password</a> is the preferred way to log in to Kraken since it is the most secure and it allows access to other NICS  HPSS without further authentication. When this method is unavailable, GSISSH can be used as an alternative.  More information on <code>myproxy</code> and grid authentication may be found <a href="http://www.nics.tennessee.edu/user-support/general-support/starting-globus">here</a>.</p>
+
+<p>There are several ways to use GSISSH depending on where you are coming from and preference:</p>
+<ul>
+<li><strong>From your own computer</strong>
+<ul>
+<li>The <a href="#portal">TeraGrid User Portal</a> provides a quick way to access Kraken</li>
+<li><a href="#javaterminal">Standalone Java Terminals</a> provide a similar method which does not rely on the TeraGrid Portal.</a></li>
+<li>Linux/Mac/Unix users can <a href="#install">install their own Globus Client</a> (this may require some effort)</li>
+</ul>
+<li><a href="#preinstalled">From a computer with Globus already installed</a>.</li>
+</ul>
+
+<h3>From your own computer</h3>
+<ul><li><h4>TeraGrid Portal</h4><a name="portal"></a>
+<p>The simplest way to access Kraken is to use the SSH terminal on the TeraGrid Portal</p>
+<ul>
+<li>Go to <a href="https://portal.teragrid.org/gridsphere/gridsphere?cid=home&JavaScript=enabled">the TeraGrid Portal</a>, and log in</li>
+<li>Go to <b>My TeraGrid</b> -> <b>Accounts</b>, and connect to Kraken</li>
+<li>A Java applet should load, and you should see the Kraken prompt</li>
+</ul>
+<br /></li>
+<li><h4>Standalone Java Terminal</h4><a name="javaterminal"></a>
+<p>You can use <code>myproxy</code> with a similar method:</p>
+<ul>
+<li>Start the Java client, <a href="http://grid.ncsa.illinois.edu/gsi-sshterm/">available here</a>.  By default, <code>myproxy.teragrid.org</code> uses your TeraGrid password, <code>myproxy.ncsa.uiuc.edu</code> uses your NCSA password.  The applet runs in your browser, the "Web Start Version" starts a standalone Java GUI.</li>
+<li>Go to <b>File</b> -> <b>New Connection</b>, and type <code>kraken-gsi.nics.utk.edu</code> in the pop-up box.</li>
+<li>An authentication window pops up, enter your username and password for the TeraGrid portal or NCSA as appropriate (it may look at your local username and try to guess).</li>
+<li>You should get a prompt.  File transfer is available under the <b>Tools</b> menu.</li>
+</ul>
+<br /></li>
+<li><h4>Install Globus Client</h4><a name="install"></a>
+<p><strong>Linux, Unix, Mac:</strong> If you already use a POSIX environment, you could install a Globus client on your machine, which would allow you to use GSISSH as you would use SSH.  You can try the beta installer for the <a href="http://www.teragrid.org/userinfo/access/tgsso_tct.php">TeraGrid Client Toolkit</a> (TCT).  Some versions of Linux require some tweaking, this should be described in the README, there have also been some issues with Mac OSX, apparently due to a bug in the existing SSH.  If you wish, you may also see the old <a href="http://www.teragrid.org/userinfo/access/tgsso_native.php">instructions</a>.  If you have any issues with this, <a href="mailto:help@teragrid.org">let us know</a>.<p>
+</li></ul>
+
+
+<h3>From a computer with a Globus Client already installed</h3><a name="preinstalled"></a>
+<p>If you have installed a client with the previous step, or you are coming from a system that already has Globus installed (<em>eg</em>, another TeraGrid site), it is easy to use the client.  First, get a proxy certificate as described <a href="/user-support/general-support/starting-globus">here</a>. </p>
+<p>If TeraGrid certificates are not already taken care of (<em>eg</em> your computer), you need to use the <code>-T</code> flag with <code>myproxy-logon</code>, which downloads all of the TeraGrid certificates to <code>~/.globus/certificates</code>.  If certificates are already taken care of for you (<em>eg</em> any NICS resource), do <strong>not</strong> use <code>-T</code> as it will prevent <code>gsissh</code> from looking in the site-wide location for certificates.</p>
+
+<p>Next use <code>"gsissh kraken-gsi.nics.utk.edu" </code> to connect to the resource you wish to use.  If the resource you are trying to connect to accepts GSI authentication, it will log on.  If not, it will probably fall back on another authentication method (prompting for an OTP passcode).  At NICS, the GSI nodes (<em>eg</em> <code>kraken-gsi.nics.utk.edu</code>) accept GSI authentication, other nodes only accept <a href="http://www.nics.tennessee.edu/computing-resources/kraken/access#one-time_password_authentication">OTP authentication</a>.</p>
+
+<br/>
+<h2>Quick Link Resources for using GSISSH</h2>
+<p>
+<ul>
+
+<li>GSISSH is part of globus and as such you must load the globus module to have gsissh in your path.
+<ul>
+<li><a href="http://www.nics.tennessee.edu/user-support/general-support/starting-globus">Globus</a></li></ul>
+
+
+<li>To use GSISSH, you must have a "Certificate".
+        <ul>
+            <li>Use your OTP passcode to obtain a <a href="http://www.nics.tennessee.edu/user-support/general-support/starting-globus">Proxy Certificate</a></li>
+           <li>Create a proxy certificate directly by using the <a href="http://www.nics.tennessee.edu/user-support/general-support/grid-cert-method">Grid Certificate method</a></li>
+        </ul>
+</li>
+
+<li>The <a href="https://portal.teragrid.org/gridsphere/gridsphere?cid=home&JavaScript=enabled">TeraGrid User Portal</a></li>
+
+<li><a href="http://grid.ncsa.illinois.edu/gsi-sshterm/">Java Client at NCSA</a>
+
+<li><a href="http://www.teragrid.org/userinfo/access/tgsso_tct.php">Teragrid Client Toolkit</a>
+Note that Some versions of Linux require different setup, this may be described in the README, there have also been some issues with Mac OSX, apparently due to a bug in the existing SSH. If you wish, you may also see the <a href="http://www.teragrid.org/userinfo/access/tgsso_native.php">Previous instructions</p>. 
+</ul>
+
+</p>
+
+
+<h2>Support</h2><p>This package has the following support level : Supported
+<br>
+<h2>Available Versions</h2>
+<p>All versions of this software are provided by the system vendor and are not installed by NICS staff.

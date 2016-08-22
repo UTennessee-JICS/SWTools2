@@ -1,0 +1,48 @@
+<h1>Ferret</h1>
+
+<p> Category: Analysis-Visualization
+
+<h2>Description</h2>
+
+<p>
+Ferret is an interactive computer visualization and analysis environment designed to meet the needs of oceanographers and meteorologists analyzing large and complex gridded data sets.
+<h2>Use</h2>
+
+<p>
+For documentation and instructions, see the NOAA website at
+ <a href="http://ferret.pmel.noaa.gov">http://ferret.pmel.noaa.gov</a>.
+
+<pre>
+module load ferret
+ferret
+</pre>
+
+<p><b>Known Issues:</b>
+<ul>
+<li> This version of Ferret is statically linked and thus does not support loadable external functions.
+<li> The <b>-gui</b> option does not render correctly and may freeze your environment.
+<li> You may experience an X-Window problem where it does not like your DISPLAY setting.  Take the number ## in your DISPLAY setting hopefully inherited from X-forwarding which should look like "localhost:##.0" and then set DISPLAY to 127.0.0.1:##.0.
+</ul>
+
+
+<h2>Support</h2><p>This package has the following support level : Unsupported
+<br>
+<h2>Available Versions</h2>
+
+<table class="inline">
+<tr>
+	<th rowspan = "2">Version</th>
+	<th colspan = "4">Available Builds</th> </tr><tr>
+	<th>pgi</th>
+	<th>gnu</th>
+	<th>pathscale</th>
+	<th>Other</th>
+<tr>
+	<th>6.1</th>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td><table class="inline"><tr><td class="hidden">binary_static</td><td class="hidden2">v</td><tr></table></td>
+</tr>
+
+</table>
