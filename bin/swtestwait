@@ -16,7 +16,12 @@ if [ ! -e .running ]; then
   echo ".running file does not exist. Failing the test."
   exit -1
 fi
+
 jobid=$(grep "^\w[0-9]" .running)
+if [ $? -ne 0 ]; then
+  echo "Cannot obtain Job ID from .running file. Failing the test."
+  exit -4
+fi
 
 #-- Infinite loop to wait until either $jobid runs or ceases to exist
 
@@ -36,6 +41,11 @@ while true; do
   if [ "$job_state" == "R" ]; then
     echo "Submitted job $jobid is running. Following .running ... "
     break
+  elif [ "$job_state" == "C" ]; then
+    echo "Submitted job $jobid is completed before it runs "
+    echo "Failing this test "
+    rm .running
+    exit -3
   else
     echo "Waiting for job $jobid to start ... "
     sleep 10
