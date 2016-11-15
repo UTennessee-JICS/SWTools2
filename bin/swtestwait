@@ -9,11 +9,14 @@ version=`basename $version_dir`
 app_dir=`dirname $version_dir`
 app=`basename $app_dir`
 
-swtest -s -a $app -v $version -b $build 2>&1 | tee test.log
+#swtest -s -a $app -v $version -b $build 2>&1 | tee test.log
+rm test.log
+swtest -s -a $app -v $version -b $build 2>&1 | tee swtest.out
 
 #-- grep line whose first word is number and assume that's the PBS jobid
 if [ ! -e .running ]; then
-  echo ".running file does not exist. Failing the test."
+  echo ".running file does not exist. Failing the test and dumping test.log"
+  cat test.log
   exit -1
 fi
 
@@ -42,10 +45,8 @@ while true; do
     echo "Submitted job $jobid is running. Following .running ... "
     break
   elif [ "$job_state" == "C" ]; then
-    echo "Submitted job $jobid is completed before it runs "
-    echo "Failing this test "
-    rm .running
-    exit -3
+    echo "Submitted job $jobid is completed. "
+    break
   else
     echo "Waiting for job $jobid to start ... "
     sleep 10
@@ -54,22 +55,26 @@ while true; do
 done
 
 
-#-- Start a subshell that check on the existence of .running file 
-#   && $jobid and terminate when its done. Then we use that subshell PID 
-#   with "tail" command to let tail follow the output of the test
-(
-while true; do
-  qstat $jobid &> /dev/null
-  if [ -e .running ] && [ $? -eq 0 ]; then
-    sleep 30
-  else
-    break
-  fi
-done
-) &
+if [ "$job_state" == "R" ]; then
+  
+  #-- Start a subshell that check on the existence of .running file 
+  #   && $jobid and terminate when its done. Then we use that subshell PID 
+  #   with "tail" command to let tail follow the output of the test
+  (
+  while true; do
+    qstat $jobid &> /dev/null
+    if [ -e .running ] && [ $? -eq 0 ]; then
+      sleep 30
+    else
+      break
+    fi
+  done
+  ) &
 
-trackPID=$!
-tail -f .running --pid=$trackPID
+  trackPID=$!
+  tail -f .running --pid=$trackPID
+  
+fi 
 
 #-- Display whatever got recorded to test.log and status file
 echo "Displaying test.log:"
@@ -90,5 +95,8 @@ if [ -e status ]; then
 else
   stat=-1
 fi
+
+#-- Prepend swtest.out to test.log
+cat swtest.out test.log > test.new.log && mv test.new.log test.log
 
 exit $stat
